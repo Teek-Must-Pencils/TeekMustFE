@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Container, Navbar, Nav, NavDropdown, Button, Form,
-  FormControl 
+  Container, Navbar, Button,
 } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import * as Icon from 'react-feather';
 import IconNav from '../../Assets/Img/Rectangle 127.png'
 import './Navbar.css';
 
@@ -23,49 +24,64 @@ const MyNavbar = () => {
     }
   }, [])
   
-  console.log(screenWidth)
 
   const overrideToggle = () =>  {
     setExpanded((prev) => !prev)
   }
 
   return (
-    <Navbar bg="light" expand="md"  
+    <Navbar bg="white" expand="sm"  
+      className='shadow-sm p-3 mb-5 bg-body'
       expanded={expanded}
       onToggle={overrideToggle}
     >
         <Container fluid className='px-5'>
           <Navbar.Toggle aria-controls="navbarScroll" />
-          {screenWidth >= 768 &&
+          {screenWidth >= 576 &&
             <Navbar.Brand href="#">
               <img src={IconNav} alt='Icon' />
             </Navbar.Brand>
           }
           <Navbar.Collapse id="navbarScroll" >
           
-          <div className='d-flex justify-content-between w-100'>
+          <div className={`
+            ${(expanded ) ? 
+              'd-flex flex-column'
+              : 'd-flex flex-row justify-content-between w-100' 
+              } my-2 gap-1
+          `}>
             <form className="d-flex">
               <input
-                type="search"
-                placeholder="Search"
-                className="w-75"
+                type="text"
+                placeholder="Cari di sini..."
+                className="w-100 inp-search"
               />
-              <button className=''>Search</button>
+              <button type='submit'>
+                <Icon.Search color='gray'/>
+              </button>
             </form>
-            <Button>Login</Button>
+            <Link
+              to='/login'
+            >
+              <div className='btn btn-primary'>
+                <Icon.LogIn/> Masuk
+              </div>
+            </Link>
+         
           </div>
           </Navbar.Collapse>
           
-          { (screenWidth <= 768 && !expanded) &&
-                <Form className="d-flex">
-                      <FormControl
-                        type="search"
-                        placeholder="Search"
-                        className=""
-                        aria-label="Search"
+          { (screenWidth <= 576 && !expanded) &&
+                <form className="d-flex">
+                      <input
+                        type="text"
+                        placeholder="Cari di sini..."
+                        className="w-100 inp-search"
                       />
-                      <button>Search</button>
-                </Form>
+                      <button type='submit'>
+                        <Icon.Search color='gray'/>
+                      </button>
+                </form>
           }
          
         </Container>

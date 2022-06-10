@@ -1,9 +1,18 @@
-.nav-brand{
-    visibility: collapse;
+form{
+    border: 2px solid gray;
+    border-radius: 10px;
+    background: lightgray;
+} 
+input{
+    border: none;
+    border-radius: 10px;
+    padding: 0px 20px;
+    background: transparent;
 }
-
-@media (max-width: 768px) {
-    .nav-brand{
-        visibility: visible;
-    }
+input:focus {
+    outline: none !important;
+} 
+form button{
+    background-color: transparent;
+    border: none;
 }
