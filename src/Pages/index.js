@@ -1,5 +1,6 @@
-import Home from "./Home";
+import Home from "./Home/Home";
+import Layouts from "./Layouts/Layouts";
 
 export {
-    Home
+    Home, Layouts
 }

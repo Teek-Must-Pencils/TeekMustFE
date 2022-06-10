@@ -1,0 +1,9 @@
+.nav-brand{
+    visibility: collapse;
+}
+
+@media (max-width: 768px) {
+    .nav-brand{
+        visibility: visible;
+    }
+}
