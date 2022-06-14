@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Container, Navbar, Button,
+  Container, Navbar,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import * as Icon from 'react-feather';
@@ -10,8 +10,6 @@ import './Navbar.css';
 const MyNavbar = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth)
   const [expanded, setExpanded] = useState(false)
-
-  console.log(expanded ? 'col' : 'not')
 
   useEffect(() => {
     const changeWidth = () => {
