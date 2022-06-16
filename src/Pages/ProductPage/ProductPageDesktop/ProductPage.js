@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ModalBuyer from './ModalBuyer';
-import dummyProduct from '../../Assets/Img/dummyProduct.png'
-import dummyProfile from '../../Assets/Img/profile.png'
+import dummyProduct from '../../../Assets/Img/dummyProduct.png'
+import dummyProfile from '../../../Assets/Img/profile.png'
 import './ProductPage.css'
 const role = 'buyer';
 
@@ -26,7 +26,7 @@ const ProductPage = () => {
     }else{
         buttonBox=  <>
             <button 
-                className="btn btn-primary w-100 my-3"
+                className="button-buyer"
                 onClick={handleModalBuyer}
             >
                 Saya tertarik dan ingin nego
@@ -38,7 +38,6 @@ const ProductPage = () => {
         
   return (
     <>
-
         <ModalBuyer show={showModal} close={handleModalBuyer} />
         <div className="container">
             <div className="row">

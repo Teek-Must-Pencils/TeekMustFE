@@ -1,0 +1,26 @@
+.modal-buyer{
+    display: flex;
+    flex-direction: column;
+    gap: 2;
+}
+.flex-button{
+    text-align: right;
+}
+.button-closed{
+    background: none;
+    border: none;
+    border-radius: 50%;
+}
+.button-closed:hover{
+    background-color: lightblue;
+    border: 1px solid lightgray;
+    border-radius: 50%;
+}
+.text-title{
+    font-weight: bold;
+    margin: 15px 0px;
+}
+.text-noted{
+    color: grey;
+    font-size: small;
+}
