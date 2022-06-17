@@ -4,6 +4,7 @@ import './App.css';
 import Register from './Pages/Register/Register';
 import AuthRoute from './AuthRoute/AuthRoute';
 import { useMediaQuery } from 'react-responsive';
+import InfoProfile from './Pages/InfoProfile/InfoProfile';
 
 const LayoutsAuth = ({children}) =>{
   const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'})
@@ -34,6 +35,9 @@ function App() {
         element={<LayoutsAuth><ProductPage /></LayoutsAuth>
         }
       />
+      <Route
+      path='/infoProfile'
+      element={<LayoutsAuth><InfoProfile/></LayoutsAuth>} />
     </Routes>
   );
 }
