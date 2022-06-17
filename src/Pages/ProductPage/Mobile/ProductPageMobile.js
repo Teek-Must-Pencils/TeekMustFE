@@ -39,7 +39,7 @@ const ProductPageMobile = (props) => {
 
   return (
     <>
-     <ModalNotification 
+      <ModalNotification 
           show={showNotif} 
           close={toogleNotif} 
           message={notifMessage}

@@ -32,6 +32,9 @@ const ProductPage = () => {
         }, 2000);
       }
     }
+    const onSubmitSellerModalDesktop = () =>{
+      console.log('DestopSeller')
+    }
 
 
     // mobile
@@ -65,7 +68,7 @@ const ProductPage = () => {
           notifMessage={notifMessage}
           toogleNotif={toogleNotif}
           onSubmitBuyerModalDesktop={onSubmitBuyerModalDesktop}
-          // handleSellerDesktop={handleSellerDesktop}
+          onSubmitSellerModalDesktop={onSubmitSellerModalDesktop}
         />
       )}
       { isMobile && (

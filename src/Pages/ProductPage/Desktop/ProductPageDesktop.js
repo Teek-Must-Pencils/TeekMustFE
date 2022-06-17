@@ -15,6 +15,7 @@ const ProductPageDesktop = (props) => {
         showNotif,
         toogleNotif,
         onSubmitBuyerModalDesktop,
+        onSubmitSellerModalDesktop,
     } = props;
     
     let buttonBox;
@@ -22,7 +23,10 @@ const ProductPageDesktop = (props) => {
     if(role === 'seller'){
         buttonBox = 
         <>
-            <button className="btn btn-primary w-100 my-3">
+            <button 
+                className="btn btn-primary w-100 my-3"
+                onClick={onSubmitSellerModalDesktop}
+            >
                 Terbitkan
             </button>
             <button className="btn btn-outline-primary w-100 mb-3">
