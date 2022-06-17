@@ -1,0 +1,22 @@
+.ip-content-button{
+    display: flex;
+    justify-content: flex-end;
+}
+.ip-content-button button{
+    border: none;
+    background-color: transparent;
+    border-radius: 50%;
+}
+.ip-content-button button:hover{
+    background-color: lightgray;
+    color: blue;
+}
+.ip-content-form{
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.ip-box-input{
+    border: 2px solid black;
+}
