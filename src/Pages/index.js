@@ -1,8 +1,9 @@
 import Home from "./Home/Home";
 import Login from "./Login/Login";
 import Layouts from "./Layouts/Layouts";
+import ProductPage from "./ProductPage";
 
 export {
-    Home, Login, 
+    Home, Login, ProductPage,
     Layouts
 }

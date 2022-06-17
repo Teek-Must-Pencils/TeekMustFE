@@ -1,0 +1,36 @@
+.img-product{
+    border-radius: 10px;
+    max-width: 70%;
+    text-align: center;
+}
+.text-desc{
+    margin: 2% 15%;
+    padding: 10px 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+    text-align: justify;
+}
+.box-action{
+    padding: 10px 20px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+}
+.text-category, .text-profile{
+    color: gray;
+    font-size: small;
+}
+.button-edit{
+    width: 100%;
+    margin: 10px 0px;
+}
+/* buyer */
+.button-buyer{
+    width: 100%;
+    font-size: 1vw;
+    background-color: #7126B5;
+    border-radius: 10px;
+    color: white;
+    padding: 5px;
+    border: none;
+}
