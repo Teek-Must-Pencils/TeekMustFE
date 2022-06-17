@@ -1,6 +1,6 @@
-import React  from 'react'
-import { Container, Row, Col, Form, Button} from 'react-bootstrap'
-import { Link} from 'react-router-dom'
+import React from 'react'
+import { Container, Row, Col, Form} from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import './Register.css'
 
 const Register = () => {
@@ -18,31 +18,31 @@ const Register = () => {
                         <Row className='ms-md-5 me-md-5 form-Register align-content-center'>
 
                             <Col md={12}>
-                                <h1 className="mb-4"> <b>Masuk</b></h1>
+                                <h1 className="mb-4"> <b>Daftar</b></h1>
                             </Col>
-                            
+
 
                             <Col >
-                            
-                                <Form className={'d-grid gap-2 '} >
-                                    <Form.Group controlId="formBasicName">
-                                        <Form.Label>Nama <span style={{ color: "red" }}>*</span></Form.Label>
-                                        <Form.Control type="text" placeholder="Nama Lengkap" name="name" />
+
+                                <Form className={'form-input '} >
+                                <Form.Group className="mb-3" controlId="">
+                                        <Form.Label>Nama*</Form.Label>
+                                        <Form.Control size="lg" type="text" placeholder="Nama Lengkap" />
                                     </Form.Group>
-                                    <Form.Group controlId="formBasicEmail">
-                                        <Form.Label>Email <span style={{ color: "red" }}>*</span></Form.Label>
-                                        <Form.Control type="email" placeholder="Contoh: johndee@gmail.com" name="email" />
+                                    <Form.Group className="mb-3" controlId="">
+                                        <Form.Label>Email*</Form.Label>
+                                        <Form.Control size="lg" type="email" placeholder="Contoh: johndee@gmail.com" />
                                     </Form.Group>
-                                    <Form.Group controlId="formBasicPassword">
-                                        <Form.Label>Password <span style={{ color: "red" }}>*</span></Form.Label>
-                                        <Form.Control type="password" placeholder="6+ karakter" name="password" />
+                                    <Form.Group className="mb-3" controlId="">
+                                        <Form.Label>Password*</Form.Label>
+                                        <Form.Control size="lg" type="password" placeholder="Masukkan password" />
                                     </Form.Group>
-                                    <Button variant="primary">
-                                        Sign In
-                                    </Button>
+                                    <button className='tombol-masuk' >
+                                        Masuk
+                                    </button>
                                 </Form>
                             </Col>
-                            <Col md={12} className={'text-center'}>
+                            <Col md={12} className={'text-center mt-4'}>
                                 <span >Sudah punya akun </span> <Link to='/login' className='link'> <b>Masuk disini</b></Link>
                             </Col>
                         </Row>

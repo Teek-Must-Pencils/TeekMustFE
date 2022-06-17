@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap'
+import { Container, Row, Col, Form,  Alert } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import './Login.css'
 
@@ -47,21 +47,22 @@ const Login = () => {
               </Col> : true}
 
               <Col >
-                <Form className={'d-grid gap-2 '} >
-                  <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email </Form.Label>
-                    <Form.Control type="email" placeholder="Contoh: johndee@gmail.com" />
-                  </Form.Group>
-                  <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password </Form.Label>
-                    <Form.Control type="password" placeholder="6+ karakter" />
-                  </Form.Group>
-                  <Button variant="primary" onClick={validation}>
-                    Sign In
-                  </Button>
+                <Form className={'form-login'} >
+                <Form.Group className="mb-3" controlId="">
+                        <Form.Label>Email*</Form.Label>
+                        <Form.Control size="lg" type="email" placeholder="Contoh: johndee@gmail.com" />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="">
+                        <Form.Label>Password*</Form.Label>
+                        <Form.Control size="lg" type="password" placeholder="Masukkan password" />
+                    </Form.Group>
+                    <button className='tombol-masuk' onClick={validation} >
+                        Masuk
+                    </button>
+            
                 </Form>
               </Col>
-              <Col md={12} className={'text-center'}>
+              <Col md={12} className={'text-center mt-4'}>
                 <span >Belum punya akun </span> <Link to='/register' className='link'> <b>Daftar disini</b></Link>
               </Col>
             </Row>
