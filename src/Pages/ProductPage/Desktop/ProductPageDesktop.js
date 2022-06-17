@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
-import ModalBuyer from './ModalBuyer';
+import React from 'react';
+import ModalBuyer from './ModalBuyerDesktop';
+import { ModalNotification } from '../../../Components';
 import dummyProduct from '../../../Assets/Img/dummyProduct.png'
 import dummyProfile from '../../../Assets/Img/profile.png'
-import './ProductPage.css'
-const role = 'buyer';
+import '../ProductPage.css'
+const role = 'seller';
+// const role = 'buyer';
 
-const ProductPage = () => {
+const ProductPageDesktop = (props) => {
+    const {
+        showModal,
+        handleModalBuyer,
+        notifMessage,
+        showNotif,
+        toogleNotif,
+        onSubmitBuyerModalDesktop,
+    } = props;
+    
     let buttonBox;
-    const [showModal, setShowModal] = useState(false);
-
-    const handleModalBuyer = () => {
-        setShowModal((prev) => !prev)
-    }
         
     if(role === 'seller'){
         buttonBox = 
@@ -38,7 +44,17 @@ const ProductPage = () => {
         
   return (
     <>
-        <ModalBuyer show={showModal} close={handleModalBuyer} />
+        <ModalNotification 
+          show={showNotif} 
+          close={toogleNotif} 
+          message={notifMessage}
+        //   success={}
+        />
+        <ModalBuyer 
+            show={showModal} 
+            close={handleModalBuyer} 
+            onSubmitBuyerModalDesktop={onSubmitBuyerModalDesktop}
+        />
         <div className="container">
             <div className="row">
                 <div className="col-8">
@@ -68,11 +84,13 @@ const ProductPage = () => {
                         {buttonBox}
                     </div>
                     <div className="box-action my-5">
-                        <div className="d-flex flex-row">
+                        <div className="d-flex flex-row gap-2">
                             <img src={dummyProfile} alt="" />
-                            <div className='d-flex flex-column mx-3'>
-                                <h8>Nama Penjual</h8>
-                                <p className="text-profile">kota</p>
+                            <div className='d-flex flex-column'>
+                                <span><b>Nama Penjual</b></span>
+                                <span className="text-profile">
+                                    kota
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -83,4 +101,4 @@ const ProductPage = () => {
   )
 }
 
-export default ProductPage
+export default ProductPageDesktop
