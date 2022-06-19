@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
-import { Container, Row, Col, Form,  Alert } from 'react-bootstrap'
+import { Container, Row, Col, Form, Alert } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
-import './Login.css'
+import { useForm } from "react-hook-form";
+import "./LoginMobile.css"
 
-const Login = () => {
+const LoginMobile = () => {
+
+  const { register, handleSubmit } = useForm();
+  const onSubmit = data => console.log(data);
 
   const [email] = useState("");
   const [password] = useState("")
   const [alertStatus, setAlertStatus] = useState(false)
 
   let Navigate = useNavigate()
-
-
 
   const validation = () => {
     let regexEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g
@@ -23,13 +25,10 @@ const Login = () => {
     }
   }
 
-
   return (
     <div>
       <Container fluid>
         <Row>
-          <Col md={6} className='image-login'>
-          </Col>
 
           <Col md={6} className='box-login'>
 
@@ -47,19 +46,25 @@ const Login = () => {
               </Col> : true}
 
               <Col >
-                <Form className={'form-login'} >
-                <Form.Group className="mb-3" controlId="">
-                        <Form.Label>Email*</Form.Label>
-                        <Form.Control size="lg" type="email" placeholder="Contoh: johndee@gmail.com" />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="">
-                        <Form.Label>Password*</Form.Label>
-                        <Form.Control size="lg" type="password" placeholder="Masukkan password" />
-                    </Form.Group>
-                    <button className='tombol-masuk' onClick={validation} >
-                        Masuk
-                    </button>
-            
+                <Form onSubmit={handleSubmit(onSubmit)} className={'form-login'} >
+                  <Form.Group className="mb-3" controlId="">
+                    <Form.Label>Email*</Form.Label>
+                    <Form.Control  {...register("Email")}
+                      size="lg"
+                      type="email"
+                      placeholder="Contoh: johndee@gmail.com" />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="">
+                    <Form.Label>Password*</Form.Label>
+                    <Form.Control {...register("Password")}
+                      size="lg"
+                      type="password"
+                      placeholder="Masukkan password" />
+                  </Form.Group>
+                  <button className='tombol-masuk' onClick={validation} >
+                    Masuk
+                  </button>
+
                 </Form>
               </Col>
               <Col md={12} className={'text-center mt-4'}>
@@ -76,4 +81,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default LoginMobile

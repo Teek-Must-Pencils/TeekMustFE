@@ -1,12 +1,4 @@
 
-.image-login{
-    height: 100vh;
-    background-image: url(../../Assets/Img/img_logreg.svg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
 form{
     border: none !important;
     border-radius: 0px !important;
