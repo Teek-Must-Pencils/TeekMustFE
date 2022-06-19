@@ -69,7 +69,7 @@ const MyNavbar = () => {
           </div>
           </Navbar.Collapse>
           
-          { (screenWidth <= 576 && !expanded) &&
+          {/* { (screenWidth <= 576 && !expanded) &&
                 <form className="d-flex">
                       <input
                         type="text"
@@ -80,7 +80,7 @@ const MyNavbar = () => {
                         <Icon.Search color='gray'/>
                       </button>
                 </form>
-          }
+          } */}
          
         </Container>
     </Navbar>
