@@ -21,7 +21,7 @@ const ProductPageMobile = (props) => {
 
   let buttonAction;
   if(role === "seller"){
-    buttonAction= (
+    buttonAction = (
     <button 
       className='button-float-send'
       onClick={onSubmitSellerMobile}
@@ -31,7 +31,7 @@ const ProductPageMobile = (props) => {
   }else{
     buttonAction = (<button 
       className='button-float-send'
-      onClick={onSubmitBuyerMobile}
+      onClick={handleModalBuyer}
     >
       Saya Tertarik dan ingin Nego
     </button>)

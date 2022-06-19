@@ -1,5 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
-import { Home, Layouts, Login, ProductPage } from './Pages';
+import {
+  Home, Layouts, Login, ProductPage, InfoProduct
+} from './Pages';
 import './App.css';
 import Register from './Pages/Register/Register';
 import AuthRoute from './AuthRoute/AuthRoute';
@@ -32,8 +34,11 @@ function App() {
       />
       <Route 
         path='/productPage' 
-        element={<LayoutsAuth><ProductPage /></LayoutsAuth>
-        }
+        element={<LayoutsAuth><ProductPage /></LayoutsAuth>}
+      />
+      <Route 
+        path='/infoProduct' 
+        element={<LayoutsAuth><InfoProduct /></LayoutsAuth>}
       />
       <Route
       path='/infoProfile'

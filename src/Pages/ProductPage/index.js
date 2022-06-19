@@ -38,6 +38,9 @@ const ProductPage = () => {
 
 
     // mobile
+    const handleModalBuyerMobile = () => {
+        setShowModalMobile((prev) => !prev)
+    }  
     const onSubmitBuyerMobile = (value) =>{
       console.log("MobileBuyer", value)
       if(true){
@@ -50,9 +53,6 @@ const ProductPage = () => {
         }, 2000);
       }
     }
-    const handleModalBuyerMobile = () => {
-        setShowModalMobile((prev) => !prev)
-    }  
     const onSubmitSellerMobile = (value) =>{
       console.log("MobileSeller")
     }
