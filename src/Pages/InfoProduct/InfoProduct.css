@@ -1,0 +1,84 @@
+/* Desktop */
+.ip-content-button{
+    display: flex;
+    justify-content: flex-end;
+}
+.ip-content-button button{
+    border: none;
+    background-color: transparent;
+    border-radius: 50%;
+}
+.ip-content-button button:hover{
+    background-color: lightgray;
+    color: blue;
+}
+.ip-content-form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.ip-box-input{
+    display: flex;
+    flex-direction: column;
+}
+.ip-box-input label{
+    font-weight: bold;
+}
+.ip-box-input input{
+    border: 2px solid lightgray;
+}
+.ip-box-input select{
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    padding: 2px 18px;
+    color: gray;
+}
+.ip-box-input textarea{
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    padding: 2px 18px;
+    color: gray;
+}
+.input-image{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    padding: 2px 18px;
+    color: gray;
+}
+.input-image 
+    input,
+    input::-webkit-file-upload-button{
+    border: none;
+}
+.input-image img{
+    border: 2px dashed gray;
+    width: 150px;
+    height: 150px;
+}
+.color-black{
+    color: black !important;
+}
+.ip-box-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.ip-button-preview{
+    border: none;
+    outline: #7126B5 solid 2px;
+    border-radius: 10px;
+    padding: 1% 5%;
+    margin-bottom: 5%;
+}
+.ip-button-send{
+    color: white;
+    border: none;
+    background-color: #7126B5;
+    border-radius: 10px;
+    padding: 1% 5%;
+    margin-bottom: 5%;
+}
