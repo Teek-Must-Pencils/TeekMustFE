@@ -30,12 +30,11 @@ const InfoProductDesktop = (props) => {
         reader.readAsDataURL(e.target.files[0]);
     }
 
-    console.log(dataPreview)
   return (
     <>
         <div className="container">
             <div className="row">
-                <div className="col-2">
+                <div className="col-1">
                     <div className='ip-content-button'>
                         <button 
                             className=''
@@ -45,7 +44,7 @@ const InfoProductDesktop = (props) => {
                         </button>
                     </div>
                 </div>
-                <div className="col-10">
+                <div className="col-11">
                     <form 
                         className="ip-content-form"
                         onSubmit={handleSubmit(onSubmitSellerInput)}

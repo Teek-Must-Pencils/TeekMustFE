@@ -5,6 +5,7 @@ import dummyProduct from '../../../Assets/Img/dummyProduct.png'
 import Profile from '../../../Assets/Img/profile.png'
 import ModalMobile from './ModalMobile';
 import '../ProductPage.css';
+import { useNavigate } from 'react-router-dom';
 
 const role = "sel";
 
@@ -19,6 +20,7 @@ const ProductPageMobile = (props) => {
     toogleNotif,
   } = props;
 
+  let navigate = useNavigate();
   let buttonAction;
   if(role === "seller"){
     buttonAction = (
@@ -35,6 +37,10 @@ const ProductPageMobile = (props) => {
     >
       Saya Tertarik dan ingin Nego
     </button>)
+  }
+
+  const handleBack = () =>{
+    return navigate('/infoProduct')
   }
 
   return (
@@ -58,7 +64,7 @@ const ProductPageMobile = (props) => {
         />
         <button 
           className='button-float-back'
-          // onClick=''
+          onClick={() => handleBack()}
         >
           <ArrowLeft size='20px'/>
         </button>

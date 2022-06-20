@@ -8,7 +8,6 @@ import IconNav from '../../Assets/Img/Rectangle 127.png'
 import './Navbar.css';
 
 const MyNavbar = () => {
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
   const [expanded, setExpanded] = useState(false)
 
   useEffect(() => {
@@ -26,13 +25,9 @@ const MyNavbar = () => {
       onToggle={overrideToggle}
     >
         <Container fluid className='px-5'>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          {screenWidth >= 576 &&
             <Navbar.Brand href="#">
               <img src={IconNav} alt='Icon' />
             </Navbar.Brand>
-          }
-          <Navbar.Collapse id="navbarScroll" >
           
           <div className='d-flex flex-row justify-content-between w-100 my-2 gap-1'>
             <form className="d-flex">
@@ -52,9 +47,7 @@ const MyNavbar = () => {
                 <Icon.LogIn/> Masuk
               </div>
             </Link>
-         
           </div>
-          </Navbar.Collapse>
          
         </Container>
     </Navbar>
