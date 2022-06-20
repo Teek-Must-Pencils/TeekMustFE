@@ -1,7 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import { ArrowLeft } from 'react-feather';
+import usePreview from '../../../Hooks/usePreview';
 
-const InfoProductMobile = () => {
+const InfoProductMobile = (props) => {
+  const {
+    onSubmitMobileInput,
+    // handlePreview
+} = props;
+  const dataPreview = usePreview();
+  const [image, setImage] = useState();
+  const { register, handleSubmit, control, setValue } = useForm();
+
+  if(dataPreview.image){
+    setValue("imageFile",  dataPreview.imageFile);
+    setValue("image", dataPreview.image)
+  }
+
+  const handleInputImage = (e) =>{
+    setValue("imageFile",  e.target.files[0])
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImage(reader.result);
+            setValue("image", reader.result)
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  }
+
   return (
     <>
       <div className="container">
@@ -24,13 +51,15 @@ const InfoProductMobile = () => {
         <div>
           <form 
             className="ipm-body"
-            // onSubmit={}
+            onSubmit={handleSubmit(onSubmitMobileInput)}
           >
             <div className='ipm-body-input'>
               <label>Nama Produk</label>
               <input
                 type="text"
                 placeholder="Nama Produk"
+                defaultValue={dataPreview.name||undefined}
+                {...register("nama")}
               />
             </div>
             <div className='ipm-body-input'>
@@ -38,25 +67,36 @@ const InfoProductMobile = () => {
               <input
                 type="text"
                 placeholder="Rp. 0,00"
+                defaultValue={dataPreview.price||undefined}
+                {...register("harga")}
               />
             </div>
             <div className='ipm-body-input'>
               <label>Kategori</label>
-              <select
-                defaultValue=""
-              >
-                <option value="" disable>Pilih Kategori</option>
-                <option className="color-black" value="1" disable>1</option>
-                <option className="color-black" value="2" disable>2</option>
-              </select>
+              <Controller
+                  name="kategori"
+                  control={control}
+                  defaultValue={dataPreview.category||""}
+                  render={({ field }) =>  
+                  <select 
+                      {...field} 
+                      // required
+                  >
+                      <option value="" disabled>Pilih Kategori</option>
+                      <option className="color-black" value="1" >1</option>
+                      <option className="color-black" value="2" >2</option>
+                      <option className="color-black" value="3" >3</option>
+                      <option className="color-black" value="4" >4</option>
+                  </select>}
+              />
             </div>
             <div className='ipm-body-input'>
               <label>Deskripsi</label>
               <textarea 
                   placeholder='Deskripsi'
                   rows={4}
-                  // defaultValue={dataPreview.description||undefined}
-                  // {...register("deskripsi")}
+                  defaultValue={dataPreview.description||undefined}
+                  {...register("deskripsi")}
                   // required
               />
             </div>
@@ -66,21 +106,33 @@ const InfoProductMobile = () => {
                 <input 
                     type="file"
                     accept="image/*"
+                    onChange={(e) => handleInputImage(e)}
+                    // required={dataPreview.image ? false: true}
                 />
                 <img 
-                  src=""
+                  src={image || dataPreview.image}
                   alt=""
                 />
               </div>
             </div>
             <div className='ipm-body-buttonAction'>
               <button
+                type='submit'
                 className='ip-button-preview'
+                onClick={
+                    () => setValue('button', 'preview')
+                }
+                {...register('button')}
               >
                 Preview
               </button>
               <button
+                type='submit'
                 className='ip-button-send'
+                onClick={
+                    () => setValue('button', 'preview')
+                }
+                {...register('button')}
               >
                 Terbitkan
               </button>

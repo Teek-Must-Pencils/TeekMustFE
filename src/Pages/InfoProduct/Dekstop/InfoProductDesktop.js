@@ -85,8 +85,8 @@ const InfoProductDesktop = (props) => {
                                     <option value="" disabled>Pilih Kategori</option>
                                     <option className="color-black" value="1" >1</option>
                                     <option className="color-black" value="2" >2</option>
-                                    <option className="color-black" value="3" >2</option>
-                                    <option className="color-black" value="4" >2</option>
+                                    <option className="color-black" value="3" >3</option>
+                                    <option className="color-black" value="4" >4</option>
                                 </select>}
                             />
                         </div>

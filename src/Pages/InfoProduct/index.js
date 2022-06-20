@@ -29,6 +29,24 @@ const InfoProduct = () => {
       }
     }
 
+    // Mobile
+    const onSubmitMobileInput = (value) =>{
+      if(value.button === 'submit'){  
+        console.log("MobileValueInput", value);
+      }else{
+        const data ={
+          name: value.nama,
+          price: value.harga,
+          category: value.kategori,
+          description: value.deskripsi,
+          imageFile: value.imageFile,
+          image: value.image
+        }
+        preview.setPreview(data);
+        return navigate('/productPage')
+      }
+    }
+
     // console.log('preview', preview.image)
   return (
     <>
@@ -39,6 +57,7 @@ const InfoProduct = () => {
       )}
       { isMobile && (
         <InfoProductMobile
+          onSubmitMobileInput={onSubmitMobileInput}
         />
       )}
     </>
