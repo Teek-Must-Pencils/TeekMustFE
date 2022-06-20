@@ -11,7 +11,7 @@ import InfoProfile from './Pages/InfoProfile';
 
 const LayoutsAuth = ({children}) =>{
   const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'})
-  const isMobile = useMediaQuery({query: '(max-width: 425px)'})
+  const isMobile = useMediaQuery({query: '(max-width: 426px)'})
   return(
     <AuthRoute>
     {isDesktopOrLaptop && (
