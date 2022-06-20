@@ -1,16 +1,17 @@
 import { Routes, Route } from 'react-router-dom';
 import {
-  Home, Layouts, Login, ProductPage, InfoProduct
-} from './Pages';
+  Home, Layouts, ProductPage, InfoProduct, Login} from './Pages';
 import './App.css';
-import Register from './Pages/Register/Register';
+import Register from '././Pages/Register';
 import AuthRoute from './AuthRoute/AuthRoute';
 import { useMediaQuery } from 'react-responsive';
-import InfoProfile from './Pages/InfoProfile/InfoProfile';
+import InfoProfile from './Pages/InfoProfile';
+
+
 
 const LayoutsAuth = ({children}) =>{
   const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'})
-  const isMobile = useMediaQuery({query: '(max-width: 426px)'})
+  const isMobile = useMediaQuery({query: '(max-width: 425px)'})
   return(
     <AuthRoute>
     {isDesktopOrLaptop && (
