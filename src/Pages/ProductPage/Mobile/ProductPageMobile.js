@@ -8,7 +8,7 @@ import '../ProductPage.css';
 import { useNavigate } from 'react-router-dom';
 import usePreview from '../../../Hooks/usePreview';
 
-const role = "seller";
+const role = "sel";
 
 const ProductPageMobile = (props) => {
   const {
@@ -47,11 +47,11 @@ const ProductPageMobile = (props) => {
   }
 
   const data = {
-    // name: "Jam Tangan Casio",
-    // category: "Aksesoris",
-    // image: dummyProduct,
-    // price: "Rp. 250.000",
-    // description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    name: "Jam Tangan Casio",
+    category: "Aksesoris",
+    image: dummyProduct,
+    price: "Rp. 250.000",
+    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
   }
 
   return (
