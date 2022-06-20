@@ -32,8 +32,8 @@ const ProductPage = () => {
         }, 2000);
       }
     }
-    const onSubmitSellerModalDesktop = () =>{
-      console.log('DestopSeller')
+    const onSubmitSellerModalDesktop = (value) =>{
+      console.log('DestopSeller',value)
     }
 
 
