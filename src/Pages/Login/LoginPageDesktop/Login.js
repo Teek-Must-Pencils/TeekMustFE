@@ -4,22 +4,24 @@ import { Container, Row, Col, Form, Alert } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
-import "./Login.css"
 import { login } from '../../../Redux/action/authAction';
-import { selectAuth, selectStatus } from '../../../Redux/slice/authSlice';
+import { 
+  selectAuth, selectEmail, selectRole, selectStatus, selectTest, selectToken, selectUser 
+} from '../../../Redux/slice/authSlice';
+import { LoadingRedux } from '../../../Components';
+import "./Login.css"
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const authSelect = useSelector(selectAuth);
   const statusSelect = useSelector(selectStatus);
+  const roleSelect = useSelector(selectRole);
+  const tokenSelect = useSelector(selectToken);
+  const userSelect = useSelector(selectUser);
+  const emailSelect = useSelector(selectEmail);
 
-
-  // const [email] = useState("");
-  // const [password] = useState("")
-  // const [alertStatus, setAlertStatus] = useState(false)
-
-  let Navigate = useNavigate()
+  let navigate = useNavigate()
 
   // const validation = () => {
   //   let regexEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g
@@ -36,14 +38,25 @@ const Login = () => {
       username: data.username,
       password: data.password
     }
+    // console.log(dataSend)
     dispatch(login(dataSend))
   }
 
   console.log('auth', authSelect)
   console.log('status', statusSelect)
+  console.log('role', roleSelect)
+  console.log('token', tokenSelect)
+  console.log('user', userSelect)
+  console.log('email', emailSelect)
+
+  if(authSelect && tokenSelect){
+    return navigate("/")
+  }
+
 
   return (
     <div>
+      {statusSelect === "pending" && <LoadingRedux flag={statusSelect} />}
       <Container fluid>
         <Row>
           <Col md={6} className='image-login'>
@@ -56,13 +69,6 @@ const Login = () => {
               <Col md={12}>
                 <h1 className="mb-4"> <b>Masuk</b></h1>
               </Col>
-              {/* {alertStatus ? <Col md={12}>
-                <Alert variant="danger">
-                  <p className="mb-0">
-                    Masukkan username dan password yang benar. Perhatikan penggunaan huruf kapital.
-                  </p>
-                </Alert>
-              </Col> : true} */}
 
               <Col >
                 <Form onSubmit={handleSubmit(onSubmit)} className={'form-login'} >
@@ -83,7 +89,6 @@ const Login = () => {
                   <button 
                     type='submit'
                     className='tombol-masuk' 
-                    // onClick={validation} 
                   >
                     Masuk
                   </button>
