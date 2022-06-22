@@ -4,22 +4,16 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import * as Icon from 'react-feather';
+import { useSelector } from 'react-redux'
+import { selectAuth } from '../../Redux/slice/authSlice'
 import IconNav from '../../Assets/Img/Rectangle 127.png'
 import './Navbar.css';
 
 const MyNavbar = () => {
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+  const auth = useSelector(selectAuth)
   const [expanded, setExpanded] = useState(false)
 
   useEffect(() => {
-    const changeWidth = () => {
-      setScreenWidth(window.innerWidth);
-    }
-    window.addEventListener('resize', changeWidth)
-  
-    return () => {
-      window.removeEventListener('resize', changeWidth)
-    }
   }, [])
   
 
@@ -34,20 +28,11 @@ const MyNavbar = () => {
       onToggle={overrideToggle}
     >
         <Container fluid className='px-5'>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          {screenWidth >= 576 &&
             <Navbar.Brand href="#">
               <img src={IconNav} alt='Icon' />
             </Navbar.Brand>
-          }
-          <Navbar.Collapse id="navbarScroll" >
           
-          <div className={`
-            ${(expanded ) ? 
-              'd-flex flex-column'
-              : 'd-flex flex-row justify-content-between w-100' 
-              } my-2 gap-1
-          `}>
+          <div className='d-flex flex-row justify-content-between w-100 my-2 gap-1'>
             <form className="d-flex">
               <input
                 type="text"
@@ -61,26 +46,18 @@ const MyNavbar = () => {
             <Link
               to='/login'
             >
+            { !auth && (
               <div className='btn btn-primary'>
                 <Icon.LogIn/> Masuk
               </div>
+            )}
+            {auth && (
+              <div>
+                <p>sa</p>
+              </div>
+            )}
             </Link>
-         
           </div>
-          </Navbar.Collapse>
-          
-          { (screenWidth <= 576 && !expanded) &&
-                <form className="d-flex">
-                      <input
-                        type="text"
-                        placeholder="Cari di sini..."
-                        className="w-100 inp-search"
-                      />
-                      <button type='submit'>
-                        <Icon.Search color='gray'/>
-                      </button>
-                </form>
-          }
          
         </Container>
     </Navbar>
