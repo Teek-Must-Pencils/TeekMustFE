@@ -4,10 +4,13 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import * as Icon from 'react-feather';
+import { useSelector } from 'react-redux'
+import { selectAuth } from '../../Redux/slice/authSlice'
 import IconNav from '../../Assets/Img/Rectangle 127.png'
 import './Navbar.css';
 
 const MyNavbar = () => {
+  const auth = useSelector(selectAuth)
   const [expanded, setExpanded] = useState(false)
 
   useEffect(() => {
@@ -43,9 +46,16 @@ const MyNavbar = () => {
             <Link
               to='/login'
             >
+            { !auth && (
               <div className='btn btn-primary'>
                 <Icon.LogIn/> Masuk
               </div>
+            )}
+            {auth && (
+              <div>
+                <p>sa</p>
+              </div>
+            )}
             </Link>
           </div>
          

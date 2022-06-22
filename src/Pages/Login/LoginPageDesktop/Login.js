@@ -1,14 +1,17 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
-import { Container, Row, Col, Form, Alert } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
+import React from 'react'
+import { Container, Row, Col, Form } from 'react-bootstrap'
+import { Link, Navigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../Redux/action/authAction';
 import { 
-  selectAuth, selectEmail, selectRole, selectStatus, selectTest, selectToken, selectUser 
+  selectAuth, selectStatus, selectToken, 
+  // selectEmail, selectMessage, selectRole, selectUser 
 } from '../../../Redux/slice/authSlice';
-import { LoadingRedux } from '../../../Components';
+import { 
+  LoadingRedux, 
+  // ModalNotificationRedux 
+} from '../../../Components';
 import "./Login.css"
 
 const Login = () => {
@@ -16,12 +19,11 @@ const Login = () => {
   const dispatch = useDispatch();
   const authSelect = useSelector(selectAuth);
   const statusSelect = useSelector(selectStatus);
-  const roleSelect = useSelector(selectRole);
+  // const roleSelect = useSelector(selectRole);
   const tokenSelect = useSelector(selectToken);
-  const userSelect = useSelector(selectUser);
-  const emailSelect = useSelector(selectEmail);
-
-  let navigate = useNavigate()
+  // const userSelect = useSelector(selectUser);
+  // const emailSelect = useSelector(selectEmail);
+  // const message = useSelector(selectMessage);
 
   // const validation = () => {
   //   let regexEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g
@@ -44,18 +46,19 @@ const Login = () => {
 
   console.log('auth', authSelect)
   console.log('status', statusSelect)
-  console.log('role', roleSelect)
+  // console.log('role', roleSelect)
   console.log('token', tokenSelect)
-  console.log('user', userSelect)
-  console.log('email', emailSelect)
+  // console.log('user', userSelect)
+  // console.log('email', emailSelect)
 
   if(authSelect && tokenSelect){
-    return navigate("/")
+    return <Navigate to="/" replace={true} />
   }
 
 
   return (
     <div>
+      {/* {statusSelect === "success" && <ModalNotificationRedux message={message}/>} */}
       {statusSelect === "pending" && <LoadingRedux flag={statusSelect} />}
       <Container fluid>
         <Row>
@@ -63,13 +66,10 @@ const Login = () => {
           </Col>
 
           <Col md={6} className='box-login'>
-
             <Row className='ms-md-5 me-md-5 form-login align-content-center'>
-
               <Col md={12}>
                 <h1 className="mb-4"> <b>Masuk</b></h1>
               </Col>
-
               <Col >
                 <Form onSubmit={handleSubmit(onSubmit)} className={'form-login'} >
                   <Form.Group className="mb-3" controlId="FormLogin1">
@@ -100,8 +100,6 @@ const Login = () => {
               </Col>
             </Row>
           </Col>
-
-
 
         </Row>
       </Container>
