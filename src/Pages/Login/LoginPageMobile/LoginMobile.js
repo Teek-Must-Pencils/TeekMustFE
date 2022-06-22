@@ -1,32 +1,61 @@
-import React, { useState } from 'react'
-import { Container, Row, Col, Form, Alert } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
+import React from 'react'
+import { Container, Row, Col, Form } from 'react-bootstrap'
+import { Link, Navigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from 'react-redux';
+import { LoadingRedux } from '../../../Components'
+import { login } from '../../../Redux/action/authAction';
+import { 
+  selectAuth, selectStatus, selectToken, 
+  // selectEmail, selectMessage, selectRole, selectUser 
+} from '../../../Redux/slice/authSlice';
 import "./LoginMobile.css"
 
 const LoginMobile = () => {
 
   const { register, handleSubmit } = useForm();
-  const onSubmit = data => console.log(data);
+  const dispatch = useDispatch();
+  const authSelect = useSelector(selectAuth);
+  const statusSelect = useSelector(selectStatus);
+  // const roleSelect = useSelector(selectRole);
+  const tokenSelect = useSelector(selectToken);
+  // const userSelect = useSelector(selectUser);
+  // const emailSelect = useSelector(selectEmail);
+  // const message = useSelector(selectMessage);
 
-  const [email] = useState("");
-  const [password] = useState("")
-  const [alertStatus, setAlertStatus] = useState(false)
+  // const validation = () => {
+  //   let regexEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g
+  //   let regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm
+  //   if (regexEmail.test(email) && regexPassword.test(password)) {
+  //     return Navigate("../Home/Home.js", { replace: true })
+  //   } else {
+  //     return setAlertStatus(true)
+  //   }
+  // }
 
-  let Navigate = useNavigate()
-
-  const validation = () => {
-    let regexEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g
-    let regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm
-    if (regexEmail.test(email) && regexPassword.test(password)) {
-      return Navigate("../Home/Home.js", { replace: true })
-    } else {
-      return setAlertStatus(true)
+  const onSubmit = data => {
+    const dataSend ={
+      username: data.username,
+      password: data.password
     }
+    // console.log(dataSend)
+    dispatch(login(dataSend))
+  }
+
+  console.log('auth', authSelect)
+  console.log('status', statusSelect)
+  // console.log('role', roleSelect)
+  console.log('token', tokenSelect)
+  // console.log('user', userSelect)
+  // console.log('email', emailSelect)
+
+  if(authSelect && tokenSelect){
+    return <Navigate to="/" replace={true} />
   }
 
   return (
-    <div>
+    <>
+      {statusSelect === "pending" && <LoadingRedux flag={statusSelect} />}
       <Container fluid>
         <Row>
 
@@ -37,31 +66,27 @@ const LoginMobile = () => {
               <Col md={12}>
                 <h1 className="mb-4"> <b>Masuk</b></h1>
               </Col>
-              {alertStatus ? <Col md={12}>
-                <Alert variant="danger">
-                  <p className="mb-0">
-                    Masukkan username dan password yang benar. Perhatikan penggunaan huruf kapital.
-                  </p>
-                </Alert>
-              </Col> : true}
 
               <Col >
                 <Form onSubmit={handleSubmit(onSubmit)} className={'form-login'} >
-                  <Form.Group className="mb-3" controlId="">
+                  <Form.Group className="mb-3" controlId="form1">
                     <Form.Label>Email*</Form.Label>
-                    <Form.Control  {...register("Email")}
+                    <Form.Control  {...register("username")}
                       size="lg"
-                      type="email"
-                      placeholder="Contoh: johndee@gmail.com" />
+                      type="username"
+                      placeholder="Masukkan Username" />
                   </Form.Group>
-                  <Form.Group className="mb-3" controlId="">
+                  <Form.Group className="mb-3" controlId="form2">
                     <Form.Label>Password*</Form.Label>
-                    <Form.Control {...register("Password")}
+                    <Form.Control {...register("password")}
                       size="lg"
                       type="password"
                       placeholder="Masukkan password" />
                   </Form.Group>
-                  <button className='tombol-masuk' onClick={validation} >
+                  <button 
+                    type='submit'
+                    className='tombol-masuk' 
+                  >
                     Masuk
                   </button>
 
@@ -77,7 +102,7 @@ const LoginMobile = () => {
 
         </Row>
       </Container>
-    </div>
+    </>
   )
 }
 
