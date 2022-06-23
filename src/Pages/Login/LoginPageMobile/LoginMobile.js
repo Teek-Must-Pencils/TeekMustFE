@@ -1,27 +1,20 @@
-import React from 'react'
+import React,{ useState, useEffect } from 'react'
 import { Container, Row, Col, Form } from 'react-bootstrap'
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
-import { LoadingRedux } from '../../../Components'
+import { LoadingRedux, ModalNotificationRedux } from '../../../Components'
 import { login } from '../../../Redux/action/authAction';
-import { 
-  selectAuth, selectStatus, selectToken, 
-  // selectEmail, selectMessage, selectRole, selectUser 
-} from '../../../Redux/slice/authSlice';
+import { selectStatus, selectMessage } from '../../../Redux/slice/authSlice';
 import "./LoginMobile.css"
 
 const LoginMobile = () => {
-
+  let navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
-  const authSelect = useSelector(selectAuth);
+  const [show, setShow] = useState(false);
   const statusSelect = useSelector(selectStatus);
-  // const roleSelect = useSelector(selectRole);
-  const tokenSelect = useSelector(selectToken);
-  // const userSelect = useSelector(selectUser);
-  // const emailSelect = useSelector(selectEmail);
-  // const message = useSelector(selectMessage);
+  const message = useSelector(selectMessage);
 
   // const validation = () => {
   //   let regexEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g
@@ -38,23 +31,29 @@ const LoginMobile = () => {
       username: data.username,
       password: data.password
     }
-    // console.log(dataSend)
     dispatch(login(dataSend))
   }
 
-  console.log('auth', authSelect)
-  console.log('status', statusSelect)
-  // console.log('role', roleSelect)
-  console.log('token', tokenSelect)
-  // console.log('user', userSelect)
-  // console.log('email', emailSelect)
-
-  if(authSelect && tokenSelect){
-    return <Navigate to="/" replace={true} />
-  }
+  useEffect(() => {
+    if(statusSelect === "reject"){
+      setShow(true);
+      setTimeout(() => {
+        setShow(false)
+      }, 1000);
+    } 
+    if(statusSelect === "success"){
+      setShow(true);
+      setTimeout(() => {
+        setShow(false)
+        navigate('/')
+      }, 1000);
+    } 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [statusSelect])
 
   return (
     <>
+      {show && <ModalNotificationRedux message={message}/>}
       {statusSelect === "pending" && <LoadingRedux flag={statusSelect} />}
       <Container fluid>
         <Row>

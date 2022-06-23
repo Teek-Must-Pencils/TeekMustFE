@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
-// import { selectAuth } from '../Redux/slice/authSlice';
+// import { selectAuth, selectToken } from '../Redux/slice/authSlice';
 
 const AuthRoute = ({ children }) => {
 const auth = true;

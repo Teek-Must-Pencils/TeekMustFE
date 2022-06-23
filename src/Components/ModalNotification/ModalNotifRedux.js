@@ -3,19 +3,11 @@ import { Modal } from 'react-bootstrap';
 
 const ModalNotificationRedux = (props) => {
     const { flag, message } = props;
-    let show;
-
-    if(flag === "pending"){
-        show = true;
-    }else{
-        show= false;
-    }
-
 
   return (
     <>
         <Modal
-            show={show}
+            show={true}
             centered
         >
             <div className='modal-container-notification p-3'>
