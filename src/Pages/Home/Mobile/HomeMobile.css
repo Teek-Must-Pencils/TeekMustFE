@@ -1,0 +1,46 @@
+.btn-filter{
+border-style: none;
+width: 15%;
+height: 5%;
+background-color: #E2D4F0;
+border-radius: 12px;
+flex-grow: 0;
+
+}
+.text-filter{
+  font-size: small;
+}
+.btn-filter:hover{
+background: #7126B5;
+color: white;
+}
+
+.btn-plus{
+background: #7126B5;
+color: white;
+border-style: none;
+width: 20%;
+height:5%;
+position: fixed;
+bottom: 20px;
+border-radius: 12px;
+left:40%;
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.btn-plus:hover{
+background: #4B1979;
+}
+.slide2{
+  width: 100%;
+}
+
+
+.btn-filter span{
+  font-size: 2vw;
+}
+
+
+
+
+
+
