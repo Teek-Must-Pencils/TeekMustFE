@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { LoadingRedux, ModalNotificationRedux } from '../../../Components'
 import { login } from '../../../Redux/action/authAction';
-import { selectStatus, selectMessage } from '../../../Redux/slice/authSlice';
+import { selectStatus, selectMessage, selectAuth } from '../../../Redux/slice/authSlice';
 import "./LoginMobile.css"
 
 const LoginMobile = () => {
@@ -15,6 +15,7 @@ const LoginMobile = () => {
   const [show, setShow] = useState(false);
   const statusSelect = useSelector(selectStatus);
   const message = useSelector(selectMessage);
+  const auth = useSelector(selectAuth);
 
   // const validation = () => {
   //   let regexEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g
@@ -41,7 +42,7 @@ const LoginMobile = () => {
         setShow(false)
       }, 1000);
     } 
-    if(statusSelect === "success"){
+    if(statusSelect === "success"&& auth){
       setShow(true);
       setTimeout(() => {
         setShow(false)
