@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// eslint-disable-next-line react-hooks/rules-of-hooks
 const serviceProduct = {
 
     async GetAllData(){
@@ -16,7 +17,6 @@ const serviceProduct = {
     async AddNewData(value){
         let FormData = require('form-data');
         let dataSend = new FormData();
-        dataSend.append('id', 0);
         dataSend.append('productName', value.name);
         dataSend.append('categories', value.category);
         dataSend.append('price', value.price);
@@ -28,16 +28,22 @@ const serviceProduct = {
         // dataSend.forEach(element => {
         //     console.log(element)
         // });
-
-        const data = await axios({
-            method: 'post',
-            url: process.env.REACT_APP_BASE_URL+'api/product/',
-            data: dataSend
-          })
-          .then((response) => response)
-          .catch((err) => err.response)
+        const sessionData = sessionStorage.getItem('user')
+        const dt = JSON.parse(sessionData);
+        const token = dt.accessToken
+        // const data = await axios({
+        //     method: 'post',
+        //     url: process.env.REACT_APP_BASE_URL+'api/product/',
+        //     data: dataSend,
+        //     headers:{
+        //         "Authorization" : `Bearer ${token}`
+        //     }
+        //   })
+        //   .then((response) => response)
+        //   .catch((err) => err.response)
        
-          return data
+        //   return data
+          return token
     }
 }
 
