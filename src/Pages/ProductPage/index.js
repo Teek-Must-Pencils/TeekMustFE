@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-
+import usePreview from '../../Hooks/usePreview';
+import serviceProduct from '../../Services/ServiceProduct';
 import ProductPageDesktop from './Desktop/ProductPageDesktop';
 import ProductPageMobile from './Mobile/ProductPageMobile';
 
 const ProductPage = () => {
+    const data = usePreview();
     const [showModalDesktop, setShowModalDesktop] = useState(false);
     const [showModalMobile, setShowModalMobile] = useState(false);
     const [showNotif, setShowNotif] = useState(false);
@@ -33,11 +35,27 @@ const ProductPage = () => {
       }
     }
     const onSubmitSellerModalDesktop = () =>{
-      console.log('DestopSeller')
+      const dataSend = {
+          name: data.name,
+          price: data.price,
+          category: data.category,
+          description: data.description,
+          imageFile: data.imageFile,
+          // image: data.image,
+          seller: "SellerTiga",
+          city: "New York"
+      }
+      serviceProduct.AddNewData(dataSend).then(
+        (res) => console.log('res',res)
+      )
+      console.log('DesktopSeller',dataSend)
     }
 
 
     // mobile
+    const handleModalBuyerMobile = () => {
+        setShowModalMobile((prev) => !prev)
+    }  
     const onSubmitBuyerMobile = (value) =>{
       console.log("MobileBuyer", value)
       if(true){
@@ -50,11 +68,21 @@ const ProductPage = () => {
         }, 2000);
       }
     }
-    const handleModalBuyerMobile = () => {
-        setShowModalMobile((prev) => !prev)
-    }  
     const onSubmitSellerMobile = (value) =>{
-      console.log("MobileSeller")
+      const dataSend = {
+        name: data.name,
+        price: data.price,
+        category: data.category,
+        description: data.description,
+        imageFile: data.imageFile,
+        // image: data.image,
+        seller: "SellerTiga",
+        city: "New York"
+    }
+    serviceProduct.AddNewData(dataSend).then(
+      (res) => console.log('res',res)
+    )
+    console.log('MobileSeller',dataSend)
     }
 
 

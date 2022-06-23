@@ -1,25 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Container, Navbar,
+  Container, Navbar, OverlayTrigger, Popover
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as Icon from 'react-feather';
+import { useDispatch, useSelector } from 'react-redux'
+import { authActions, selectAuth } from '../../Redux/slice/authSlice'
 import IconNav from '../../Assets/Img/Rectangle 127.png'
 import './Navbar.css';
 
+const data = [
+  {
+    id: 1,
+    subject: "New Offer",
+    content: "Offering Product"
+  },
+  {
+    id: 2,
+    subject: "New Offer",
+    content: "Offering Product"
+  },
+  {
+    id: 3,
+    subject: "New Offer",
+    content: "Offering Product"
+  }
+]
+const user = [
+  {
+    title: "Profile",
+    action: "profile",
+  },
+  {
+    title: "Logout",
+    action: ''
+  },
+]
+
 const MyNavbar = () => {
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+  const navigate = useNavigate();
+  const auth = useSelector(selectAuth)
   const [expanded, setExpanded] = useState(false)
 
   useEffect(() => {
-    const changeWidth = () => {
-      setScreenWidth(window.innerWidth);
-    }
-    window.addEventListener('resize', changeWidth)
-  
-    return () => {
-      window.removeEventListener('resize', changeWidth)
-    }
   }, [])
   
 
@@ -27,6 +50,9 @@ const MyNavbar = () => {
     setExpanded((prev) => !prev)
   }
 
+  const handleList =() =>{
+    return navigate("/infoPenawaran")
+  }
   return (
     <Navbar bg="white" expand="sm"  
       className='shadow-sm p-3 mb-5 bg-body'
@@ -34,20 +60,11 @@ const MyNavbar = () => {
       onToggle={overrideToggle}
     >
         <Container fluid className='px-5'>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          {screenWidth >= 576 &&
             <Navbar.Brand href="#">
               <img src={IconNav} alt='Icon' />
             </Navbar.Brand>
-          }
-          <Navbar.Collapse id="navbarScroll" >
           
-          <div className={`
-            ${(expanded ) ? 
-              'd-flex flex-column'
-              : 'd-flex flex-row justify-content-between w-100' 
-              } my-2 gap-1
-          `}>
+          <div className='d-flex flex-row justify-content-between w-100 my-2 gap-1'>
             <form className="d-flex">
               <input
                 type="text"
@@ -58,29 +75,44 @@ const MyNavbar = () => {
                 <Icon.Search color='gray'/>
               </button>
             </form>
-            <Link
-              to='/login'
-            >
-              <div className='btn btn-primary'>
-                <Icon.LogIn/> Masuk
+           
+            { !auth && (
+              <Link
+                to='/login'
+              >
+                <div className='btn btn-primary'>
+                  <Icon.LogIn/> Masuk
+                </div>
+              </Link>
+            )}
+
+            {auth && (
+              <div className="box-button-action">
+                <button
+                  className='button-action-navbar'
+                  type="button"
+                  onClick={() => handleList()}
+                >
+                  <Icon.List className="" />
+                </button>
+                <OverlayTrigger 
+                  trigger="click" 
+                  placement="bottom" 
+                  overlay={popovernotif}>
+                  <button
+                    className='button-action-navbar'
+                    type="button"
+                  >
+                    <Icon.Bell className="" />
+                  </button>
+                </OverlayTrigger>
+
+                
+               <PopUser/>
               </div>
-            </Link>
-         
+            )}
+
           </div>
-          </Navbar.Collapse>
-          
-          {/* { (screenWidth <= 576 && !expanded) &&
-                <form className="d-flex">
-                      <input
-                        type="text"
-                        placeholder="Cari di sini..."
-                        className="w-100 inp-search"
-                      />
-                      <button type='submit'>
-                        <Icon.Search color='gray'/>
-                      </button>
-                </form>
-          } */}
          
         </Container>
     </Navbar>
@@ -88,3 +120,70 @@ const MyNavbar = () => {
 }
 
 export default MyNavbar
+
+
+const popovernotif = (
+  <Popover id="popover-basic">
+    <Popover.Header as="h3">Notification</Popover.Header>
+      {
+        data.map((value)=>{
+          return(
+            <div className='card-notification' key={value.id}>
+                <span><b>{value.subject}</b></span>
+                <span>{value.content}</span>
+            </div>
+          )
+        })
+      }
+  </Popover>
+);
+
+const PopUser = () =>{
+  const dispatch = useDispatch();
+  return(
+    <OverlayTrigger 
+      trigger="click" 
+      placement="bottom" 
+      overlay={
+        <Popover id="popover-basic">
+            {
+              user.map((value)=>{
+                return(
+                  <div className='card-user' key={value.title}>
+                  <Popover.Header>
+                    {value.title !== "Logout" && (
+                      <Link 
+                        className='text-link'
+                        to={value.action}
+                      >
+                        {value.title}
+                      </Link>
+                    )}
+                    {
+                      value.title === "Logout" && (
+                        <button
+                          className='btn-logout'
+                          onClick={() => dispatch(authActions.logout())}
+                        >
+                            {value.title}
+                        </button>
+                      )
+                    }
+                  
+                  </Popover.Header>
+                  </div>
+                )
+              })
+            }
+          
+        </Popover>
+      }>
+        <button
+          className='button-action-navbar'
+          type="button"
+        >
+          <Icon.User className="" />
+        </button>
+    </OverlayTrigger>
+  )
+}

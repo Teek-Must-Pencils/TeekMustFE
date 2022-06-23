@@ -5,6 +5,8 @@ import dummyProduct from '../../../Assets/Img/dummyProduct.png'
 import Profile from '../../../Assets/Img/profile.png'
 import ModalMobile from './ModalMobile';
 import '../ProductPage.css';
+import { useNavigate } from 'react-router-dom';
+import usePreview from '../../../Hooks/usePreview';
 
 const role = "sel";
 
@@ -19,9 +21,12 @@ const ProductPageMobile = (props) => {
     toogleNotif,
   } = props;
 
+  let navigate = useNavigate();
+  const dataPreview = usePreview();
+
   let buttonAction;
   if(role === "seller"){
-    buttonAction= (
+    buttonAction = (
     <button 
       className='button-float-send'
       onClick={onSubmitSellerMobile}
@@ -31,10 +36,22 @@ const ProductPageMobile = (props) => {
   }else{
     buttonAction = (<button 
       className='button-float-send'
-      onClick={onSubmitBuyerMobile}
+      onClick={handleModalBuyer}
     >
       Saya Tertarik dan ingin Nego
     </button>)
+  }
+
+  const handleBack = () =>{
+    return navigate('/infoProduct')
+  }
+
+  const data = {
+    name: "Jam Tangan Casio",
+    category: "Aksesoris",
+    image: dummyProduct,
+    price: "Rp. 250.000",
+    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
   }
 
   return (
@@ -54,20 +71,22 @@ const ProductPageMobile = (props) => {
       <div className=''>
         <img 
           className='mobile-img' 
-          src={dummyProduct} alt="" 
+          src={data.image || dataPreview.image} alt="" 
         />
         <button 
           className='button-float-back'
-          // onClick=''
+          onClick={() => handleBack()}
         >
           <ArrowLeft size='20px'/>
         </button>
       </div>
         <div className='mobile-box-description'>
             <div className='mobile-box-info'>
-              <span><b>Jam Tangan Casio</b></span>
-              <span className='text-category'>Aksesoris</span>
-              <span><b>Rp 250.000</b></span>
+              <span><b>{data.name || dataPreview.name}</b></span>
+              <span className='text-category'>
+                {data.category || dataPreview.category}
+              </span>
+              <span><b>{data.price || dataPreview.price}</b></span>
             </div>
             <div className='mobile-box-user'>
               <img src={Profile} alt='' />
@@ -79,18 +98,7 @@ const ProductPageMobile = (props) => {
             <div className='mobile-box-desc'>
                 <p> <b>Deskripsi</b> </p>
                 <p>
-                  Lorem Ipsum is simply dummy text of the printing and 
-                  typesetting industry. Lorem Ipsum has been the industry's 
-                  standard dummy text ever since the 1500s, when an 
-                  unknown printer took a galley of type and scrambled 
-                  it to make a type specimen book.
-                  Lorem Ipsum is simply dummy text of the printing and 
-                  typesetting industry. Lorem Ipsum has been the industry's 
-                  standard dummy text ever since the 1500s, when an 
-                  unknown printer took a galley of type and scrambled 
-                  unknown printer took a galley of type and scrambled 
-                  unknown printer took a galley of type and scrambled 
-                  it to make a type specimen book.
+                 {data.description || dataPreview.description}
                 </p>
             </div>
         </div>

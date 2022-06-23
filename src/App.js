@@ -1,10 +1,14 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Home, Layouts, Login, ProductPage } from './Pages';
+import {
+  Home, Layouts, ProductPage, InfoProduct, Login} from './Pages';
 import './App.css';
-import Register from './Pages/Register/Register';
+import Register from './Pages/Register';
 import AuthRoute from './AuthRoute/AuthRoute';
 import { useMediaQuery } from 'react-responsive';
-import InfoProfile from './Pages/InfoProfile/InfoProfile';
+import InfoProfile from './Pages/InfoProfile';
+import { useDispatch, useSelector } from 'react-redux';
+import { authActions, selectToken } from './Redux/slice/authSlice';
 
 const LayoutsAuth = ({children}) =>{
   const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'})
@@ -22,6 +26,21 @@ const LayoutsAuth = ({children}) =>{
 }
 
 function App() {
+  const dispatch = useDispatch();
+  const token = useSelector(selectToken);
+  // console.log(token)
+
+  useEffect(() => {
+    const sessionToken = sessionStorage.getItem('user');
+    // const dat = JSON.parse(sessionToken)
+    // console.log('ss', dat.accessToken)
+    if(!token && sessionToken){
+      const data = JSON.parse(sessionToken)
+      dispatch(authActions.setToken(data));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token])
+
   return (
     <Routes>
       <Route path='/login' element={<Login/>} />
@@ -32,8 +51,11 @@ function App() {
       />
       <Route 
         path='/productPage' 
-        element={<LayoutsAuth><ProductPage /></LayoutsAuth>
-        }
+        element={<LayoutsAuth><ProductPage /></LayoutsAuth>}
+      />
+      <Route 
+        path='/infoProduct' 
+        element={<LayoutsAuth><InfoProduct /></LayoutsAuth>}
       />
       <Route
       path='/infoProfile'
