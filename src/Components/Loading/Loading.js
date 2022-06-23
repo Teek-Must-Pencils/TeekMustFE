@@ -13,7 +13,7 @@ const ModalLoading = (props) => {
             className=""
             centered
         >
-        <div className='d-flex flex-row gap-5 p-3'>
+        <div className='d-flex flex-row justify-content-center gap-5 p-3'>
             <Spinner size='lg' animation="border" role="status"/>
             <span className="">Loading...</span>
         </div>
