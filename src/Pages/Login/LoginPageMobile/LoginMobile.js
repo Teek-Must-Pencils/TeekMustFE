@@ -42,7 +42,7 @@ const LoginMobile = () => {
         setShow(false)
       }, 1000);
     } 
-    if(statusSelect === "success"&& auth){
+    if(statusSelect === "success" && auth){
       setShow(true);
       setTimeout(() => {
         setShow(false)
