@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-
+import usePreview from '../../Hooks/usePreview';
+import serviceProduct from '../../Services/ServiceProduct';
 import ProductPageDesktop from './Desktop/ProductPageDesktop';
 import ProductPageMobile from './Mobile/ProductPageMobile';
 
 const ProductPage = () => {
+    const data = usePreview();
     const [showModalDesktop, setShowModalDesktop] = useState(false);
     const [showModalMobile, setShowModalMobile] = useState(false);
     const [showNotif, setShowNotif] = useState(false);
@@ -32,8 +34,21 @@ const ProductPage = () => {
         }, 2000);
       }
     }
-    const onSubmitSellerModalDesktop = (value) =>{
-      console.log('DestopSeller',value)
+    const onSubmitSellerModalDesktop = () =>{
+      const dataSend = {
+          name: data.name,
+          price: data.price,
+          category: data.category,
+          description: data.description,
+          imageFile: data.imageFile,
+          // image: data.image,
+          seller: "SellerTiga",
+          city: "New York"
+      }
+      serviceProduct.AddNewData(dataSend).then(
+        (res) => console.log('res',res)
+      )
+      console.log('DesktopSeller',dataSend)
     }
 
 
@@ -54,7 +69,20 @@ const ProductPage = () => {
       }
     }
     const onSubmitSellerMobile = (value) =>{
-      console.log("MobileSeller")
+      const dataSend = {
+        name: data.name,
+        price: data.price,
+        category: data.category,
+        description: data.description,
+        imageFile: data.imageFile,
+        // image: data.image,
+        seller: "SellerTiga",
+        city: "New York"
+    }
+    serviceProduct.AddNewData(dataSend).then(
+      (res) => console.log('res',res)
+    )
+    console.log('MobileSeller',dataSend)
     }
 
 
