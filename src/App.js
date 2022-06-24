@@ -10,6 +10,7 @@ import InfoProfile from './Pages/InfoProfile';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions, selectToken } from './Redux/slice/authSlice';
 import DaftarJualDesktop from './Pages/DaftarJual/Dekstop/DaftarJualDesktop';
+import InfoPenawar from './Pages/InfoPenawar';
 
 const LayoutsAuth = ({children}) =>{
   const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'})
@@ -64,6 +65,10 @@ function App() {
       <Route 
         path='/DaftarJual' 
         element={<LayoutsAuth><DaftarJualDesktop/> </LayoutsAuth>}
+      />
+      <Route 
+        path='/infoPenawar' 
+        element={<LayoutsAuth><InfoPenawar/> </LayoutsAuth>}
       />
     </Routes>
   );
