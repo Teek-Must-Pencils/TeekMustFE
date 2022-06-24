@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft } from 'react-feather';
 import { useForm, Controller } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom'
 import usePreview from '../../../Hooks/usePreview';
 import '../InfoProduct.css';
 
@@ -9,6 +10,7 @@ const InfoProductDesktop = (props) => {
         onSubmitSellerInput,
         // handlePreview
     } = props;
+    let navigate = useNavigate();
     const dataPreview = usePreview();
     const [image, setImage] = useState();
     const { register, handleSubmit, control, setValue } = useForm();
@@ -30,6 +32,10 @@ const InfoProductDesktop = (props) => {
         reader.readAsDataURL(e.target.files[0]);
     }
 
+    const handleBack = () =>{
+        navigate('/')
+    }
+
   return (
     <>
         <div className="container">
@@ -38,7 +44,7 @@ const InfoProductDesktop = (props) => {
                     <div className='ip-content-button'>
                         <button 
                             className=''
-                            // onClick=''
+                            onClick={()=> handleBack()}
                         >
                             <ArrowLeft size='20px'/>
                         </button>
