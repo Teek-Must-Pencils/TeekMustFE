@@ -1,16 +1,21 @@
-.btn-filter{
-border-style: none;
-width: 15%;
-height: 5%;
-background-color: #E2D4F0;
-border-radius: 12px;
-flex-grow: 0;
-
+.content-filter-mobile{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
 }
-.text-filter{
-  font-size: small;
+.icon-mobile{
+  width: 1rem;
 }
-.btn-filter:hover{
+.btn-filter-mobile{
+  font-size: 2vw;
+  border-style: none;
+  width: 100px;
+  height: 5%;
+  background-color: #E2D4F0;
+  border-radius: 12px;
+}
+.btn-filter-mobile:hover{
 background: #7126B5;
 color: white;
 }
