@@ -1,0 +1,127 @@
+.text-category, .text-profile{
+    color: gray;
+    font-size: small;
+}
+
+/* ----------- Desktop -----------*/
+.img-product{
+    border-radius: 10px;
+    max-width: 70%;
+    text-align: center;
+}
+.text-desc{
+    margin: 2% 15%;
+    padding: 10px 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+    text-align: justify;
+}
+.box-action{
+    padding: 10px 20px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+}
+.button-edit{
+    width: 100%;
+    margin: 10px 0px;
+}
+/* buyer */
+.button-buyer{
+    width: 100%;
+    font-size: 1vw;
+    background-color: #7126B5;
+    border-radius: 10px;
+    color: white;
+    padding: 3%;
+    margin: 3% 0%;
+    border: none;
+}
+.button-buyer:hover{
+    color: black;
+    background-color: lightblue;
+}
+
+/* ------- mobile ------------ */
+/* .borderr{
+    border: 2px solid black;
+} */
+.button-float-back{
+    position: relative;
+    width:30px;
+	height:30px;
+	bottom: 290px;
+    left: 5%;
+    border: none;
+    border-radius: 50%;
+    background-color: white;
+}
+.button-float-back:hover{
+    background-color: lightblue;
+}
+.mobile-container{
+    width: 100%;
+}
+.mobile-img{
+    width: 100%;
+    height: 310px;
+}
+.mobile-box-description{
+    position: relative;
+    margin: -10% 0px 0px 0px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.mobile-box-info{ 
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background-color: white;
+    width: 80%;
+    padding: 5px 10px;
+    border-radius: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+}
+.mobile-box-info span{
+    font-size: small
+}
+.mobile-box-user{
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+    width: 80%;
+    padding: 3px 10px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 16px;
+}
+.mobile-box-user .account{
+    width: 100%;
+    padding: 0% 5%;
+    display: flex;
+    flex-direction: column;
+}
+.mobile-box-desc{
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+    width: 80%;
+    padding: 5px 10px;
+    border-radius: 16px;
+    margin-bottom: 15%;
+}
+.button-float-send{
+    position: fixed;
+    width: 80%;
+	height:30px;
+	bottom:20px;
+    left: 10%;
+    border: none;
+    border-radius: 16px;
+    color: white;
+    padding: 5px 20px;
+    background-color: #7126B5;
+    box-shadow: 10px 0px 10px rgba(0, 0, 0, 0.25);
+}
+.button-float-send:hover{
+    background-color: lightblue;
+}

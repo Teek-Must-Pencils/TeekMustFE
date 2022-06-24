@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react';
+import HomeDesktop from './Desktop/HomeDekstop';
+import HomeMobile from './Mobile/HomeMobile';
+import { useMediaQuery } from 'react-responsive';
 
 const Home = () => {
+  const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'});
+  const isMobile = useMediaQuery({query: '(max-width: 426px)'});
+
   return (
-    <div>
-      <h1>Home</h1>
-      <p>this is home</p>
-    </div>
+    <>
+      {isDesktopOrLaptop && (<HomeDesktop />)}
+      {isMobile && (<HomeMobile />)}
+    </>
   )
 }
 
