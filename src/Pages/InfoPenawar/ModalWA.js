@@ -72,7 +72,7 @@ const ModalWA = (props) => {
 
 
                     <button className='tombol-masuk mt-3 ' >
-                        Hubungi via Whatsapp <Image className='ms-2' src={iconWA} onClick />
+                        Hubungi via Whatsapp <Image className='ms-2' src={iconWA}/>
                     </button>
 
                 </div>
