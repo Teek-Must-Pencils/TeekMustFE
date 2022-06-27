@@ -29,7 +29,7 @@ const data = [
 const user = [
   {
     title: "Profile",
-    action: "profile",
+    action: "/infoProfile",
   },
   {
     title: "Logout",

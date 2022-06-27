@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import usePreview from '../../Hooks/usePreview'
 import serviceProduct from '../../Services/ServiceProduct';
-import { selectUser } from '../../Redux/slice/authSlice'
-import { Loading } from '../../Components'
+import { selectEmail, selectUser } from '../../Redux/slice/authSlice'
+import { Loading, ModalNotification } from '../../Components'
 import InfoProductDesktop from './Dekstop/InfoProductDesktop';
 import InfoProductMobile from './Mobile/InfoProductMobile';
 
@@ -13,6 +13,7 @@ const InfoProduct = () => {
     let navigate = useNavigate();
     const preview = usePreview();
     const user = useSelector(selectUser);
+    const email = useSelector(selectEmail);
     const [isLoading, setIsLoading] = useState(false)
     const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'});
     const isMobile = useMediaQuery({query: '(max-width: 426px)'});
@@ -28,14 +29,30 @@ const InfoProduct = () => {
           category: [value.kategori],
           description: value.deskripsi,
           imageFile: value.imageFile,
-          image: value.image,
-          seller: "SellerTiga",
-          city: "New York"
+          // image: value.image,
+          seller: user,
+          city: email
         }
         serviceProduct.AddNewData(data).then(
           (res) => {
-            setIsLoading(false)
-            console.log("res", res)
+            console.log('res', res)
+            // if(res.status === 201){
+              // setMessage("tets")
+              setIsLoading(false)
+              // setIsNotification(true)
+              // setTimeout(() => {
+              //   setIsNotification(false);
+              //   setMessage('')
+              // }, 1000);
+            // }else{
+              // setMessage("tets")
+              // setIsLoading(false)
+              // setIsNotification(true)
+              // setTimeout(() => {
+              //   setIsNotification(false);
+              //   setMessage('')
+              // }, 1000);
+          // }
           }
         )
         // console.log("desktopValueInput", value);
@@ -74,7 +91,7 @@ const InfoProduct = () => {
     // console.log('preview', preview.image)
   return (
     <>
-      <Loading show={isLoading} close={() => (setIsLoading(true))} />} 
+      <Loading show={isLoading} close={() => (setIsLoading(true))} />
       { isDesktopOrLaptop &&  (
         <InfoProductDesktop 
           onSubmitSellerInput={onSubmitSellerInput}

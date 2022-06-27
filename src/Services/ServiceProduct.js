@@ -2,10 +2,33 @@ import axios from 'axios';
 
 const serviceProduct = {
 
-    async GetAllData(){
+    async GetAllProduct(){
+        const sessionData = sessionStorage.getItem('user')
+        const dt = JSON.parse(sessionData);
+        const token = dt.accessToken
         const data = await axios({
             method: 'get',
             url: process.env.REACT_APP_BASE_URL+'api/product/products',
+            headers:{
+                "Authorization" : `Bearer ${token}`
+            }
+          })
+          .then((response) => response)
+          .catch((err) => err.response)
+       
+          return data
+    },
+
+    async GeProductById(id){
+        const sessionData = sessionStorage.getItem('user')
+        const dt = JSON.parse(sessionData);
+        const token = dt.accessToken
+        const data = await axios({
+            method: 'get',
+            url: process.env.REACT_APP_BASE_URL+`api/product/${id}`,
+            headers:{
+                "Authorization" : `Bearer ${token}`
+            }
           })
           .then((response) => response)
           .catch((err) => err.response)
@@ -14,6 +37,9 @@ const serviceProduct = {
     },
 
     async AddNewData(value){
+        const sessionData = sessionStorage.getItem('user')
+        const dt = JSON.parse(sessionData);
+        const token = dt.accessToken
         let FormData = require('form-data');
         let dataSend = new FormData();
         dataSend.append('id', 0);
@@ -29,10 +55,15 @@ const serviceProduct = {
         //     console.log(element)
         // });
 
+        // console.log(token)
         const data = await axios({
             method: 'post',
             url: process.env.REACT_APP_BASE_URL+'api/product/',
-            data: dataSend
+            data: dataSend,
+            headers:{
+                "Authorization" : `Bearer ${token}`
+            }
+
           })
           .then((response) => response)
           .catch((err) => err.response)
