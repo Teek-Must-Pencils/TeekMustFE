@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import {
-  Home, Layouts, ProductPage, InfoProduct, Login} from './Pages';
+  Home, Layouts, ProductPage, InfoProduct, Login, Notifikasi
+} from './Pages';
 import './App.css';
 import Register from './Pages/Register';
 import AuthRoute from './AuthRoute/AuthRoute';
@@ -69,6 +70,10 @@ function App() {
       <Route 
         path='/infoPenawar' 
         element={<LayoutsAuth><InfoPenawar/> </LayoutsAuth>}
+      />
+      <Route 
+        path='/notifikasi' 
+        element={<LayoutsAuth><Notifikasi/> </LayoutsAuth>}
       />
     </Routes>
   );

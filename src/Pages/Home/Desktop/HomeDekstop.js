@@ -49,43 +49,39 @@ const HomeDekstop = () => {
          <button 
           className="btn-filter"
           onClick={() => setFilter(0)}
-         >
-            <Icon.Search/> Semua
+          >
+            <Icon.Search/> <span>Semua</span>
         </button>
-        &ensp;&ensp;
-        <button 
+        <button
           className="btn-filter"
           onClick={() => setFilter(1)}
         >
-            <Icon.Search/> Pencil 2B
+            <Icon.Search/> <span>Pencil 2B</span>
         </button>
-        &ensp;&ensp;
         <button 
           className="btn-filter"
           onClick={() => setFilter(2)}
         >
-            <Icon.Search/> Pencil 3B
+            <Icon.Search/> <span>Pencil 3B</span>
         </button>
-        &ensp;&ensp;
+
         <button 
           className="btn-filter"
           onClick={() => setFilter(3)}
         >
-            <Icon.Search/> Pencil 4B
+            <Icon.Search/> <span>Pencil 4B</span>
         </button>
-        &ensp;&ensp;
         <button 
           className="btn-filter"
           onClick={() => setFilter(4)}
         >
-            <Icon.Search/> Pencil 5B
+            <Icon.Search/> <span>Pencil 5B</span>
         </button>
-        &ensp;&ensp;
         <button 
           className="btn-filter"
           onClick={() => setFilter(5)}
         >
-            <Icon.Search/> Pencil Warna
+            <Icon.Search/> <span>Pencil Warna</span>
         </button>
       </div>
        

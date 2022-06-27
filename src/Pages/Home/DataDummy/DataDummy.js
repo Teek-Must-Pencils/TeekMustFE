@@ -1,6 +1,4 @@
 import React from 'react'
-// import dummyJam from '../../../Assets/Img/Property 1=1.png'
-// import dummyJam2 from '../../../Assets/Img/Property 1=2.png'
 import dummyJam from '../../../Assets/Img/dummyProduct.png'
 import { Col, Row } from 'react-bootstrap';
 import './Card.css'
