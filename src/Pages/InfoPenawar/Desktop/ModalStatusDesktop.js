@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal } from 'react-bootstrap'
-import './infoPenawar.css'
+import '../infoPenawar.css'
 
 
 
@@ -8,7 +8,7 @@ import './infoPenawar.css'
 
 const ModalStatus = (props) => {
 
-    const { show, close } = props;
+const { show, close } = props;
   return (
     <Modal
             size='sm'
@@ -35,7 +35,7 @@ const ModalStatus = (props) => {
 
                         <div className="d-flex flex-row gap-2 ms-2">
                         <div className='me-2'>
-                            <input type="radio"/>
+                            <input type="radio" name='berhasil'/>
                             </div>
                             <div className=' d-flex flex-column'>
                                 <span><b>Berhasil Terjual</b></span>
@@ -48,7 +48,7 @@ const ModalStatus = (props) => {
 
                         <div className="d-flex flex-row gap-2 mt-1 mb-2 ms-2">
                             <div className='me-2'>
-                            <input type="radio"/>
+                            <input type="radio" name='batal'/>
                             </div>
                             <div className=' d-flex flex-column'>
                                 <span><b>Batalkan transaksi</b></span>

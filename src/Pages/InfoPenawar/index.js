@@ -1,14 +1,20 @@
 import React from 'react'
-import InfoPenawarDesktop from './InfoPenawarDesktop'
+import { useMediaQuery } from 'react-responsive';
+import InfoPenawarDesktop from './Desktop/InfoPenawarDesktop';
+import InfoPenawarMobile from './Mobile/InfoPenawarDesktop';
+
 
 
 
 const InfoPenawar = () => {
 
+  const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 426px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 426px)' });
+
   return (
     <>
-      <InfoPenawarDesktop/>
-
+      {isDesktopOrLaptop && <InfoPenawarDesktop />}
+      {isMobile && <InfoPenawarMobile />}
     </>
   )
 }
