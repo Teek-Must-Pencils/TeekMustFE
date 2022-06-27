@@ -7,7 +7,6 @@ import "./InfoProfileDesktop.css"
 
 // Gambar
 import Kamera from "../../../Assets/Img/Group 1.png"
-import iconBack from "../../../Assets/Img/fi_arrow-left.png"
 
 
 const InfoProfileMobile = () => {

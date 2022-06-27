@@ -16,3 +16,15 @@
     position: relative;
 
 }
+.button-back-content{
+    padding-left: 5%;
+}
+.button-back-content button{
+    background-color: transparent;
+    border: none;
+    border: 50%;
+}
+.button-back-content button:hover{
+    background-color: lightgray;
+    color: blue;
+}

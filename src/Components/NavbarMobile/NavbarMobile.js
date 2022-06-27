@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Offcanvas } from 'react-bootstrap';
-import { Menu, Search, LogIn, Bell, List } from 'react-feather';
-import { useSelector } from 'react-redux';
+import { Menu, Search, LogIn, Bell, List, User } from 'react-feather';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { selectAuth } from '../../Redux/slice/authSlice';
+import { authActions, selectAuth } from '../../Redux/slice/authSlice';
 import './NavbarMobile.css' 
 
-const NavbarMobile = () => {
+const NavbarMobile = (props) => {
+    const { isSearch } = props;
+    const dispatch = useDispatch();
     const auth = useSelector(selectAuth);
     const [show, setShow] = useState(false);
 
@@ -16,31 +18,41 @@ const NavbarMobile = () => {
     const handleClose = () =>{
         setShow(false)
     }
+    const handleLogout = () =>{
+        dispatch(authActions.logout());
+    }
   return (
     <>
-        <div className='mobile-content-menu home'>
+        <div className='mobile-content-menu'>
             <button 
-            className='mobile-float-menu'
+            className=''
             onClick={()=>handleShow()}
             >
                 <Menu />
             </button>
             <div className='search-mobile'>
-            <form className="container-search-mobile">
-              <input
-                type="text"
-                placeholder="Cari di sini..."
-                className="mobile-search-input"
-              />
-              <button type='submit'>
-                <Search color='gray'/>
-              </button>
-            </form>
+            {isSearch !== false && (
+                <form className="container-search-mobile">
+                    <input
+                        type="text"
+                        placeholder="Cari di sini..."
+                        className="mobile-search-input"
+                    />
+                    <button type='submit'>
+                        <Search color='gray'/>
+                    </button>
+                </form>
+            )
+            }
+            
             </div>
         </div>
         <Offcanvas show={show} onHide={handleClose}>
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title>Teek Must Pencil</Offcanvas.Title>
+          <Link to='/' className='menu'>
+              <Offcanvas.Title>Teek Must Pencil</Offcanvas.Title>
+          </Link>
+          
           </Offcanvas.Header>
           <Offcanvas.Body>
           {!auth && (
@@ -75,9 +87,15 @@ const NavbarMobile = () => {
                     className='menu'
                 >
                     <div >
-                        <Bell/> <span>Akun Saya</span>
+                        <User/> <span>Akun Saya</span>
                     </div>
                 </Link>
+                <button
+                    className='btn btn-primary'
+                    onClick={()=>handleLogout()}
+                >
+                    Logout
+                </button>
             </div>
           )}
            
