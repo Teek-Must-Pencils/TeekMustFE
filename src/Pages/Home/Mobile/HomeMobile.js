@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 // import { Swiper, SwiperSlide } from "swiper/react";
-// import slide1 from '../../../Assets/Img/Rectangle 129.png'
 import slide2 from '../../../Assets/Img/Group 9.png'
-// import slide3 from '../../../Assets/Img/Rectangle 130.png'
 import * as Icon from 'react-feather';
 import { Link } from 'react-router-dom';
 import { DataDummy } from '../DataDummy/DataDummy'
@@ -10,16 +8,14 @@ import './HomeMobile.css'
 
 // Import Swiper styles
 import "swiper/css";
-// import "swiper/css/effect-coverflow";
+import {NavbarMobile} from '../../../Components';
 
 const HomeMobile = () => {
-  const [filter, setFilter] = useState(0)
+  const [filter, setFilter] = useState(0);
+
   return (
     <div>
-      <div>
-        <p>navbar</p>
-        <p>sesrch</p>
-      </div>
+      <NavbarMobile />
       <img src={slide2} alt="" className="slide2" />
       <br></br>
       <div className="container-sm">

@@ -40,7 +40,9 @@
 }
 
 .content-filter{
-  padding: 1% 0%;
+  display: flex;
+  flex-direction: raw;
+  gap: 10px
 }
 .btn-filter{
   border-style: none;
@@ -53,6 +55,10 @@
 .btn-filter:hover{
   background: #7126B5;
   color: white;
+}
+
+.btn-filter span{
+  font-size: 0.9vw !important;
 }
 
 .btn-plus{
