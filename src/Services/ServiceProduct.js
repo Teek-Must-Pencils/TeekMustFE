@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// eslint-disable-next-line react-hooks/rules-of-hooks
 const serviceProduct = {
 
     async GetAllProduct(){
@@ -42,7 +43,6 @@ const serviceProduct = {
         const token = dt.accessToken
         let FormData = require('form-data');
         let dataSend = new FormData();
-        dataSend.append('id', 0);
         dataSend.append('productName', value.name);
         dataSend.append('categories', value.category);
         dataSend.append('price', value.price);
@@ -69,6 +69,7 @@ const serviceProduct = {
           .catch((err) => err.response)
        
           return data
+        //   return token
     }
 }
 

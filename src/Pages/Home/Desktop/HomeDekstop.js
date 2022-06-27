@@ -49,24 +49,22 @@ const HomeDekstop = () => {
          <button 
           className="btn-filter"
           onClick={() => setFilter(0)}
-         >
+          >
             <Icon.Search/> <span>Semua</span>
         </button>
-        &ensp;&ensp;
-        <button 
+        <button
           className="btn-filter"
           onClick={() => setFilter(1)}
         >
             <Icon.Search/> <span>Pencil 2B</span>
         </button>
-        &ensp;&ensp;
         <button 
           className="btn-filter"
           onClick={() => setFilter(2)}
         >
             <Icon.Search/> <span>Pencil 3B</span>
         </button>
-        &ensp;&ensp;
+
         <button 
           className="btn-filter"
           onClick={() => setFilter(3)}
@@ -80,7 +78,6 @@ const HomeDekstop = () => {
         >
             <Icon.Search/> <span>Pencil 5B</span>
         </button>
-        &ensp;&ensp;
         <button 
           className="btn-filter"
           onClick={() => setFilter(5)}

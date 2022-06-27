@@ -1,4 +1,4 @@
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import {
   Home, Layouts, ProductPage, InfoProduct, Login} from './Pages';
@@ -7,8 +7,10 @@ import Register from './Pages/Register';
 import AuthRoute from './AuthRoute/AuthRoute';
 import { useMediaQuery } from 'react-responsive';
 import InfoProfile from './Pages/InfoProfile';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { authActions, selectToken } from './Redux/slice/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { authActions, selectToken } from './Redux/slice/authSlice';
+import DaftarJualDesktop from './Pages/DaftarJual/Dekstop/DaftarJualDesktop';
+import InfoPenawar from './Pages/InfoPenawar';
 
 const LayoutsAuth = ({children}) =>{
   const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'})
@@ -26,20 +28,20 @@ const LayoutsAuth = ({children}) =>{
 }
 
 function App() {
-  // const dispatch = useDispatch();
-  // const token = useSelector(selectToken);
+  const dispatch = useDispatch();
+  const token = useSelector(selectToken);
   // console.log(token)
 
-  // useEffect(() => {
-  //   const sessionToken = sessionStorage.getItem('user');
-  //   // const dat = JSON.parse(sessionToken)
-  //   // console.log('ss', dat.accessToken)
-  //   if(!token && sessionToken){
-  //     const data = JSON.parse(sessionToken)
-  //     dispatch(authActions.setToken(data));
-  //   }
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [token])
+  useEffect(() => {
+    const sessionToken = sessionStorage.getItem('user');
+    // const dat = JSON.parse(sessionToken)
+    // console.log('ss', dat.accessToken)
+    if(!token && sessionToken){
+      const data = JSON.parse(sessionToken)
+      dispatch(authActions.setToken(data));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token])
 
   return (
     <Routes>
@@ -60,6 +62,14 @@ function App() {
       <Route
       path='/infoProfile'
       element={<LayoutsAuth><InfoProfile/></LayoutsAuth>} />
+      <Route 
+        path='/DaftarJual' 
+        element={<LayoutsAuth><DaftarJualDesktop/> </LayoutsAuth>}
+      />
+      <Route 
+        path='/infoPenawar' 
+        element={<LayoutsAuth><InfoPenawar/> </LayoutsAuth>}
+      />
     </Routes>
   );
 }

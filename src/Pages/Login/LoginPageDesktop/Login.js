@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../Redux/action/authAction';
-import {  selectStatus, selectMessage } from '../../../Redux/slice/authSlice';
+import {  selectStatus, selectMessage, selectAuth } from '../../../Redux/slice/authSlice';
 import { LoadingRedux, ModalNotificationRedux } from '../../../Components';
 import "./Login.css"
 
@@ -15,6 +15,7 @@ const Login = () => {
   const [show, setShow] = useState(false);
   const statusSelect = useSelector(selectStatus);
   const message = useSelector(selectMessage);
+  const auth = useSelector(selectAuth);
 
   // const validation = () => {
   //   let regexEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g
@@ -41,7 +42,7 @@ const Login = () => {
         setShow(false)
       }, 1000);
     } 
-    if(statusSelect === "success"){
+    if(statusSelect === "success" && auth){
       setShow(true);
       setTimeout(() => {
         setShow(false)
