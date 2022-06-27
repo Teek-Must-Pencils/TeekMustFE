@@ -9,5 +9,5 @@
 }
 
 .mobile-content-menu{
-   border: 2px solid black;
+   box-shadow: 1px 1px 10px 5px rgba(13, 176, 176, 0);
 }

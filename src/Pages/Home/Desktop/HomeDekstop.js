@@ -71,7 +71,6 @@ const HomeDekstop = () => {
         >
             <Icon.Search/> <span>Pencil 4B</span>
         </button>
-        &ensp;&ensp;
         <button 
           className="btn-filter"
           onClick={() => setFilter(4)}

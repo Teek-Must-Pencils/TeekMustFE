@@ -1,0 +1,6 @@
+/* mobile */
+.continer-notifikasi{
+    display: flex;
+    flex-direction:  column;
+    gap: 5px;
+}
