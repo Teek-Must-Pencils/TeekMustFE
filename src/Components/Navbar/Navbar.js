@@ -51,7 +51,7 @@ const MyNavbar = () => {
   }
 
   const handleList =() =>{
-    return navigate("/infoPenawaran")
+    return navigate("/infoPenawar")
   }
   return (
     <Navbar bg="white" expand="sm"  
