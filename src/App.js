@@ -57,7 +57,15 @@ function App() {
         element={<LayoutsAuth><ProductPage /></LayoutsAuth>}
       />
       <Route 
+        path='/productPage/:id' 
+        element={<LayoutsAuth><ProductPage /></LayoutsAuth>}
+      />
+      <Route 
         path='/infoProduct' 
+        element={<LayoutsAuth><InfoProduct /></LayoutsAuth>}
+      />
+      <Route 
+        path='/infoProduct/:id' 
         element={<LayoutsAuth><InfoProduct /></LayoutsAuth>}
       />
       <Route

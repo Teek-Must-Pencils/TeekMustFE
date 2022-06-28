@@ -10,9 +10,9 @@ import { DataDummy } from '../DataDummy/DataDummy'
 // Import Swiper styles
 import "swiper/css";
 import 'swiper/css/pagination';
-// import "swiper/css/effect-coverflow";
 
-const HomeDekstop = () => {
+const HomeDekstop = (props) => {
+  const { role } = props;
   const [filter, setFilter] = useState(0);
   return (
     <div className=''>
@@ -167,12 +167,14 @@ const HomeDekstop = () => {
       />
       </div>
 
-      <Link to="/infoProduct">
-        <button className="btn-plus">
-            <Icon.Plus/> Jual
-        </button>
-      </Link>
-      
+      {role.toLowerCase() === 'seller' && (
+          <Link to="/infoProduct">
+            <button className="btn-plus">
+                <Icon.Plus/> Jual
+            </button>
+          </Link>
+        )
+      }
 
     </div>
   )

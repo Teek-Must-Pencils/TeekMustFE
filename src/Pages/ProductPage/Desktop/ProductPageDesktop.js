@@ -8,11 +8,11 @@ import dummyProduct from '../../../Assets/Img/dummyProduct.png'
 import dummyProfile from '../../../Assets/Img/profile.png'
 import '../ProductPage.css'
 import usePreview from '../../../Hooks/usePreview';
-const role = 'seller';
-// const role = 'buyer';
+
 
 const ProductPageDesktop = (props) => {
     const {
+        role,
         showModal,
         handleModalBuyer,
         notifMessage,
@@ -79,7 +79,9 @@ const ProductPageDesktop = (props) => {
         category: "Aksesoris",
         image: dummyProduct,
         price: "Rp. 250.000",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        seller: "SellerUnknow",
+        address: "Pencils Town"
     }
     
     // console.log(dataPreview.imageFile)
@@ -125,9 +127,9 @@ const ProductPageDesktop = (props) => {
                         <div className="d-flex flex-row gap-2">
                             <img src={dummyProfile} alt="" />
                             <div className='d-flex flex-column'>
-                                <span><b>Nama Penjual</b></span>
+                                <span><b>{data.seller || 'Nama Penjual'}</b></span>
                                 <span className="text-profile">
-                                    kota
+                                    {data.address || "Alamat"}
                                 </span>
                             </div>
                         </div>
