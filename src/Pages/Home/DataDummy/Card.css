@@ -1,5 +1,5 @@
 .card-product{
-    height: 250px;
+    min-height: 250px;
     padding: 5%;
     border: 2px solid black;
     border-radius: 16px
@@ -23,4 +23,9 @@
 }
 .card-pi-price{
     font-weight: bolder;
+}
+.card-pi-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
