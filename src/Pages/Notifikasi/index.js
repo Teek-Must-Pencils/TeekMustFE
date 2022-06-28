@@ -13,7 +13,7 @@ const Notifikasi = () => {
         { isDesktopOrLaptop &&  <NotifikasiDesktop/>}
         { isMobile &&   (
             <>
-                <NavbarMobile isSearch={false} />
+                <NavbarMobile isSearch={false} location="Notifikasi" />
                 <NotifikasiMobile/>
             </>
         )}

@@ -7,7 +7,7 @@ import { authActions, selectAuth } from '../../Redux/slice/authSlice';
 import './NavbarMobile.css' 
 
 const NavbarMobile = (props) => {
-    const { isSearch } = props;
+    const { isSearch, location } = props;
     const dispatch = useDispatch();
     const auth = useSelector(selectAuth);
     const [show, setShow] = useState(false);
@@ -25,7 +25,7 @@ const NavbarMobile = (props) => {
     <>
         <div className='mobile-content-menu'>
             <button 
-            className=''
+            className='toggle-button'
             onClick={()=>handleShow()}
             >
                 <Menu />
@@ -42,8 +42,12 @@ const NavbarMobile = (props) => {
                         <Search color='gray'/>
                     </button>
                 </form>
-            )
-            }
+            )}
+            {isSearch === false && (
+                <div className='mobile-location-title'>
+                    {location}
+                </div>
+            )}
             
             </div>
         </div>

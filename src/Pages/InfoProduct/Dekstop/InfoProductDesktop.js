@@ -33,7 +33,7 @@ const InfoProductDesktop = (props) => {
     }
 
     const handleBack = () =>{
-        navigate('/')
+        navigate(-1)
     }
 
   return (

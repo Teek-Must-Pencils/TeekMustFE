@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { useSelector } from 'react-redux';
 import usePreview from '../../Hooks/usePreview';
 import serviceProduct from '../../Services/ServiceProduct';
 import ProductPageDesktop from './Desktop/ProductPageDesktop';
 import ProductPageMobile from './Mobile/ProductPageMobile';
+import { selectRole } from '../../Redux/slice/authSlice';
+import { useParams } from 'react-router-dom';
 
 const ProductPage = () => {
+    let { id } = useParams();
     const data = usePreview();
+    const role = useSelector(selectRole);
     const [showModalDesktop, setShowModalDesktop] = useState(false);
     const [showModalMobile, setShowModalMobile] = useState(false);
     const [showNotif, setShowNotif] = useState(false);
@@ -85,11 +90,20 @@ const ProductPage = () => {
     console.log('MobileSeller',dataSend)
     }
 
+    useEffect(() => {
+      console.log('this id', id)
+    
+      // return () => {
+      //   second
+      // }
+    }, [id])
+    
 
   return (
     <>
       { isDesktopOrLaptop &&  (
         <ProductPageDesktop 
+          role={role}
           showModal={showModalDesktop}
           handleModalBuyer={handleModalBuyerDesktop}
           showNotif={showNotif}
@@ -101,6 +115,7 @@ const ProductPage = () => {
       )}
       { isMobile && (
         <ProductPageMobile
+          role={role}
           showModal={showModalMobile}
           handleModalBuyer={handleModalBuyerMobile}
           showNotif={showNotif}
