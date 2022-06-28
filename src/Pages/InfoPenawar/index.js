@@ -1,7 +1,7 @@
 import React from 'react'
 import { useMediaQuery } from 'react-responsive';
 import InfoPenawarDesktop from './Desktop/InfoPenawarDesktop';
-import InfoPenawarMobile from './Mobile/InfoPenawarDesktop';
+import InfoPenawarMobile from './Mobile/InfoPenawarMobile';
 
 
 

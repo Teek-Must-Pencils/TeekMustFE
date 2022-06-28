@@ -11,11 +11,11 @@ const ModalStatus = (props) => {
 const { show, close } = props;
   return (
     <Modal
-            size='sm'
+            size='lg'
             show={show}
             onHide={close}
             animation={false}
-            centered
+            className="modal-status"
         >
             <Modal.Body >
                 <div className='modal-buyer'>

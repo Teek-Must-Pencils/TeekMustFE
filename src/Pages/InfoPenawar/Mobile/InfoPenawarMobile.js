@@ -2,10 +2,10 @@ import React from 'react'
 import { Row, Image, Col, Modal } from 'react-bootstrap'
 import dummyProfile from '../../../Assets/Img/cewe.png'
 import dummyProduct from '../../../Assets/Img/jamkecil.png'
-import iconBack from '../../../Assets/Img/fi_arrow-left.png'
 import iconWA from '../../../Assets/Img/Whatsapp.png'
 import '../infoPenawar.css'
-import ModalStatus from './ModalStatusDesktop'
+import ModalStatus from './ModalStatusMobile'
+import NavbarMoblile from './NavbarMoblile'
 
 
 
@@ -20,7 +20,7 @@ function MyVerticallyCenteredModal(props) {
             show={show}
             onHide={close}
             animation={false}
-            centered
+            className="modal"
         >
             <Modal.Body >
                 <div className='modal-buyer'>
@@ -85,7 +85,7 @@ function MyVerticallyCenteredModal(props) {
     );
 }
 
-const InfoPenawarDesktop = () => {
+const InfoPenawarMobile = () => {
     const [isAccepted, setIsAccepted] = React.useState(true)
 
     const [modalShow, setModalShow] = React.useState(false);
@@ -145,18 +145,16 @@ const InfoPenawarDesktop = () => {
                 show={modalStatusShow}
                 close={handleModalClosed}
             />
+            <NavbarMoblile/>
 
 
             <Col md={{ span: 5, offset: 3 }}>
                 <Row className='align-content-center'>
-                    <div className='col-1'>
-                        <Image src={iconBack} />
-                    </div>
                     <div className='col-11'>
-                        <div className="box-action">
-                            <div className="d-flex flex-row gap-2 b">
+                        <div className="box-action mt-3 ms-4">
+                            <div className="d-flex flex-row gap-2 ms">
                                 <img src={dummyProfile} alt="" />
-                                <div className='d-flex flex-column ms-1'>
+                                <div className='d-flex flex-column '>
                                     <span><b>Nama Pembeli</b></span>
                                     <span className="text-profile">
                                         kota
@@ -165,12 +163,12 @@ const InfoPenawarDesktop = () => {
                             </div>
                         </div>
 
-                        <div className='mt-4 d-flex justify-content-between'>
+                        <div className='mt-4 ms-4 d-flex justify-content-between'>
                             <span><b>Daftar Produkmu yang Ditawar</b></span>
                             <span className="text-profile"> 20 Apr, 14:04 </span>
                         </div>
 
-                        <div className="d-flex flex-row gap-2 b mt-4">
+                        <div className="d-flex flex-row gap-2 b mt-4 ms-4">
                             <div className='me-2'>
                                 <img src={dummyProduct} alt="" />
                             </div>
@@ -184,7 +182,7 @@ const InfoPenawarDesktop = () => {
                             </div>
                         </div>
 
-                        <div className="d-flex justify-content-end mt-2 ">
+                        <div className="d-flex justify-content-between mt-4 ms-4 ">
 
                             {/* <button className='tombol-tolak me-2 '>
                                 Tolak
@@ -207,4 +205,4 @@ const InfoPenawarDesktop = () => {
     )
 }
 
-export default InfoPenawarDesktop
+export default InfoPenawarMobile
