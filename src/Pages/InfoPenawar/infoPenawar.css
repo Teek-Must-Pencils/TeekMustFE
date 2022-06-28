@@ -1,0 +1,35 @@
+.tombol-tolak{
+
+    width: 158px;
+    height: 36px;
+    background-color: white;
+    border-radius: 16px;
+    color: black;
+    padding: 5px;
+    border: 1px solid #7126B5;
+}
+.tombol-terima{
+
+    width: 158px;
+    height: 36px;
+    background-color: #7126B5;
+    border-radius: 16px;
+    color: white;
+    padding: 5px;
+    border: none;
+    
+}
+
+.modal-mobile-position{
+    position: fixed !important;
+    top: 41% !important;
+    margin: 0px !important;
+    width: 100% !important;
+}
+
+.modal-status{
+    position: fixed !important;
+    top: 54.9% !important;
+    margin: 0px !important;
+    width: 100% !important;
+}

@@ -1,0 +1,13 @@
+.modal-notification{
+    margin-top: 10%;
+}
+.modal-container-notification{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px 10px;
+}
+.modal-container-notification button{
+    background-color: transparent;
+    border: none;
+}
