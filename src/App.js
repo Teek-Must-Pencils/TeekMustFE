@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import {
-  Home, Layouts, ProductPage, InfoProduct, Login} from './Pages';
+  Home, Layouts, ProductPage, InfoProduct, Login, Notifikasi
+} from './Pages';
 import './App.css';
 import Register from './Pages/Register';
 import AuthRoute from './AuthRoute/AuthRoute';
@@ -9,7 +10,8 @@ import { useMediaQuery } from 'react-responsive';
 import InfoProfile from './Pages/InfoProfile';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions, selectToken } from './Redux/slice/authSlice';
-import DaftarJualDesktop from './Pages/DaftarJual/Desktop/DaftarJualDesktop';
+import DaftarJual from './Pages/DaftarJual/DaftarJual';
+import InfoPenawar from './Pages/InfoPenawar';
 
 const LayoutsAuth = ({children}) =>{
   const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'})
@@ -63,7 +65,15 @@ function App() {
       element={<LayoutsAuth><InfoProfile/></LayoutsAuth>} />
       <Route 
         path='/DaftarJual' 
-        element={<LayoutsAuth><DaftarJualDesktop/> </LayoutsAuth>}
+        element={<LayoutsAuth><DaftarJual/> </LayoutsAuth>}
+      />
+      <Route 
+        path='/infoPenawar' 
+        element={<LayoutsAuth><InfoPenawar/> </LayoutsAuth>}
+      />
+      <Route 
+        path='/notifikasi' 
+        element={<LayoutsAuth><Notifikasi/> </LayoutsAuth>}
       />
     </Routes>
   );

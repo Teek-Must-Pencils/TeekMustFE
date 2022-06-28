@@ -1,0 +1,13 @@
+.button-login-active{
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+}
+.menu, .menu span{
+   text-decoration: none !important;
+   color: black;
+}
+
+.mobile-content-menu{
+   box-shadow: 1px 1px 10px 5px rgba(13, 176, 176, 0);
+}

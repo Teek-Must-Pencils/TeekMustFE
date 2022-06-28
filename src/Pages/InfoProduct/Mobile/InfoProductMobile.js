@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { ArrowLeft } from 'react-feather';
 import usePreview from '../../../Hooks/usePreview';
+import { useNavigate } from 'react-router-dom';
 
 const InfoProductMobile = (props) => {
   const {
     onSubmitMobileInput,
     // handlePreview
 } = props;
+  const navigate = useNavigate();
   const dataPreview = usePreview();
   const [image, setImage] = useState();
   const { register, handleSubmit, control, setValue } = useForm();
@@ -28,6 +30,10 @@ const InfoProductMobile = (props) => {
     };
     reader.readAsDataURL(e.target.files[0]);
   }
+  
+  const handleBack = () =>{
+    navigate('/')
+  }
 
   return (
     <>
@@ -36,7 +42,7 @@ const InfoProductMobile = (props) => {
           <div  className='col-1'>
               <button 
                   className='ipm-content-button'
-                  // onClick=''
+                  onClick={() => handleBack()}
               >
                   <ArrowLeft size='20px'/>
               </button>

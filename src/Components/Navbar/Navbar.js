@@ -29,7 +29,7 @@ const data = [
 const user = [
   {
     title: "Profile",
-    action: "profile",
+    action: "/infoProfile",
   },
   {
     title: "Logout",
@@ -51,7 +51,7 @@ const MyNavbar = () => {
   }
 
   const handleList =() =>{
-    return navigate("/infoPenawaran")
+    return navigate("/infoPenawar")
   }
   return (
     <Navbar bg="white" expand="sm"  

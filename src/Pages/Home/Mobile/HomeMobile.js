@@ -1,8 +1,6 @@
-import React from 'react'
-import { Swiper, SwiperSlide } from "swiper/react";
-import slide1 from '../../../Assets/Img/Rectangle 129.png'
+import React, { useState } from 'react'
+// import { Swiper, SwiperSlide } from "swiper/react";
 import slide2 from '../../../Assets/Img/Group 9.png'
-import slide3 from '../../../Assets/Img/Rectangle 130.png'
 import * as Icon from 'react-feather';
 import { Link } from 'react-router-dom';
 import { DataDummy } from '../DataDummy/DataDummy'
@@ -10,49 +8,72 @@ import './HomeMobile.css'
 
 // Import Swiper styles
 import "swiper/css";
-// import "swiper/css/effect-coverflow";
+import {NavbarMobile} from '../../../Components';
 
 const HomeMobile = () => {
+  const [filter, setFilter] = useState(0);
+
   return (
     <div>
-
+      <NavbarMobile />
       <img src={slide2} alt="" className="slide2" />
       <br></br>
-      <div class="container-sm">
+      <div className="container-sm">
       <font size="3"><b>Telusuri Kategori</b></font>
-      <p></p>
-        <button class="btn-filter">
-        <b className="text-filter"><Icon.Search/> <span >Semua</span></b>
+      <div className='content-filter-mobile'>
+        <button 
+          className="btn-filter-mobile"
+          onClick={() => setFilter(0)}
+         >
+            <Icon.Search className='icon-mobile'/> Semua
         </button>
         &ensp;&ensp;
-        <button class="btn-filter">
-            <Icon.Search/> <span>Hobi</span>
+        <button 
+          className="btn-filter-mobile"
+          onClick={() => setFilter(1)}
+        >
+            <Icon.Search className='icon-mobile'/> Pencil 2B
         </button>
         &ensp;&ensp;
-        <button class="btn-filter">
-            <Icon.Search/> <span>Kendaraan</span>
+        <button 
+          className="btn-filter-mobile"
+          onClick={() => setFilter(2)}
+        >
+            <Icon.Search className='icon-mobile'/> Pencil 3B
         </button>
         &ensp;&ensp;
-        <button class="btn-filter">
-            <Icon.Search/><span>Baju</span>
+        <button 
+          className="btn-filter-mobile"
+          onClick={() => setFilter(3)}
+        >
+            <Icon.Search className='icon-mobile'/> Pencil 4B
         </button>
         &ensp;&ensp;
-        <button class="btn-filter">
-            <Icon.Search/><span>Elektronik</span>
+        <button 
+          className="btn-filter-mobile"
+          onClick={() => setFilter(4)}
+        >
+            <Icon.Search className='icon-mobile'/> Pencil 5B
         </button>
         &ensp;&ensp;
-        <button class="btn-filter">
-            <Icon.Search/> <span>Kesehatan</span>
+        <button 
+          className="btn-filter-mobile"
+          onClick={() => setFilter(5)}
+        >
+            <Icon.Search className='icon-mobile'/> Pencil Warna
         </button>
-
-        <p><p></p></p>
-        <DataDummy/>
+      </div>
+      <DataDummy
+        // device="mobile"
+        filter={filter}
+      />
       </div>
 
-
-      <button class="btn-plus">
+      <Link to="/infoProduct">
+        <button className="btn-plus">
             <Icon.Plus/> Jual
         </button>
+      </Link>
     </div>
   )
 }
