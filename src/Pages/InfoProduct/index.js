@@ -39,13 +39,13 @@ const InfoProduct = () => {
           (res) => {
             console.log('res', res)
             // if(res.status === 201){
-              // setMessage("tets")
+              setMessage("tets")
               setIsLoading(false)
-              // setIsNotification(true)
-              // setTimeout(() => {
-              //   setIsNotification(false);
-              //   setMessage('')
-              // }, 1000);
+              setIsNotification(true)
+              setTimeout(() => {
+                setIsNotification(false);
+                setMessage('')
+              }, 1000);
             // }else{
               // setMessage("tets")
               // setIsLoading(false)
@@ -105,9 +105,9 @@ const InfoProduct = () => {
         />
       )}
       { isMobile && (
-        <InfoProductMobile
-          onSubmitMobileInput={onSubmitMobileInput}
-        />
+          <InfoProductMobile
+            onSubmitMobileInput={onSubmitMobileInput}
+          />
       )}
     </>
   )

@@ -10,7 +10,7 @@ import { useMediaQuery } from 'react-responsive';
 import InfoProfile from './Pages/InfoProfile';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions, selectToken } from './Redux/slice/authSlice';
-import DaftarJualDesktop from './Pages/DaftarJual/Dekstop/DaftarJualDesktop';
+import DaftarJual from './Pages/DaftarJual/DaftarJual';
 import InfoPenawar from './Pages/InfoPenawar';
 
 const LayoutsAuth = ({children}) =>{
@@ -57,7 +57,15 @@ function App() {
         element={<LayoutsAuth><ProductPage /></LayoutsAuth>}
       />
       <Route 
+        path='/productPage/:id' 
+        element={<LayoutsAuth><ProductPage /></LayoutsAuth>}
+      />
+      <Route 
         path='/infoProduct' 
+        element={<LayoutsAuth><InfoProduct /></LayoutsAuth>}
+      />
+      <Route 
+        path='/infoProduct/:id' 
         element={<LayoutsAuth><InfoProduct /></LayoutsAuth>}
       />
       <Route
@@ -65,7 +73,7 @@ function App() {
       element={<LayoutsAuth><InfoProfile/></LayoutsAuth>} />
       <Route 
         path='/DaftarJual' 
-        element={<LayoutsAuth><DaftarJualDesktop/> </LayoutsAuth>}
+        element={<LayoutsAuth><DaftarJual/> </LayoutsAuth>}
       />
       <Route 
         path='/infoPenawar' 
