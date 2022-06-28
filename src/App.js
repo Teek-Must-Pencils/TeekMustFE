@@ -9,7 +9,7 @@ import { useMediaQuery } from 'react-responsive';
 import InfoProfile from './Pages/InfoProfile';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions, selectToken } from './Redux/slice/authSlice';
-import DaftarJualDesktop from './Pages/DaftarJual/Dekstop/DaftarJualDesktop';
+import DaftarJualDesktop from './Pages/DaftarJual/Desktop/DaftarJualDesktop';
 
 const LayoutsAuth = ({children}) =>{
   const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'})
