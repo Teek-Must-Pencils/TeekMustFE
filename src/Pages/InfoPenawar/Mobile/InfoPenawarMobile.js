@@ -20,7 +20,7 @@ function MyVerticallyCenteredModal(props) {
             show={show}
             onHide={close}
             animation={false}
-            className="modal"
+            className="modal-mobile-position"
         >
             <Modal.Body >
                 <div className='modal-buyer'>
@@ -86,6 +86,7 @@ function MyVerticallyCenteredModal(props) {
 }
 
 const InfoPenawarMobile = () => {
+
     const [isAccepted, setIsAccepted] = React.useState(true)
 
     const [modalShow, setModalShow] = React.useState(false);

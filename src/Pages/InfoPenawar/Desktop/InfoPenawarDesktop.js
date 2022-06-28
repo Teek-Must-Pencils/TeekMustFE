@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Row, Image, Col, Modal } from 'react-bootstrap'
 import dummyProfile from '../../../Assets/Img/cewe.png'
 import dummyProduct from '../../../Assets/Img/jamkecil.png'
@@ -74,7 +75,7 @@ function MyVerticallyCenteredModal(props) {
 
 
                     <button className='tombol-masuk mt-3 ' >
-                        Hubungi via Whatsapp <Image className='ms-2' src={iconWA}/>
+                        Hubungi via Whatsapp <Image className='ms-2' src={iconWA} />
                     </button>
 
                 </div>
@@ -86,8 +87,8 @@ function MyVerticallyCenteredModal(props) {
 }
 
 const InfoPenawarDesktop = () => {
+    const navigate = useNavigate();
     const [isAccepted, setIsAccepted] = React.useState(true)
-
     const [modalShow, setModalShow] = React.useState(false);
     const [modalStatusShow, setModalStatusShow] = React.useState(false);
 
@@ -109,6 +110,12 @@ const InfoPenawarDesktop = () => {
         setIsAccepted(false)//ganti button
     }
 
+    const handleBack = () =>{
+        navigate('/')
+    }
+
+    
+
     let buttonBox;
     if (isAccepted) {
         buttonBox = (
@@ -124,7 +131,7 @@ const InfoPenawarDesktop = () => {
     } else {
         buttonBox = (
             <>
-                <button className='tombol-tolak me-2 'onClick={handleModalStatusOpen}>
+                <button className='tombol-tolak me-2 ' onClick={handleModalStatusOpen}>
                     Status
                 </button>
                 <button type='button' className='tombol-terima ms-2 ' onClick={handleModalOpen} >
@@ -150,7 +157,7 @@ const InfoPenawarDesktop = () => {
             <Col md={{ span: 5, offset: 3 }}>
                 <Row className='align-content-center'>
                     <div className='col-1'>
-                        <Image src={iconBack} />
+                        <Image src={iconBack} onClick={()=> handleBack()} />
                     </div>
                     <div className='col-11'>
                         <div className="box-action">

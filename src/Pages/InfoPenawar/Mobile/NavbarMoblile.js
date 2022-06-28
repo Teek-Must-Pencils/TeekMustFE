@@ -7,7 +7,7 @@ const NavbarMoblile = () => {
 
 
     const handleBack = () => {
-        navigate('')
+        navigate('/')
     }
     return (
         <>
