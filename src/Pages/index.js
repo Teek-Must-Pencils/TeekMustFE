@@ -6,10 +6,11 @@ import ProductPage from "./ProductPage";
 import InfoProduct from "./InfoProduct";
 import InfoProfile from "./InfoProfile"
 import Notifikasi from "./Notifikasi"
+import MyAccount from "./MyAccount"
 
 export {
     Login, Register, 
     Home, ProductPage, InfoProduct, InfoProfile,
-    Notifikasi,
+    Notifikasi, MyAccount,
     Layouts
 }
