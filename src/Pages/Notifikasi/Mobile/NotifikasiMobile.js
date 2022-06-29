@@ -13,6 +13,10 @@ const NotifikasiMobile = () => {
     // }
   }, [])
   
+  // const handlePenawar = () =>{
+
+  // }
+  
   return (
     <>
       <div className='container py-3' >
@@ -31,6 +35,7 @@ const NotifikasiMobile = () => {
                       <span>Rp. 250.000</span>
                       <span>Ditawar Rp. 200.000</span>              
                     </div>
+                    <div>Lihat tawaran</div>
                   </div>
           )
         })}
