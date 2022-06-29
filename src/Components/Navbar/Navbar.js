@@ -28,8 +28,8 @@ const data = [
 ]
 const user = [
   {
-    title: "Profile",
-    action: "profile",
+    title: "Akun Saya",
+    action: "/akunSaya",
   },
   {
     title: "Logout",
@@ -51,8 +51,13 @@ const MyNavbar = () => {
   }
 
   const handleList =() =>{
-    return navigate("/infoPenawaran")
+    return navigate("/DaftarJual")
   }
+
+  const handleHome =() =>{
+    return navigate("/")
+  }
+
   return (
     <Navbar bg="white" expand="sm"  
       className='shadow-sm p-3 mb-5 bg-body'
@@ -60,7 +65,9 @@ const MyNavbar = () => {
       onToggle={overrideToggle}
     >
         <Container fluid className='px-5'>
-            <Navbar.Brand href="#">
+            <Navbar.Brand
+              onClick={handleHome}
+            >
               <img src={IconNav} alt='Icon' />
             </Navbar.Brand>
           
@@ -124,7 +131,10 @@ export default MyNavbar
 
 const popovernotif = (
   <Popover id="popover-basic">
-    <Popover.Header as="h3">Notification</Popover.Header>
+    <Link to="/notifikasi">
+      <Popover.Header as="h3">Notification</Popover.Header>
+    </Link>
+    
       {
         data.map((value)=>{
           return(

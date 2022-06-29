@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import usePreview from '../../Hooks/usePreview'
 import serviceProduct from '../../Services/ServiceProduct';
-// import { selectUser } from '../../Redux/slice/authSlice'
+import { selectEmail, selectUser } from '../../Redux/slice/authSlice'
 import { Loading, ModalNotification } from '../../Components'
 import InfoProductDesktop from './Dekstop/InfoProductDesktop';
 import InfoProductMobile from './Mobile/InfoProductMobile';
@@ -12,7 +12,8 @@ import InfoProductMobile from './Mobile/InfoProductMobile';
 const InfoProduct = () => {
     let navigate = useNavigate();
     const preview = usePreview();
-    // const user = useSelector(selectUser);
+    const user = useSelector(selectUser);
+    const email = useSelector(selectEmail);
     const [isLoading, setIsLoading] = useState(false)
     const [isNotification, setIsNotification] = useState(false)
     const [message, setMessage] = useState(false);
@@ -31,8 +32,8 @@ const InfoProduct = () => {
           description: value.deskripsi,
           imageFile: value.imageFile,
           // image: value.image,
-          seller: "SellerTiga",
-          city: "New York"
+          seller: user,
+          city: email
         }
         serviceProduct.AddNewData(data).then(
           (res) => {
@@ -104,9 +105,9 @@ const InfoProduct = () => {
         />
       )}
       { isMobile && (
-        <InfoProductMobile
-          onSubmitMobileInput={onSubmitMobileInput}
-        />
+          <InfoProductMobile
+            onSubmitMobileInput={onSubmitMobileInput}
+          />
       )}
     </>
   )

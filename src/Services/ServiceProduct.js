@@ -3,10 +3,33 @@ import axios from 'axios';
 // eslint-disable-next-line react-hooks/rules-of-hooks
 const serviceProduct = {
 
-    async GetAllData(){
+    async GetAllProduct(){
+        const sessionData = sessionStorage.getItem('user')
+        const dt = JSON.parse(sessionData);
+        const token = dt.accessToken
         const data = await axios({
             method: 'get',
             url: process.env.REACT_APP_BASE_URL+'api/product/products',
+            headers:{
+                "Authorization" : `Bearer ${token}`
+            }
+          })
+          .then((response) => response)
+          .catch((err) => err.response)
+       
+          return data
+    },
+
+    async GeProductById(id){
+        const sessionData = sessionStorage.getItem('user')
+        const dt = JSON.parse(sessionData);
+        const token = dt.accessToken
+        const data = await axios({
+            method: 'get',
+            url: process.env.REACT_APP_BASE_URL+`api/product/${id}`,
+            headers:{
+                "Authorization" : `Bearer ${token}`
+            }
           })
           .then((response) => response)
           .catch((err) => err.response)
@@ -15,6 +38,9 @@ const serviceProduct = {
     },
 
     async AddNewData(value){
+        const sessionData = sessionStorage.getItem('user')
+        const dt = JSON.parse(sessionData);
+        const token = dt.accessToken
         let FormData = require('form-data');
         let dataSend = new FormData();
         dataSend.append('productName', value.name);
@@ -28,22 +54,22 @@ const serviceProduct = {
         // dataSend.forEach(element => {
         //     console.log(element)
         // });
-        const sessionData = sessionStorage.getItem('user')
-        const dt = JSON.parse(sessionData);
-        const token = dt.accessToken
-        // const data = await axios({
-        //     method: 'post',
-        //     url: process.env.REACT_APP_BASE_URL+'api/product/',
-        //     data: dataSend,
-        //     headers:{
-        //         "Authorization" : `Bearer ${token}`
-        //     }
-        //   })
-        //   .then((response) => response)
-        //   .catch((err) => err.response)
+
+        // console.log(token)
+        const data = await axios({
+            method: 'post',
+            url: process.env.REACT_APP_BASE_URL+'api/product/',
+            data: dataSend,
+            headers:{
+                "Authorization" : `Bearer ${token}`
+            }
+
+          })
+          .then((response) => response)
+          .catch((err) => err.response)
        
-        //   return data
-          return token
+          return data
+        //   return token
     }
 }
 

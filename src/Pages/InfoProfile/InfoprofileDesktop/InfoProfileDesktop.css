@@ -19,3 +19,15 @@
     top: 20.83%;
     bottom: 20.83%;
 }
+.button-back-content{
+    padding-left: 15%;
+}
+.button-back-content button{
+    background-color: transparent;
+    border: none;
+    border: 50%;
+}
+.button-back-content button:hover{
+    background-color: lightgray;
+    color: blue;
+}

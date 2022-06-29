@@ -1,6 +1,5 @@
 import React from 'react'
-// import dummyJam from '../../../Assets/Img/Property 1=1.png'
-// import dummyJam2 from '../../../Assets/Img/Property 1=2.png'
+import { useNavigate } from 'react-router-dom'
 import dummyJam from '../../../Assets/Img/dummyProduct.png'
 import { Col, Row } from 'react-bootstrap';
 import './Card.css'
@@ -22,6 +21,8 @@ const dataDummy = [
 
 export const DataDummy = (props) => {
   const { filter } = props
+  const navigate = useNavigate();
+
   let data, search;
   if(filter === 0){
     data = dataDummy
@@ -33,6 +34,11 @@ export const DataDummy = (props) => {
     if(filter === 5) { search = "Pencils Warna"}
     data = dataDummy.filter((value) => value.category === search)
   }
+
+  const handleProduct = (id) =>{
+    return navigate(`/productPage/${id}`)
+  }
+
   return (
     <div>
     <Row>
@@ -47,6 +53,14 @@ export const DataDummy = (props) => {
             <span className='card-pi-title'>{item.productName}</span>
             <span className='card-pi-category'>{item.category}</span>
             <span className='card-pi-price'>Rp. {item.price}</span>
+          </div>
+          <div className='card-pi-button'>
+            <button 
+              className='btn-outline-primary rounded-pill px-4'
+              onClick={handleProduct.bind(null, item.id)}
+            >
+              Lihat
+            </button>
           </div>
         </div>
         </Col>
