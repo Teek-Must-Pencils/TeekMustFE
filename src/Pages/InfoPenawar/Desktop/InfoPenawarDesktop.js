@@ -87,8 +87,11 @@ function MyVerticallyCenteredModal(props) {
 }
 
 const InfoPenawarDesktop = () => {
+
     const navigate = useNavigate();
+
     const [isAccepted, setIsAccepted] = React.useState(true)
+    
     const [modalShow, setModalShow] = React.useState(false);
     const [modalStatusShow, setModalStatusShow] = React.useState(false);
 

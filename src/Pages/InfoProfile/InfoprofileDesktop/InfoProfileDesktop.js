@@ -15,19 +15,21 @@ const InfoProfileMobile = () => {
     const onSubmit = data => console.log(data);
 
 
-    const handleBack = () =>{
-        navigate('/')
+
+    const handleBack = () => {
+        navigate(-1)
     }
+
 
     return (
         <div className="info-profile ">
 
             <div className="button-back-content">
-                <button 
+                <button
                     className=''
-                    onClick={()=> handleBack()}
+                    onClick={() => handleBack()}
                 >
-                    <ArrowLeft size='20px'/>
+                    <ArrowLeft size='20px' />
                 </button>
             </div>
 
@@ -39,7 +41,7 @@ const InfoProfileMobile = () => {
                             <Form.Label>Nama*</Form.Label>
                             <Form.Control {...register("Nama")}
                                 size="lg"
-                                type="email"
+                                type="text"
                                 placeholder="Nama" />
                         </Form.Group>
 

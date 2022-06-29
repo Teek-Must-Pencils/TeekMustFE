@@ -16,7 +16,7 @@ const InfoProfileMobile = () => {
 
 
     const handleBack = () =>{
-        navigate('/')
+        navigate(-1)
     }
 
 
@@ -40,7 +40,7 @@ const InfoProfileMobile = () => {
                             <Form.Label>Nama*</Form.Label>
                             <Form.Control {...register("Nama")}
                                 size="lg"
-                                type="email"
+                                type="text"
                                 placeholder="Nama" />
                         </Form.Group>
 
