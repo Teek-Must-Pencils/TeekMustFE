@@ -28,8 +28,8 @@ const data = [
 ]
 const user = [
   {
-    title: "Profile",
-    action: "/infoProfile",
+    title: "Akun Saya",
+    action: "/akunSaya",
   },
   {
     title: "Logout",
@@ -51,7 +51,7 @@ const MyNavbar = () => {
   }
 
   const handleList =() =>{
-    return navigate("/infoPenawar")
+    return navigate("/DaftarJual")
   }
 
   const handleHome =() =>{
