@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import dummyJam from '../../../Assets/Img/dummyProduct.png'
 import { Col, Row } from 'react-bootstrap';
 import './Card.css'
+// import {encode, decode} from 'node-base64-image';
+
+
+// var base64Img = require('base64-img');
 
 export const DataDummy = (props) => {
   const { filter, data } = props
@@ -37,6 +41,19 @@ export const DataDummy = (props) => {
     )
     return res
   } 
+  
+  // const convertIMG = async(data) => {
+  //   // const url = 'https://example.com/test.jpg';
+  //   const options = {
+  //     string: true,
+  //     headers: {
+  //       "User-Agent": "my-app"
+  //     }
+  //   };
+  //   const image = await decode(data, options);
+  //   console.log(image)
+  //   // return 
+  // }
 
   return (
     <div>
@@ -46,10 +63,11 @@ export const DataDummy = (props) => {
         <Col className='p-3' lg={2} md={2} xs={6} key={idx}>
         <div className='card-product'>
           <div>
-            <img className='card-img' src={item.imgB || dummyJam} alt="" />
+            {/* <img className='card-img' src={item.imgB || dummyJam} alt="" /> */}
+            <img className='card-img' src={`data:image/png;base64,${item.imgB}`} alt="" />
           </div>
           <div className='card-product-info'>
-            <span className='card-pi-title'>{item.name}</span>
+            <span className='card-pi-title text-truncate'>{item.name}</span>
             <span className='card-pi-category'>{categories(item.categories)}</span>
             <span className='card-pi-price'>Rp. {item.price}</span>
           </div>
