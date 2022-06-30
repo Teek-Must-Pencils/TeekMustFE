@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 import dummy from '../../../Assets/Img/dummyProduct.png';
 import '../Notifikasi.css'
 
-const data = [1,1,1,1]
+const data = [1,2,3,4]
 const NotifikasiDesktop = () => {
-
+  const navigate = useNavigate()
   useEffect(() => {
     
   
@@ -13,10 +14,15 @@ const NotifikasiDesktop = () => {
     // }
   }, [])
   
+  const handlePenawar = (id) =>{
+    // return navigate(`/infoPenawar/${id}`) 
+    return navigate(`/infoPenawar`) 
+  }
+
   return (
     <>
       <div className='container py-3' >
-        {data.map((v, i)=>{
+        {data.map((value, i)=>{
           return(
                 <div className='dn-card' key={i}>
                     <div className='dn-content-image'>
@@ -29,7 +35,15 @@ const NotifikasiDesktop = () => {
                       </div>
                       <span>Jam Tangan</span>
                       <span>Rp. 250.000</span>
-                      <span>Ditawar Rp. 200.000</span>              
+                      <span>Ditawar Rp. 200.000</span>    
+                      <div className='dn-content-button'>
+                        <button
+                          className='btn-outline-primary'
+                          onClick={handlePenawar.bind(null, value)}
+                        >
+                          Lihat tawaran
+                        </button>
+                      </div>          
                     </div>
                   </div>
           )

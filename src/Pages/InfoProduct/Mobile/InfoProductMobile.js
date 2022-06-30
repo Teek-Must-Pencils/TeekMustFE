@@ -32,7 +32,7 @@ const InfoProductMobile = (props) => {
   }
   
   const handleBack = () =>{
-    navigate('/')
+    navigate(-1)
   }
 
   return (
@@ -89,8 +89,8 @@ const InfoProductMobile = (props) => {
                       // required
                   >
                       <option value="" disabled>Pilih Kategori</option>
-                      <option className="color-black" value="1" >1</option>
-                      <option className="color-black" value="2" >2</option>
+                      <option className="color-black" value="PENCIL_2B" >Pencils 2B</option>
+                      <option className="color-black" value="COLOR_PENCIL_8" >Pencils Color</option>
                       <option className="color-black" value="3" >3</option>
                       <option className="color-black" value="4" >4</option>
                   </select>}
@@ -111,7 +111,7 @@ const InfoProductMobile = (props) => {
               <div className='ipm-body-inputImage'>
                 <input 
                     type="file"
-                    accept="image/*"
+                    accept="image/png"
                     onChange={(e) => handleInputImage(e)}
                     // required={dataPreview.image ? false: true}
                 />
@@ -136,7 +136,7 @@ const InfoProductMobile = (props) => {
                 type='submit'
                 className='ip-button-send'
                 onClick={
-                    () => setValue('button', 'preview')
+                    () => setValue('button', 'submit')
                 }
                 {...register('button')}
               >

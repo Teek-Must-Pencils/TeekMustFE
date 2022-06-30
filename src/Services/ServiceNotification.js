@@ -16,6 +16,7 @@ const serviceNotification = {
         })
         .then((response => response))
         .catch((err) => err.response)
+        return data
     }
   
 }

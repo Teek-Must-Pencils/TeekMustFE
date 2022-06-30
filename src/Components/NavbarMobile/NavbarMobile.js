@@ -79,7 +79,7 @@ const NavbarMobile = (props) => {
                     </div>
                 </Link>
                 <Link
-                    to='/notifikasi'
+                    to='/DaftarJual'
                     className='menu'
                 >
                     <div >
@@ -87,7 +87,7 @@ const NavbarMobile = (props) => {
                     </div>
                 </Link>
                 <Link
-                    to='/infoProfile'
+                    to='/akunSaya'
                     className='menu'
                 >
                     <div >

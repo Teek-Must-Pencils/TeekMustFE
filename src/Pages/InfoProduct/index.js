@@ -38,27 +38,29 @@ const InfoProduct = () => {
         serviceProduct.AddNewData(data).then(
           (res) => {
             console.log('res', res)
-            // if(res.status === 201){
-              setMessage("tets")
+            if(res.status === 201){
+              setMessage(res.data)
+              setIsLoading(false)
+              setIsNotification(true)
+              setTimeout(() => {
+                setIsNotification(false);
+                setMessage('')  
+                navigate('/')
+              }, 1000);
+            
+            }else{
+              setMessage("Gagal Input")
               setIsLoading(false)
               setIsNotification(true)
               setTimeout(() => {
                 setIsNotification(false);
                 setMessage('')
               }, 1000);
-            // }else{
-              // setMessage("tets")
-              // setIsLoading(false)
-              // setIsNotification(true)
-              // setTimeout(() => {
-              //   setIsNotification(false);
-              //   setMessage('')
-              // }, 1000);
-          // }
+          }
             console.log("res", res)
           }
         )
-        console.log("desktopValueInput", data);
+        // console.log("desktopValueInput", data);
       }else{
         const data ={
           name: value.nama,
@@ -76,7 +78,42 @@ const InfoProduct = () => {
     // Mobile
     const onSubmitMobileInput = (value) =>{
       if(value.button === 'submit'){  
-        console.log("MobileValueInput", value);
+        setIsLoading(true);
+        const data ={
+          name: value.nama,
+          price: value.harga,
+          category: [value.kategori],
+          description: value.deskripsi,
+          imageFile: value.imageFile,
+          // image: value.image,
+          seller: user,
+          city: email
+        }
+        serviceProduct.AddNewData(data).then(
+          (res) => {
+            // console.log('res', res)
+            if(res.status === 201){
+              setMessage(res.data)
+              setIsLoading(false)
+              setIsNotification(true)
+              setTimeout(() => {
+                setIsNotification(false);
+                setMessage('')  
+                navigate('/')
+              }, 1000);
+            
+            }else{
+              setMessage(res.data.error)
+              setIsLoading(false)
+              setIsNotification(true)
+              setTimeout(() => {
+                setIsNotification(false);
+                setMessage('')
+              }, 1000);
+          }
+            // console.log("res", res)
+          }
+        )
       }else{
         const data ={
           name: value.nama,

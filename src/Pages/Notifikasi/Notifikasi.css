@@ -31,6 +31,10 @@
 .dn-content-info span{
     font-size: 1.5em;
 }
+.dn-content-button{
+    display: flex;
+    justify-content: center;
+}
 /* mobile */
 .mn-card{
     display: flex;
