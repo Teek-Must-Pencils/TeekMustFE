@@ -111,7 +111,7 @@ const InfoProductMobile = (props) => {
               <div className='ipm-body-inputImage'>
                 <input 
                     type="file"
-                    accept="image/*"
+                    accept="image/png"
                     onChange={(e) => handleInputImage(e)}
                     // required={dataPreview.image ? false: true}
                 />
