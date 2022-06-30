@@ -13,6 +13,7 @@ import './HomeMobile.css'
 import "swiper/css";
 
 const HomeMobile = (props) => {
+  const { data } = props;
   const role = useSelector(selectRole)
   const [filter, setFilter] = useState(0);
 
@@ -58,7 +59,7 @@ const HomeMobile = (props) => {
           className="btn-filter-mobile"
           onClick={() => setFilter(2)}
         >
-            <Icon.Search className='icon-mobile'/> Pencil 3B
+            <Icon.Search className='icon-mobile'/> Pencil Warna
         </button>
         <button 
           className="btn-filter-mobile"
@@ -82,10 +83,11 @@ const HomeMobile = (props) => {
       <DataDummy
         // device="mobile"
         filter={filter}
+        data={data}
       />
       </div>
 
-      {role === 'seller' && (
+      {role.includes('seller') && (
          <Link to="/infoProduct">
           <button className="btn-plus">
               <Icon.Plus/> Jual

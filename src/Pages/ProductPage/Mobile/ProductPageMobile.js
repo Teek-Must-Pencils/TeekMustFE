@@ -26,7 +26,7 @@ const ProductPageMobile = (props) => {
   const dataPreview = usePreview();
 
   let buttonAction;
-  if(role === "seller"){
+  if(role.includes("seller")){
     buttonAction = (
     <button 
       className='button-float-send'

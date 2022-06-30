@@ -46,7 +46,7 @@ const ProductPageDesktop = (props) => {
     }
 
     let buttonBox;
-    if(role === 'seller'){
+    if(role.includes('seller')){
         buttonBox = 
         <>
             <button 
