@@ -12,6 +12,7 @@ import "swiper/css";
 import 'swiper/css/pagination';
 
 const HomeDekstop = (props) => {
+  const { data } = props;
   const { role } = props;
   const [filter, setFilter] = useState(0);
   return (
@@ -62,7 +63,7 @@ const HomeDekstop = (props) => {
           className="btn-filter"
           onClick={() => setFilter(2)}
         >
-            <Icon.Search/> <span>Pencil 3B</span>
+            <Icon.Search/> <span>Pencil Warna</span>
         </button>
 
         <button 
@@ -164,10 +165,11 @@ const HomeDekstop = (props) => {
 
       <DataDummy 
         filter={filter}
+        data={data}
       />
       </div>
 
-      {role.toLowerCase() === 'seller' && (
+      {role.includes('seller') && (
           <Link to="/infoProduct">
             <button className="btn-plus">
                 <Icon.Plus/> Jual
