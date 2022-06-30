@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Form } from 'react-bootstrap'
+import { Container, Row, Col, Form, Carousel, Image } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../Redux/action/authAction';
-import {  selectStatus, selectMessage, selectAuth } from '../../../Redux/slice/authSlice';
+import { selectStatus, selectMessage, selectAuth } from '../../../Redux/slice/authSlice';
 import { LoadingRedux, ModalNotificationRedux } from '../../../Components';
 import "./Login.css"
 
@@ -28,7 +28,7 @@ const Login = () => {
   // }
 
   const onSubmit = data => {
-    const dataSend ={
+    const dataSend = {
       username: data.username,
       password: data.password
     }
@@ -36,30 +36,61 @@ const Login = () => {
   }
 
   useEffect(() => {
-    if(statusSelect === "reject"){
+    if (statusSelect === "reject") {
       setShow(true);
       setTimeout(() => {
         setShow(false)
       }, 1000);
-    } 
-    if(statusSelect === "success" && auth){
+    }
+    if (statusSelect === "success" && auth) {
       setShow(true);
       setTimeout(() => {
         setShow(false)
         navigate('/')
       }, 1000);
-    } 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusSelect])
-  
+
 
   return (
-    <div>
-      {show && <ModalNotificationRedux message={message}/>}
+    <div className='img-background'>
+      {show && <ModalNotificationRedux message={message} />}
       {statusSelect === "pending" && <LoadingRedux flag={statusSelect} />}
       <Container fluid>
         <Row>
-          <Col md={6} className='image-login'>
+          <Col md={6} className='' >
+            <Carousel fade>
+              <Carousel.Item>
+                <Image
+                  className="slide-satu d-block w-100 "
+                />
+                <Carousel.Caption>
+                  <h3>First slide label</h3>
+                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+              <Carousel.Item>
+                <Image
+                  className="slide-dua d-block w-100"
+                />
+                <Carousel.Caption>
+                  <h3>Second slide label</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+              <Carousel.Item>
+                <Image
+                  className="slide-tiga d-block w-100"
+                  alt=""
+                />
+
+                <Carousel.Caption>
+                  <h3>Third slide label</h3>
+                  <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+            </Carousel>
           </Col>
 
           <Col md={6} className='box-login'>
@@ -83,9 +114,9 @@ const Login = () => {
                       type="password"
                       placeholder="Masukkan password" />
                   </Form.Group>
-                  <button 
+                  <button
                     type='submit'
-                    className='tombol-masuk' 
+                    className='tombol-masuk'
                   >
                     Masuk
                   </button>

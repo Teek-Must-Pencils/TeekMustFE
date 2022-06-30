@@ -1,7 +1,31 @@
 
-.image-login{
+.slide-satu{
     height: 100vh;
     background-image: url(../../../Assets/Img/img_logreg.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.slide-dua{
+    height: 100vh;
+    background-image: url(../../../Assets/Img/slideDua.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.slide-tiga{
+    height: 100vh;
+    background-image: url(../../../Assets/Img/slideTiga.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.img-background {
+    background-image: url(../../../Assets/Img/background.jpg);
+    height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
