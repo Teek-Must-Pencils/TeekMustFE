@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import {
-  Home, Layouts, ProductPage, InfoProduct, Login, Notifikasi
+  Home, Layouts, ProductPage, InfoProduct, Login, Notifikasi, MyAccount
 } from './Pages';
 import './App.css';
 import Register from './Pages/Register';
@@ -52,6 +52,7 @@ function App() {
         path='/' 
         element={<LayoutsAuth><Home/></LayoutsAuth>}
       />
+       {/* productPage */}
       <Route 
         path='/productPage' 
         element={<LayoutsAuth><ProductPage /></LayoutsAuth>}
@@ -60,6 +61,7 @@ function App() {
         path='/productPage/:id' 
         element={<LayoutsAuth><ProductPage /></LayoutsAuth>}
       />
+      {/* infoProduct */}
       <Route 
         path='/infoProduct' 
         element={<LayoutsAuth><InfoProduct /></LayoutsAuth>}
@@ -69,8 +71,8 @@ function App() {
         element={<LayoutsAuth><InfoProduct /></LayoutsAuth>}
       />
       <Route
-      path='/infoProfile'
-      element={<LayoutsAuth><InfoProfile/></LayoutsAuth>} />
+        path='/infoProfile'
+        element={<LayoutsAuth><InfoProfile/></LayoutsAuth>} />
       <Route 
         path='/DaftarJual' 
         element={<LayoutsAuth><DaftarJual/> </LayoutsAuth>}
@@ -82,6 +84,10 @@ function App() {
       <Route 
         path='/notifikasi' 
         element={<LayoutsAuth><Notifikasi/> </LayoutsAuth>}
+      />
+      <Route 
+        path='/akunSaya' 
+        element={<LayoutsAuth><MyAccount/> </LayoutsAuth>}
       />
     </Routes>
   );

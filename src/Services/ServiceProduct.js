@@ -11,7 +11,8 @@ const serviceProduct = {
             method: 'get',
             url: process.env.REACT_APP_BASE_URL+'api/product/products',
             headers:{
-                "Authorization" : `Bearer ${token}`
+                "Authorization" : `Bearer ${token}`,
+                'Content-Type': 'application/json'
             }
           })
           .then((response) => response)
@@ -43,7 +44,7 @@ const serviceProduct = {
         const token = dt.accessToken
         let FormData = require('form-data');
         let dataSend = new FormData();
-        dataSend.append('productName', value.name);
+        dataSend.append('name', value.name);
         dataSend.append('categories', value.category);
         dataSend.append('price', value.price);
         dataSend.append('description', value.description);
@@ -69,7 +70,6 @@ const serviceProduct = {
           .catch((err) => err.response)
        
           return data
-        //   return token
     }
 }
 
