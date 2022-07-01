@@ -35,7 +35,7 @@ const PreviewProvider = ({children}) => {
         price: previewState.price,
         category: previewState.category,
         description: previewState.description,
-        imageFilr: previewState.imageFile,
+        imageFile: previewState.imageFile,
         image: previewState.image,
         setPreview: handlSetPreview
     }

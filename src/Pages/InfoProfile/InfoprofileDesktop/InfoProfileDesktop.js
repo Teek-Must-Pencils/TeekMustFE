@@ -1,32 +1,40 @@
 import React from "react"
 import { Form, Row, Image, } from "react-bootstrap"
 import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'react-feather';
 import "./InfoProfileDesktop.css"
 
 // Gambar
 import Kamera from "../../../Assets/Img/Group 1.png"
-import iconBack from "../../../Assets/Img/fi_arrow-left.png"
 
 
 const InfoProfileMobile = () => {
-
+    const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
     const onSubmit = data => console.log(data);
 
 
-
+    const handleBack = () =>{
+        navigate('/')
+    }
 
     return (
         <div className="info-profile ">
 
-            <div>
-                <Image className="icon-back" src={iconBack} />
-                <Image className="mx-auto d-block mb-3" src={Kamera} />
+            <div className="button-back-content">
+                <button 
+                    className=''
+                    onClick={()=> handleBack()}
+                >
+                    <ArrowLeft size='20px'/>
+                </button>
             </div>
 
             <Row className=" form-profile justify-content-center align-items-center h-100">
                 <div className="col-6">
                     <Form onSubmit={handleSubmit(onSubmit)} className={'form-login'} >
+                        <Image className="mx-auto d-block mb-3" src={Kamera} />
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>Nama*</Form.Label>
                             <Form.Control {...register("Nama")}
