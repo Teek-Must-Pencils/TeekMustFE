@@ -57,7 +57,7 @@ const Login = () => {
     <div className='img-background'>
       {show && <ModalNotificationRedux message={message} />}
       {statusSelect === "pending" && <LoadingRedux flag={statusSelect} />}
-      <Container fluid>
+      <Container className="p-0" fluid>
         <Row>
           <Col md={6} className='' >
             <Carousel fade>
