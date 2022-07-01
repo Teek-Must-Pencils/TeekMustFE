@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { 
-    registerAdmin, registerUser, loginAdmin, loginUser,
+    login
 } from "../action/authAction";
 
 const initialState = {
     isLoggedIn: false,
     user: '',
+    email: '',
     token:'',
     showMessage: false,
     status:'',
@@ -20,14 +21,21 @@ const authSlice = createSlice({
     reducers: {
         logout(state) {
             state.isLoggedIn = false;
+            state.token = ''
+            state.role = ''
+            state.user = ''
+            state.email = ''
             sessionStorage.removeItem('user')
         },
         setToken(state, action){
-            const userData = JSON.parse(action.payload)
-            state.token = userData?.access_token
-            state.role = userData?.role
-            state.user = userData?.email
-            state.isLoggedIn = true
+            if(state.token === ''){
+                state.token = action.payload?.accessToken
+                state.role = action.payload?.roles
+                state.user = action.payload?.username
+                state.email = action.payload?.email
+                state.isLoggedIn = true
+            }
+            
         },
         setOffShowMessage(state){
             state.showMessage = false
@@ -37,51 +45,42 @@ const authSlice = createSlice({
         }
     },
     extraReducers(builder) {
-        // regis
-        builder.addCase(registerAdmin.pending, (state, action) => {
-            state.status = 'pending'
-        })
-        builder.addCase(registerAdmin.fulfilled, (state, action) => {
-            state.showMessage = true
-            state.message = "Register Success"
-            state.status = 'success'
-        })
-        builder.addCase(registerAdmin.rejected, (state, action) => {
-            state.status = 'reject'
-            state.showMessage = true
-            state.message = "Register Failed"
-        })
         //login
-        builder.addCase(loginAdmin.pending, (state, action) => {
+        builder.addCase(login.pending, (state, action) => {
             state.status = 'pending'
         })
-        builder.addCase(loginAdmin.fulfilled, (state, action) => {
-            if (action.payload?.access_token) {      
+        builder.addCase(login.fulfilled, (state, action) => {
+            // state.test = action.payload
+            if (action.payload?.accessToken) {      
                 state.isLoggedIn = true
                 state.showMessage = true
+                state.token = action.payload?.accessToken
                 sessionStorage.setItem('user', JSON.stringify(action.payload))
-                state.role = action.payload?.role
-                state.user = action.payload?.email
+                state.role = action.payload?.roles
+                state.user = action.payload?.username
+                state.email = action.payload?.email
                 state.message = "Login Success"
                 state.status = 'success'
             }
         })
-        builder.addCase(loginAdmin.rejected, (state, action) => {
+        builder.addCase(login.rejected, (state, action) => {
+            // state.test = action.error.message
             state.status = 'reject'
             state.showMessage = true
-            state.message = "Login Failed"
+            state.message = action.error.message
         })
     }
 })
 
+export const selectTest = (state) => state.auth.test;
+// export const selectShowMessage = (state) => state.auth.showMessage;
 export const selectAuth = (state) => state.auth.isLoggedIn;
-export const selectRegister = (state) => state.auth.register;
-export const selectShowMessage = (state) => state.auth.showMessage;
 export const selectMessage = (state) => state.auth.message;
 export const selectStatus = (state) => state.auth.status;
-export const selectTest = (state) => state.auth.test;
 export const selectRole = (state) => state.auth.role;
 export const selectToken = (state) => state.auth.token;
+export const selectEmail = (state) => state.auth.email;
+export const selectUser = (state) => state.auth.user;
 export const authActions = authSlice.actions;
 
 export default authSlice.reducer

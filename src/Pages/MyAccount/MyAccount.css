@@ -1,0 +1,28 @@
+/* mobile */
+.mma-container{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+}
+.mma-image-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mma-img-user{
+    width: 200px;
+}
+.mma-content-button{
+    display: flex;
+    flex-direction: column;
+    padding: 10%;
+    gap: 25px;
+}
+.mma-button{
+    padding: 3% ;
+    box-shadow: 0px 1px 0px 0px rgba(63, 68, 71, 0.5);
+}
+.mma-button:hover{
+    background-color: lightgray;
+}
