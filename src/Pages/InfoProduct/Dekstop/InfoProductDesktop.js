@@ -111,7 +111,7 @@ const InfoProductDesktop = (props) => {
                             <div className='input-image'>
                                 <input
                                     type="file"
-                                    accept="image/*"
+                                    accept="image/png"
                                     onChange={(e) => handleInputImage(e)}
                                     // required={dataPreview.image ? false: true}
                                 />

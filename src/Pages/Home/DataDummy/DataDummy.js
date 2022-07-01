@@ -37,7 +37,7 @@ export const DataDummy = (props) => {
     )
     return res
   } 
-
+  
   return (
     <div>
     <Row>
@@ -46,10 +46,10 @@ export const DataDummy = (props) => {
         <Col className='p-3' lg={2} md={2} xs={6} key={idx}>
         <div className='card-product'>
           <div>
-            <img className='card-img' src={item.imgB || dummyJam} alt="" />
+            <img className='card-img' src={`data:image/png;base64,${item.imgB}` || dummyJam} alt="" />
           </div>
           <div className='card-product-info'>
-            <span className='card-pi-title'>{item.name}</span>
+            <span className='card-pi-title text-truncate'>{item.name}</span>
             <span className='card-pi-category'>{categories(item.categories)}</span>
             <span className='card-pi-price'>Rp. {item.price}</span>
           </div>
