@@ -9,6 +9,7 @@ const InfoProductDesktop = (props) => {
     const {
         onSubmitSellerInput,
         // handlePreview
+        category
     } = props;
     let navigate = useNavigate();
     const dataPreview = usePreview();
@@ -34,6 +35,15 @@ const InfoProductDesktop = (props) => {
 
     const handleBack = () =>{
         navigate(-1)
+    }
+
+    const handleCategories = (id) =>{
+        let result;
+        if (id === 1) { result = "Pencil 2B"}
+        else if(id === 2){ result = "Color Pencil 12"}
+        else if(id === 3){ result = "Color Pencil 24"}
+        else if(id === 4){ result = "Color Pencil 8"}
+        return result;
     }
 
   return (
@@ -89,10 +99,17 @@ const InfoProductDesktop = (props) => {
                                     // required
                                 >
                                     <option value="" disabled>Pilih Kategori</option>
-                                    <option className="color-black" value="PENCIL_2B" >Pencils 2B</option>
-                                    <option className="color-black" value="COLOR_PENCIL_8" >Pencils Color</option>
-                                    <option className="color-black" value="3" >3</option>
-                                    <option className="color-black" value="4" >4</option>
+                                    {category?.map((value, i) =>{
+                                        return (
+                                                <option 
+                                                    key={i}
+                                                    className="color-black" 
+                                                    value={value.categories}
+                                                >
+                                                   {handleCategories(value.id)}
+                                                </option>
+                                        )})
+                                    }
                                 </select>}
                             />
                         </div>

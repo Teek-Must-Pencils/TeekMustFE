@@ -6,44 +6,53 @@ import { useSelector } from 'react-redux'
 import { selectRole } from '../../Redux/slice/authSlice';
 import { Loading, NavbarMobile } from '../../Components';
 import serviceProduct from '../../Services/ServiceProduct';
+import serviceCategory from '../../Services/ServiceCategory';
+
 
 const Home = () => {
   const [isLoading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
+  const [product, setProduct] = useState([]);
+  const [category, setCategory] = useState([]);
   const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'});
   const isMobile = useMediaQuery({query: '(max-width: 426px)'});
   const role = useSelector(selectRole);
   
   useEffect(() => {
     setLoading(true);
-    serviceProduct.GetAllProduct()
-    .then((res) =>{
-      // console.log(res)
-      if(res.status === 200){
-        setData(res.data);
-        setLoading(false)
-      }else{
-        setLoading(false)
-      }
+    Promise.allSettled([
+      serviceProduct.GetAllProduct(), 
+      serviceCategory.getAllCategory()
+    ]).then(([product, category]) => {
+      setProduct(product.value.data);
+      setCategory(category.value.data)
+      setLoading(false)
+    }).catch((err) => {
+      console.log(err.message)
+      setLoading(false)
     })
-  
     // return () => {
     //   second
     // }
   }, [])
-  
-//   const handleIsLoading = () =>{
-//     setLoading((prev) => !prev)
-//   }
 
   return (
     <>
       <Loading show={isLoading} />
-      {isDesktopOrLaptop && (<HomeDesktop role={role} data={data} />)}
+      {isDesktopOrLaptop && (
+        <HomeDesktop 
+          role={role} 
+          data={product} 
+          category={category}
+        />
+      )}
       {isMobile && (
         <>      
           <NavbarMobile />
-          <HomeMobile role={role} data={data} />
+          <HomeMobile 
+            role={role} 
+            data={product}
+            category={category}
+          />
         </>
       )}
     </>

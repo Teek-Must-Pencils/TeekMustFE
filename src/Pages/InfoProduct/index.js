@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -8,6 +8,7 @@ import { selectEmail, selectUser } from '../../Redux/slice/authSlice'
 import { Loading, ModalNotification } from '../../Components'
 import InfoProductDesktop from './Dekstop/InfoProductDesktop';
 import InfoProductMobile from './Mobile/InfoProductMobile';
+import ServiceCategory from '../../Services/ServiceCategory';
 
 const InfoProduct = () => {
     let navigate = useNavigate();
@@ -17,10 +18,10 @@ const InfoProduct = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [isNotification, setIsNotification] = useState(false)
     const [message, setMessage] = useState(false);
+    const [category, setCategory] = useState([]);
     const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'});
     const isMobile = useMediaQuery({query: '(max-width: 426px)'});
-    
-    // console.log('user', user)
+
     // Desktop
     const onSubmitSellerInput = (value) =>{
       if(value.button === 'submit'){  
@@ -132,6 +133,26 @@ const InfoProduct = () => {
     setIsNotification(false);
   }
     // console.log('preview', preview.image)
+
+
+    useEffect(() => {
+      setIsLoading(true);
+      ServiceCategory.getAllCategory()
+      .then((res) => {
+        if(res.status === 200){
+          setCategory(res.data);
+          setIsLoading(false);
+        }else{
+          console.log(res)
+          setIsLoading(false)
+        }
+      })
+    
+      // return () => {
+      //   second
+      // }
+    }, [])
+    
   return (
     <>
      <ModalNotification show={isNotification} close={handleIsNotification} message={message}/>
@@ -139,11 +160,13 @@ const InfoProduct = () => {
       { isDesktopOrLaptop &&  (
         <InfoProductDesktop 
           onSubmitSellerInput={onSubmitSellerInput}
+          category={category}
         />
       )}
       { isMobile && (
           <InfoProductMobile
             onSubmitMobileInput={onSubmitMobileInput}
+            category={category}
           />
       )}
     </>
