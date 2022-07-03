@@ -12,9 +12,18 @@ import "swiper/css";
 import 'swiper/css/pagination';
 
 const HomeDekstop = (props) => {
-  const { data } = props;
-  const { role } = props;
-  const [filter, setFilter] = useState(0);
+  const { data , role, category } = props;
+  const [filter, setFilter] = useState('');
+
+  const handleCategories = (id) =>{
+    let result;
+    if (id === 1) { result = "Pencil 2B"}
+    else if(id === 3){ result = "Color Pencil 12"}
+    else if(id === 4){ result = "Color Pencil 24"}
+    else if(id === 2){ result = "Color Pencil 8"}
+    return result;
+  }
+
   return (
     <div className=''>
       <Swiper
@@ -47,43 +56,25 @@ const HomeDekstop = (props) => {
       <div className="container-sm">
       <p><b>Telusuri Kategori</b></p>
       <div className='content-filter'>
-         <button 
+        <button 
           className="btn-filter"
-          onClick={() => setFilter(0)}
-          >
+          onClick={() => setFilter('')}
+        >
             <Icon.Search/> <span>Semua</span>
         </button>
-        <button
-          className="btn-filter"
-          onClick={() => setFilter(1)}
-        >
-            <Icon.Search/> <span>Pencil 2B</span>
-        </button>
-        <button 
-          className="btn-filter"
-          onClick={() => setFilter(2)}
-        >
-            <Icon.Search/> <span>Pencil Warna</span>
-        </button>
-
-        <button 
-          className="btn-filter"
-          onClick={() => setFilter(3)}
-        >
-            <Icon.Search/> <span>Pencil 4B</span>
-        </button>
-        <button 
-          className="btn-filter"
-          onClick={() => setFilter(4)}
-        >
-            <Icon.Search/> <span>Pencil 5B</span>
-        </button>
-        <button 
-          className="btn-filter"
-          onClick={() => setFilter(5)}
-        >
-            <Icon.Search/> <span>Pencil Warna</span>
-        </button>
+          {category.length > 1 && category?.map((value)=>{
+              return(
+                <button 
+                  key={value.id}
+                  className="btn-filter"
+                  onClick={() => setFilter(value.categories)}
+                >
+                    <Icon.Search/> 
+                    <span>{handleCategories(value.id)}</span>
+                </button>
+              )
+            })
+          }
       </div>
        
 
