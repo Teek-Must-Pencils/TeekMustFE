@@ -4,8 +4,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import slide2 from '../../../Assets/Img/Group 9.png'
 import * as Icon from 'react-feather';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectRole } from '../../../Redux/slice/authSlice';
 import { DataDummy } from '../DataDummy/DataDummy'
 import './HomeMobile.css'
 
@@ -13,9 +11,17 @@ import './HomeMobile.css'
 import "swiper/css";
 
 const HomeMobile = (props) => {
-  const { data } = props;
-  const role = useSelector(selectRole)
-  const [filter, setFilter] = useState(0);
+  const { data, role, category } = props;
+  const [filter, setFilter] = useState('');
+
+  const handleCategories = (id) =>{
+    let result;
+    if (id === 1) { result = "Pencil 2B"}
+    else if(id === 3){ result = "Color Pencil 12"}
+    else if(id === 4){ result = "Color Pencil 24"}
+    else if(id === 2){ result = "Color Pencil 8"}
+    return result;
+  }
 
   return (
     <div>
@@ -45,46 +51,29 @@ const HomeMobile = (props) => {
       <div className='content-filter-mobile'>
         <button 
           className="btn-filter-mobile"
-          onClick={() => setFilter(0)}
+          onClick={() => setFilter('')}
          >
             <Icon.Search className='icon-mobile'/> Semua
         </button>
-        <button 
-          className="btn-filter-mobile"
-          onClick={() => setFilter(1)}
-        >
-            <Icon.Search className='icon-mobile'/> Pencil 2B
-        </button>
-        <button 
-          className="btn-filter-mobile"
-          onClick={() => setFilter(2)}
-        >
-            <Icon.Search className='icon-mobile'/> Pencil Warna
-        </button>
-        <button 
-          className="btn-filter-mobile"
-          onClick={() => setFilter(3)}
-        >
-            <Icon.Search className='icon-mobile'/> Pencil 4B
-        </button>
-        <button 
-          className="btn-filter-mobile"
-          onClick={() => setFilter(4)}
-        >
-            <Icon.Search className='icon-mobile'/> Pencil 5B
-        </button>
-        <button 
-          className="btn-filter-mobile"
-          onClick={() => setFilter(5)}
-        >
-            <Icon.Search className='icon-mobile'/> Pencil Warna
-        </button>
+        {category.length > 1 && category?.map((value)=>{
+              return(
+                <button 
+                  key={value.id}
+                  className="btn-filter-mobile"
+                  onClick={() => setFilter(value.categories)}
+                >
+                    <Icon.Search/> 
+                    <span>{handleCategories(value.id)}</span>
+                </button>
+              )
+          }) 
+         }
       </div>
-      <DataDummy
-        // device="mobile"
-        filter={filter}
-        data={data}
-      />
+          <DataDummy
+          // device="mobile"
+          filter={filter}
+          data={data}
+        />    
       </div>
 
       {role.includes('seller') && (

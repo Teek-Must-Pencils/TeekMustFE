@@ -20,24 +20,28 @@
 }
 .box{
     /* Frame 150 */
-
     box-sizing: border-box;
-
     /* Auto layout */
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 8px 8px 16px;
-    gap: 8px;
-
-    width: 206.67px;
-    height: 198px;
-
+    width: 100%;
     background: #FFFFFF;
     /* Neutral/02 */
-
     border: 1px dashed #D0D0D0;
     border-radius: 4px;
+}
+.btn-dt{
+    width: auto !important;
+    height: 6vh !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+.btn-dt span{
+    font-size: 2vw !important;
 }

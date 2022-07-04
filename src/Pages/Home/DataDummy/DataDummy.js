@@ -8,16 +8,13 @@ export const DataDummy = (props) => {
   const { filter, data } = props
   const navigate = useNavigate();
 
-  let dataView, search;
-  if(filter === 0){
+  let dataView;
+  if(filter === ''){
     dataView = data
   }else{
-    if(filter === 1) { search = "PENCIL_2B"}
-    if(filter === 2) { search = "COLOR_PENCIL_8"}
-    if(filter === 3) { search = "Pencils 4B"}
-    if(filter === 4) { search = "Pencils 5B"}
-    if(filter === 5) { search = "Pencils Warna"}
-    dataView = data.filter((value) => value.categories.includes(search))
+    dataView = data.filter((value) => 
+      value.categories.includes(filter?.toUpperCase())
+    )
   }
 
   const handleProduct = (id) =>{
@@ -43,7 +40,7 @@ export const DataDummy = (props) => {
     <Row>
     {dataView.length < 1 && (<div className='text-center p-5'>Data Kosong</div>)}
     {dataView.length > 1 && dataView.map((item, idx) => (
-        <Col className='p-3' lg={2} md={2} xs={6} key={idx}>
+        <Col className='p-3' lg={3} md={3} xs={6} key={idx}>
         <div className='card-product'>
           <div>
             <img className='card-img' src={`data:image/png;base64,${item.imgB}` || dummyJam} alt="" />
