@@ -141,14 +141,12 @@ const RegisterDesktop = () => {
                                     <Form.Group className="mb-3" controlId="Name">
                                         <Form.Label>Nama*</Form.Label>
                                         <Form.Control {...register("Nama")}
-                                            size="lg"
                                             type="text"
                                             placeholder="Nama Lengkap" />
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="Email">
                                         <Form.Label>Email*</Form.Label>
                                         <Form.Control {...register("Email")}
-                                            size="lg"
                                             // type="email"
                                             type="text"
                                             placeholder="Contoh: johndee@gmail.com" />
@@ -156,21 +154,18 @@ const RegisterDesktop = () => {
                                     <Form.Group className="mb-3" controlId="Password">
                                         <Form.Label>Password*</Form.Label>
                                         <Form.Control {...register("Password")}
-                                            size="lg"
                                             type="password"
                                             placeholder="Masukkan password" />
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="Number">
                                         <Form.Label>Number*</Form.Label>
                                         <Form.Control {...register("Numbers")}
-                                            size="lg"
                                             type="text"
                                             placeholder="Masukkan Number" />
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="Address">
                                         <Form.Label>Address*</Form.Label>
                                         <Form.Control {...register("Address")}
-                                            size="lg"
                                             type="text"
                                             placeholder="Masukkan Alamat" />
                                     </Form.Group>
