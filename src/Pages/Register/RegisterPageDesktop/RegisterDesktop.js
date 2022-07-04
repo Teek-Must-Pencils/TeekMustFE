@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
-import { Container, Row, Col, Form, Alert } from 'react-bootstrap'
+import { Container, Row, Col, Form, Carousel, Image } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { Controller, useForm } from "react-hook-form";
 import ServiceRegister from '../../../Services/ServiceRegister';
@@ -86,7 +86,38 @@ const RegisterDesktop = () => {
             <Loading show={isLoading} close={handleIsLoading}/>
             <Container fluid>
                 <Row>
-                    <Col md={6} className='image-Register'>
+                    <Col md={6} className='' >
+            <Carousel fade>
+              <Carousel.Item>
+                <Image
+                  className="slide-satu d-block w-100 "
+                />
+                <Carousel.Caption>
+                  <h3>First slide label</h3>
+                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+              <Carousel.Item>
+                <Image
+                  className="slide-dua d-block w-100"
+                />
+                <Carousel.Caption>
+                  <h3>Second slide label</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+              <Carousel.Item>
+                <Image
+                  className="slide-tiga d-block w-100"
+                  alt=""
+                />
+
+                <Carousel.Caption>
+                  <h3>Third slide label</h3>
+                  <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+            </Carousel>
                     </Col>
 
                     <Col md={6} className='box-Register'>
