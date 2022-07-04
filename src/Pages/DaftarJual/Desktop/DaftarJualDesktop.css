@@ -12,32 +12,18 @@
 }
 .btn{
     border-style: none;
-    font-size:1rem;
+    font-size:0.9rem;
 }
 .btn:hover{
     color:#7126B5;
     background:white;
 }
-.box{
-    /* Frame 150 */
-
-    box-sizing: border-box;
-
-    /* Auto layout */
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 8px 8px 16px;
-    gap: 8px;
-
-    width: 206.67px;
-    height: 198px;
-
+.box-action-df{
+    padding: 10px 20px;
     background: #FFFFFF;
-    /* Neutral/02 */
-
-    border: 1px dashed #D0D0D0;
-    border-radius: 4px;
+    box-shadow: 0 0px 10px rgba(0,0,0,15%);
+    border-radius: 16px;
+}
+.btn-dt-d{
+    font-size: 1vw;
 }
