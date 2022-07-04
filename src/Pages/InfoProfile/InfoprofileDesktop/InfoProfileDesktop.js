@@ -40,7 +40,7 @@ const InfoProfileMobile = (props) => {
                             <Form.Label>Nama*</Form.Label>
                             <Form.Control {...register("Nama")}
                                 size="lg"
-                                type="email"
+                                type="text"
                                 placeholder="Nama" 
                                 defaultValue={userData.name}
                              />
