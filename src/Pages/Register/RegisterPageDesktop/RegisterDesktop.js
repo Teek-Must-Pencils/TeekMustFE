@@ -49,6 +49,7 @@ const RegisterDesktop = () => {
         setLoading(true);
         ServiceRegister(data).then(
             (res)=> {
+                console.log(res)
                 if(res.status === 201){
                     setMessage(res.data);
                     setLoading(false);
@@ -58,7 +59,8 @@ const RegisterDesktop = () => {
                         setMessage('');
                     }, 1000);
                 }else{
-                    setMessage(res.data.error);
+                    // setMessage(res.data);
+                    setMessage('User is Failed');
                     setLoading(false);
                     setIsNotification(true);
                     setTimeout(() => {

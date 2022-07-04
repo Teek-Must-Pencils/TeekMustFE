@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { ArrowLeft } from 'react-feather';
 import usePreview from '../../../Hooks/usePreview';
+import { useNavigate } from 'react-router-dom';
 
 const InfoProductMobile = (props) => {
   const {
     onSubmitMobileInput,
     // handlePreview
+    category
 } = props;
+  const navigate = useNavigate();
   const dataPreview = usePreview();
   const [image, setImage] = useState();
   const { register, handleSubmit, control, setValue } = useForm();
@@ -28,6 +31,19 @@ const InfoProductMobile = (props) => {
     };
     reader.readAsDataURL(e.target.files[0]);
   }
+  
+  const handleBack = () =>{
+    navigate(-1)
+  }
+
+  const handleCategories = (id) =>{
+    let result;
+    if (id === 1) { result = "Pencil 2B"}
+    else if(id === 2){ result = "Color Pencil 12"}
+    else if(id === 3){ result = "Color Pencil 24"}
+    else if(id === 4){ result = "Color Pencil 8"}
+    return result;
+}
 
   return (
     <>
@@ -36,7 +52,7 @@ const InfoProductMobile = (props) => {
           <div  className='col-1'>
               <button 
                   className='ipm-content-button'
-                  // onClick=''
+                  onClick={() => handleBack()}
               >
                   <ArrowLeft size='20px'/>
               </button>
@@ -83,10 +99,17 @@ const InfoProductMobile = (props) => {
                       // required
                   >
                       <option value="" disabled>Pilih Kategori</option>
-                      <option className="color-black" value="1" >1</option>
-                      <option className="color-black" value="2" >2</option>
-                      <option className="color-black" value="3" >3</option>
-                      <option className="color-black" value="4" >4</option>
+                      {category?.map((value, i) =>{
+                          return (
+                                  <option 
+                                      key={i}
+                                      className="color-black" 
+                                      value={value.categories}
+                                  >
+                                      {handleCategories(value.id)}
+                                  </option>
+                          )})
+                      }
                   </select>}
               />
             </div>
@@ -105,7 +128,7 @@ const InfoProductMobile = (props) => {
               <div className='ipm-body-inputImage'>
                 <input 
                     type="file"
-                    accept="image/*"
+                    accept="image/png"
                     onChange={(e) => handleInputImage(e)}
                     // required={dataPreview.image ? false: true}
                 />
@@ -130,7 +153,7 @@ const InfoProductMobile = (props) => {
                 type='submit'
                 className='ip-button-send'
                 onClick={
-                    () => setValue('button', 'preview')
+                    () => setValue('button', 'submit')
                 }
                 {...register('button')}
               >
