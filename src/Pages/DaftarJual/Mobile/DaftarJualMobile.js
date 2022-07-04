@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React  from 'react'
 import dummyProfile from '../../../Assets/Img/profile.png'
 import * as Icon from 'react-feather';
 import './DaftarJualMobile.css'
@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../../Redux/slice/authSlice';
 import { CardProduct } from '../../../Components';
-import { Nav, Tab, Tabs } from 'react-bootstrap';
+import { Nav, Tab } from 'react-bootstrap';
 
 const DaftarJualMobile = (props) => {
     const { data } = props;
@@ -36,7 +36,7 @@ const DaftarJualMobile = (props) => {
                             </span>
                         </div>
                     </div>
-                    <button class="btn-edit" onClick={handleEditProfile}>
+                    <button className="btn-edit" onClick={handleEditProfile}>
                         Edit
                     </button>
                 </div>
@@ -56,12 +56,12 @@ const DaftarJualMobile = (props) => {
                         </Nav.Link>
                         <Nav.Link eventKey="2" >
                             <div className='btn-filter btn-dt'>
-                                <Icon.Box /> <span>Diminati</span>
+                                <Icon.Heart /> <span>Diminati</span>
                             </div>
                         </Nav.Link>
                         <Nav.Link eventKey="3" >
                             <div className='btn-filter btn-dt'>
-                                <Icon.Box /> <span>Terjual</span>
+                                <Icon.ShoppingBag /> <span>Terjual</span>
                             </div>
                         </Nav.Link>
                     </div>
@@ -77,9 +77,9 @@ const DaftarJualMobile = (props) => {
                                     <Icon.Plus/> Tambah
                                 </button>
                             </div>
-                            {data.map((value)=>{
+                            {data.map((value, i)=>{
                                 return(
-                                    <div className='col-4 col-sm-4 my-2'>
+                                    <div key={i} className='col-4 col-sm-4 my-2'>
                                         <CardProduct data={value}/>
                                     </div>
                                 )
@@ -89,9 +89,9 @@ const DaftarJualMobile = (props) => {
                     </Tab.Pane>
                     <Tab.Pane eventKey="2">
                         <div className="row">
-                            {data.map((value)=>{
+                            {data.map((value, i)=>{
                                 return(
-                                    <div className='col-4 col-sm-4 my-2'>
+                                    <div key={i} className='col-4 col-sm-4 my-2'>
                                         <CardProduct data={value}/>
                                     </div>
                                 )
@@ -102,9 +102,9 @@ const DaftarJualMobile = (props) => {
                     </Tab.Pane>
                     <Tab.Pane eventKey="3">
                         <div className="row">
-                            {data.map((value)=>{
+                            {data.map((value, i)=>{
                                 return(
-                                    <div className='col-4 col-sm-4 my-2'>
+                                    <div key={i} className='col-4 col-sm-4 my-2'>
                                         <CardProduct data={value}/>
                                     </div>
                                 )
