@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
-import { Container, Row, Col, Form, Alert } from 'react-bootstrap'
+import { Container, Row, Col, Form, Carousel, Image } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { Controller, useForm } from "react-hook-form";
 import ServiceRegister from '../../../Services/ServiceRegister';
@@ -83,13 +83,32 @@ const RegisterDesktop = () => {
     }
 
     return (
-        <div>
+        <div className='img-background'>
             <ModalNotification show={isNotification} close={handleIsNotification} message={message}/>
             <Loading show={isLoading} close={handleIsLoading}/>
             <Container fluid>
                 <Row>
-                    <Col md={6} className='image-Register'>
-                    </Col>
+                <Col md={6} className='ps-0' >
+            <Carousel fade>
+              <Carousel.Item>
+                <Image
+                  className="slide-satu d-block w-100 "
+                />
+              </Carousel.Item>
+              <Carousel.Item>
+                <Image
+                  className="slide-dua d-block w-100"
+                />
+              </Carousel.Item>
+              <Carousel.Item>
+                <Image
+                  className="slide-tiga d-block w-100"
+                  alt=""
+                />
+
+              </Carousel.Item>
+            </Carousel>
+          </Col>
 
                     <Col md={6} className='box-Register'>
 
@@ -112,14 +131,14 @@ const RegisterDesktop = () => {
                                     <Form.Group className="mb-3" controlId="Name">
                                         <Form.Label>Nama*</Form.Label>
                                         <Form.Control {...register("Nama")}
-                                            size="lg"
+                                       
                                             type="text"
                                             placeholder="Nama Lengkap" />
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="Email">
                                         <Form.Label>Email*</Form.Label>
                                         <Form.Control {...register("Email")}
-                                            size="lg"
+                                       
                                             // type="email"
                                             type="text"
                                             placeholder="Contoh: johndee@gmail.com" />
@@ -127,7 +146,7 @@ const RegisterDesktop = () => {
                                     <Form.Group className="mb-3" controlId="Password">
                                         <Form.Label>Password*</Form.Label>
                                         <Form.Control {...register("Password")}
-                                            size="lg"
+                                       
                                             type="password"
                                             placeholder="Masukkan password" />
                                     </Form.Group>
