@@ -81,7 +81,7 @@ const RegisterDesktop = () => {
     }
 
     return (
-        <div>
+        <div className='img-background'>
             <ModalNotification show={isNotification} close={handleIsNotification} message={message}/>
             <Loading show={isLoading} close={handleIsLoading}/>
             <Container fluid>
