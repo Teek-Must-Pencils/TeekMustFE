@@ -17,7 +17,7 @@ const InfoProfileMobile = (props) => {
 
 
     const handleBack = () =>{
-        navigate('/')
+        navigate(-1)
     }
 
     return (
