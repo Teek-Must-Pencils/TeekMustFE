@@ -105,13 +105,16 @@ const InfoPenawarDesktop = () => {
     const handleModalClosed = () => {
         setModalShow(false)
     }
+    const handleModalShowClosed = () => {
+        setModalStatusShow(false)
+    }
 
     const handleIsAccepted = () => {
         setIsAccepted(false)//ganti button
     }
 
     const handleBack = () =>{
-        navigate('/')
+        navigate(-1)
     }
 
     
@@ -150,7 +153,7 @@ const InfoPenawarDesktop = () => {
 
             <ModalStatus
                 show={modalStatusShow}
-                close={handleModalClosed}
+                close={handleModalShowClosed}
             />
 
 

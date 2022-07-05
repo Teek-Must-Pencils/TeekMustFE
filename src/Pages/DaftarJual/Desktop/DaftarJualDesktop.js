@@ -109,7 +109,7 @@ const DaftarJualDesktop = (props) => {
                 </Col>
                             
                <Col sm={9}>
-                <Tab.Content className='border-2'>
+                <Tab.Content className=''>
                     <Tab.Pane eventKey="1">
                         <div className="row">
                             <div className="col-4 col-sm-4 my-2">
