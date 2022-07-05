@@ -1,14 +1,14 @@
 import React  from 'react'
 import dummyProfile from '../../../Assets/Img/profile.png'
 import * as Icon from 'react-feather';
-import './DaftarJualMobile.css'
+import './DaftarTawarMobile.css'
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../../Redux/slice/authSlice';
 import { CardProduct } from '../../../Components';
 import { Nav, Tab } from 'react-bootstrap';
 
-const DaftarJualMobile = (props) => {
+const DaftarTawarMobile = (props) => {
     const { data } = props;
     let navigate = useNavigate();
     const user = useSelector(selectUser);
@@ -24,7 +24,7 @@ const DaftarJualMobile = (props) => {
   return (
     <div>
         <div className="container-sm">
-            <font size="5"><b>Daftar Jual Saya</b></font>
+            <font size="5"><b>Daftar Tawar Saya</b></font>
             <div className="box-action my-5">
                 <div className="d-flex flex-row justify-content-between">
                     <div className='d-flex flex-row gap-2'>
@@ -56,12 +56,12 @@ const DaftarJualMobile = (props) => {
                         </Nav.Link>
                         <Nav.Link eventKey="2" >
                             <div className='btn-filter btn-dt'>
-                                <Icon.Heart /> <span>Diminati</span>
+                                <Icon.Heart /> <span>Ditawar</span>
                             </div>
                         </Nav.Link>
                         <Nav.Link eventKey="3" >
                             <div className='btn-filter btn-dt'>
-                                <Icon.ShoppingBag /> <span>Terjual</span>
+                                <Icon.ShoppingBag /> <span>Transaksi</span>
                             </div>
                         </Nav.Link>
                     </div>
@@ -120,4 +120,4 @@ const DaftarJualMobile = (props) => {
   )
 }
 
-export default DaftarJualMobile
+export default DaftarTawarMobile

@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import {
-  Home, Layouts, ProductPage, InfoProduct, Login, Notifikasi, MyAccount
+  Home, Layouts, ProductPage, InfoProduct, Login, Notifikasi, MyAccount,
+  DaftarJual, DaftarTawar, InfoPenawar
 } from './Pages';
 import './App.css';
 import Register from './Pages/Register';
@@ -10,8 +11,6 @@ import { useMediaQuery } from 'react-responsive';
 import InfoProfile from './Pages/InfoProfile';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions, selectToken } from './Redux/slice/authSlice';
-import DaftarJual from './Pages/DaftarJual/DaftarJual';
-import InfoPenawar from './Pages/InfoPenawar';
 
 const LayoutsAuth = ({children}) =>{
   const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'})
@@ -76,6 +75,10 @@ function App() {
       <Route 
         path='/DaftarJual' 
         element={<LayoutsAuth><DaftarJual/> </LayoutsAuth>}
+      />
+      <Route 
+        path='/DaftarTawar' 
+        element={<LayoutsAuth><DaftarTawar/> </LayoutsAuth>}
       />
       <Route 
         path='/infoPenawar' 
