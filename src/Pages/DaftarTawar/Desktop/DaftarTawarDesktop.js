@@ -1,20 +1,21 @@
-import React  from 'react'
+import React from 'react'
 import dummyProfile from '../../../Assets/Img/profile.png'
 import * as Icon from 'react-feather';
-import './DaftarJualMobile.css'
-import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../../Redux/slice/authSlice';
+import { useNavigate } from 'react-router-dom';
+import { selectUser } from '../../../Redux/slice/authSlice'
+import './DaftarTawarDesktop.css'
 import { CardProduct } from '../../../Components';
-import { Nav, Tab } from 'react-bootstrap';
+import { Tab, Nav, Row, Col } from 'react-bootstrap';
 
-const DaftarJualMobile = (props) => {
+
+const DaftarTawarDesktop = (props) => {
     const { data } = props;
-    let navigate = useNavigate();
+    let navigate =  useNavigate();
     const user = useSelector(selectUser);
 
     const handleEditProfile =  () => {
-        return navigate('/infoProfile');
+        return navigate('/infoProfile')
     }
 
     const handleAddProduct = () =>{
@@ -22,9 +23,9 @@ const DaftarJualMobile = (props) => {
     }
 
   return (
-    <div>
+    <>
         <div className="container-sm">
-            <font size="5"><b>Daftar Jual Saya</b></font>
+            <h5><b>Daftar Tawar Saya</b></h5>
             <div className="box-action my-5">
                 <div className="d-flex flex-row justify-content-between">
                     <div className='d-flex flex-row gap-2'>
@@ -36,37 +37,43 @@ const DaftarJualMobile = (props) => {
                             </span>
                         </div>
                     </div>
+                    
                     <button className="btn-edit" onClick={handleEditProfile}>
                         Edit
                     </button>
                 </div>
             </div>
             <Tab.Container 
-                className="d-flex flex-col" 
                 id="left-tabs-example" 
                 defaultActiveKey="1"
             >
-                <div className='box-action mb-3'>
-                    <p><b>Kategori</b></p>
-                    <div className='d-flex flex-row justify-content-around'>
-                         <Nav.Link eventKey="1" >
-                            <div className='btn-filter btn-dt'>
-                                <Icon.Box /> <span>Product</span>
-                            </div>
-                        </Nav.Link>
-                        <Nav.Link eventKey="2" >
-                            <div className='btn-filter btn-dt'>
-                                <Icon.Heart /> <span>Diminati</span>
-                            </div>
-                        </Nav.Link>
-                        <Nav.Link eventKey="3" >
-                            <div className='btn-filter btn-dt'>
-                                <Icon.ShoppingBag /> <span>Terjual</span>
-                            </div>
-                        </Nav.Link>
+             <Row>
+                <Col sm={3}>
+                    <div className='box-action-df mb-3'>
+                        <p><b>Kategori</b></p>
+                        <Nav variant="pills" className="flex-column">
+                            <Nav.Link eventKey="1" >
+                                <div className='btn-dt-d'>
+                                    <Icon.Box /> <span>Product</span>
+                                </div>
+                            </Nav.Link>
+                            <hr/>
+                            <Nav.Link eventKey="2" >
+                                <div className='btn-dt-d'>
+                                    <Icon.Heart /> <span>Ditawar</span>
+                                </div>
+                            </Nav.Link>
+                            <hr/>
+                            <Nav.Link eventKey="3" >
+                                <div className='btn-dt-d'>
+                                    <Icon.ShoppingBag /> <span>Transaksi</span>
+                                </div>
+                            </Nav.Link>
+                        </Nav>
                     </div>
-                </div>
-               
+                </Col>
+                            
+               <Col sm={9}>
                 <Tab.Content className=''>
                     <Tab.Pane eventKey="1">
                         <div className="row">
@@ -113,11 +120,12 @@ const DaftarJualMobile = (props) => {
                         </div>
                     </Tab.Pane>
                 </Tab.Content>
+              </Col> 
+            </Row>
             </Tab.Container>
-
         </div>
-    </div>
+    </>
   )
 }
 
-export default DaftarJualMobile
+export default DaftarTawarDesktop
