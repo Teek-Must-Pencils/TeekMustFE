@@ -23,3 +23,11 @@
     border: none;
 }
 
+.bg-mobile {
+    height: 100vh;
+    background-image: url(../../../Assets/Img/pencilspinkMobile.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
