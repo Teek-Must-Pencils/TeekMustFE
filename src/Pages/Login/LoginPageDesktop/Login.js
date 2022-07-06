@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Form } from 'react-bootstrap'
+import { Container, Row, Col, Form, Carousel, Image } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
@@ -54,18 +54,37 @@ const Login = () => {
   
 
   return (
-    <div>
+    <div className='img-background'>
       {show && <ModalNotificationRedux message={message}/>}
       {statusSelect === "pending" && <LoadingRedux flag={statusSelect} />}
       <Container fluid>
         <Row>
-          <Col md={6} className='image-login'>
+        <Col md={6} className='ps-0' >
+            <Carousel fade>
+              <Carousel.Item>
+                <Image
+                  className="slide-satu d-block w-100 "
+                />
+              </Carousel.Item>
+              <Carousel.Item>
+                <Image
+                  className="slide-dua d-block w-100"
+                />
+              </Carousel.Item>
+              <Carousel.Item>
+                <Image
+                  className="slide-tiga d-block w-100"
+                  alt=""
+                />
+
+              </Carousel.Item>
+            </Carousel>
           </Col>
 
           <Col md={6} className='box-login'>
             <Row className='ms-md-5 me-md-5 form-login align-content-center'>
               <Col md={12}>
-                <h1 className="mb-4"> <b>Masuk</b></h1>
+                <h1 className="mb-4 align-content-center"> <b>Masuk</b></h1>
               </Col>
               <Col >
                 <Form onSubmit={handleSubmit(onSubmit)} className={'form-login'} >

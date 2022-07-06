@@ -30,6 +30,8 @@ const Home = () => {
       console.log(err.message)
       setLoading(false)
     })
+    // setLoading(false);
+
     // return () => {
     //   second
     // }
