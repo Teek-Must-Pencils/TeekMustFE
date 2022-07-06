@@ -9,7 +9,8 @@ import "./InfoProfileDesktop.css"
 import Kamera from "../../../Assets/Img/Group 1.png"
 
 
-const InfoProfileMobile = () => {
+const InfoProfileMobile = (props) => {
+    const { userData }= props;   
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
     const onSubmit = data => console.log(data);
@@ -39,8 +40,10 @@ const InfoProfileMobile = () => {
                             <Form.Label>Nama*</Form.Label>
                             <Form.Control {...register("Nama")}
                                 size="lg"
-                                type="email"
-                                placeholder="Nama" />
+                                type="text"
+                                placeholder="Nama" 
+                                defaultValue={userData.name}
+                             />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="">
