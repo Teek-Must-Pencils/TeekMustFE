@@ -68,6 +68,9 @@ const InfoProductDesktop = (props) => {
                                 className="ip-content-form"
                                 onSubmit={handleSubmit(onSubmitSellerInput)}
                             >
+
+
+
                                 <div className='ip-box-input'>
                                     <label>Nama Produk</label>
                                     <input
