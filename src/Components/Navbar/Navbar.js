@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as Icon from 'react-feather';
 import { useSelector } from 'react-redux'
 import { selectAuth, selectRole } from '../../Redux/slice/authSlice'
-import IconNav from '../../Assets/Img/Rectangle 127.png'
+import IconNav from '../../Assets/Img/Rectanglenew.jpg'
 import './Navbar.css';
 
 const data = [
