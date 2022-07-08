@@ -8,10 +8,11 @@ import '../ProductPage.css';
 import { useNavigate } from 'react-router-dom';
 import usePreview from '../../../Hooks/usePreview';
 
-const role = "sel";
+// const role = "sel";
 
 const ProductPageMobile = (props) => {
   const {
+    role,
     onSubmitSellerMobile,
     onSubmitBuyerMobile,
     handleModalBuyer,
@@ -25,7 +26,7 @@ const ProductPageMobile = (props) => {
   const dataPreview = usePreview();
 
   let buttonAction;
-  if(role === "seller"){
+  if(role.includes("seller")){
     buttonAction = (
     <button 
       className='button-float-send'
@@ -43,7 +44,7 @@ const ProductPageMobile = (props) => {
   }
 
   const handleBack = () =>{
-    return navigate('/infoProduct')
+    return navigate(-1)
   }
 
   const data = {

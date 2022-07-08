@@ -1,27 +1,21 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
-import { Container, Row, Col, Form, Alert } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import { Container, Row, Col, Form, Carousel, Image } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../Redux/action/authAction';
-import { 
-  selectAuth, selectEmail, selectRole, selectStatus, selectTest, selectToken, selectUser 
-} from '../../../Redux/slice/authSlice';
-import { LoadingRedux } from '../../../Components';
+import {  selectStatus, selectMessage, selectAuth } from '../../../Redux/slice/authSlice';
+import { LoadingRedux, ModalNotificationRedux } from '../../../Components';
 import "./Login.css"
 
 const Login = () => {
+  let navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
-  const authSelect = useSelector(selectAuth);
+  const [show, setShow] = useState(false);
   const statusSelect = useSelector(selectStatus);
-  const roleSelect = useSelector(selectRole);
-  const tokenSelect = useSelector(selectToken);
-  const userSelect = useSelector(selectUser);
-  const emailSelect = useSelector(selectEmail);
-
-  let navigate = useNavigate()
+  const message = useSelector(selectMessage);
+  const auth = useSelector(selectAuth);
 
   // const validation = () => {
   //   let regexEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g
@@ -38,38 +32,60 @@ const Login = () => {
       username: data.username,
       password: data.password
     }
-    // console.log(dataSend)
     dispatch(login(dataSend))
   }
 
-  console.log('auth', authSelect)
-  console.log('status', statusSelect)
-  console.log('role', roleSelect)
-  console.log('token', tokenSelect)
-  console.log('user', userSelect)
-  console.log('email', emailSelect)
-
-  if(authSelect && tokenSelect){
-    return navigate("/")
-  }
-
+  useEffect(() => {
+    if(statusSelect === "reject"){
+      setShow(true);
+      setTimeout(() => {
+        setShow(false)
+      }, 1000);
+    } 
+    if(statusSelect === "success" && auth){
+      setShow(true);
+      setTimeout(() => {
+        setShow(false)
+        navigate('/')
+      }, 1000);
+    } 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [statusSelect])
+  
 
   return (
-    <div>
+    <div className='img-background'>
+      {show && <ModalNotificationRedux message={message}/>}
       {statusSelect === "pending" && <LoadingRedux flag={statusSelect} />}
       <Container fluid>
         <Row>
-          <Col md={6} className='image-login'>
+        <Col md={6} className='ps-0' >
+            <Carousel fade>
+              <Carousel.Item>
+                <Image
+                  className="slide-satu d-block w-100 "
+                />
+              </Carousel.Item>
+              <Carousel.Item>
+                <Image
+                  className="slide-dua d-block w-100"
+                />
+              </Carousel.Item>
+              <Carousel.Item>
+                <Image
+                  className="slide-tiga d-block w-100"
+                  alt=""
+                />
+
+              </Carousel.Item>
+            </Carousel>
           </Col>
 
           <Col md={6} className='box-login'>
-
             <Row className='ms-md-5 me-md-5 form-login align-content-center'>
-
               <Col md={12}>
-                <h1 className="mb-4"> <b>Masuk</b></h1>
+                <h1 className="mb-4 align-content-center"> <b>Masuk</b></h1>
               </Col>
-
               <Col >
                 <Form onSubmit={handleSubmit(onSubmit)} className={'form-login'} >
                   <Form.Group className="mb-3" controlId="FormLogin1">
@@ -100,8 +116,6 @@ const Login = () => {
               </Col>
             </Row>
           </Col>
-
-
 
         </Row>
       </Container>

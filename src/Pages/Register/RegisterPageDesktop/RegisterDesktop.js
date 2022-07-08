@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
-import { Container, Row, Col, Form, Alert } from 'react-bootstrap'
+import { Container, Row, Col, Form, Carousel, Image } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { Controller, useForm } from "react-hook-form";
 import ServiceRegister from '../../../Services/ServiceRegister';
@@ -49,6 +49,7 @@ const RegisterDesktop = () => {
         setLoading(true);
         ServiceRegister(data).then(
             (res)=> {
+                console.log(res)
                 if(res.status === 201){
                     setMessage(res.data);
                     setLoading(false);
@@ -58,7 +59,8 @@ const RegisterDesktop = () => {
                         setMessage('');
                     }, 1000);
                 }else{
-                    setMessage(res.data.error);
+                    // setMessage(res.data);
+                    setMessage('User is Failed');
                     setLoading(false);
                     setIsNotification(true);
                     setTimeout(() => {
@@ -81,20 +83,39 @@ const RegisterDesktop = () => {
     }
 
     return (
-        <div>
+        <div className='img-background'>
             <ModalNotification show={isNotification} close={handleIsNotification} message={message}/>
             <Loading show={isLoading} close={handleIsLoading}/>
             <Container fluid>
                 <Row>
-                    <Col md={6} className='image-Register'>
-                    </Col>
+                <Col md={6} className='ps-0' >
+            <Carousel fade>
+              <Carousel.Item>
+                <Image
+                  className="slide-satu d-block w-100 "
+                />
+              </Carousel.Item>
+              <Carousel.Item>
+                <Image
+                  className="slide-dua d-block w-100"
+                />
+              </Carousel.Item>
+              <Carousel.Item>
+                <Image
+                  className="slide-tiga d-block w-100"
+                  alt=""
+                />
+
+              </Carousel.Item>
+            </Carousel>
+          </Col>
 
                     <Col md={6} className='box-Register'>
 
                         <Row className='ms-md-5 me-md-5 form-Register align-content-center'>
 
                             <Col md={12}>
-                                <h1 className="mb-4"> <b>Daftar</b></h1>
+                                <h1 className="mb-2"> <b>Daftar</b></h1>
                             </Col>
                             {/* {alertStatus ? <Col md={12}>
                                 <Alert variant="danger">
@@ -107,43 +128,43 @@ const RegisterDesktop = () => {
                             <Col >
 
                                 <Form onSubmit={handleSubmit(onSubmit)} className={'form-input '} >
-                                    <Form.Group className="mb-3" controlId="Name">
+                                    <Form.Group className="mt-2" controlId="Name">
                                         <Form.Label>Nama*</Form.Label>
                                         <Form.Control {...register("Nama")}
-                                            size="lg"
+                                       
                                             type="text"
                                             placeholder="Nama Lengkap" />
                                     </Form.Group>
-                                    <Form.Group className="mb-3" controlId="Email">
+                                    <Form.Group className="mt-2" controlId="Email">
                                         <Form.Label>Email*</Form.Label>
                                         <Form.Control {...register("Email")}
-                                            size="lg"
+                                       
                                             // type="email"
                                             type="text"
                                             placeholder="Contoh: johndee@gmail.com" />
                                     </Form.Group>
-                                    <Form.Group className="mb-3" controlId="Password">
+                                    <Form.Group className="mt-2" controlId="Password">
                                         <Form.Label>Password*</Form.Label>
                                         <Form.Control {...register("Password")}
-                                            size="lg"
+                                       
                                             type="password"
                                             placeholder="Masukkan password" />
                                     </Form.Group>
-                                    <Form.Group className="mb-3" controlId="Number">
+                                    <Form.Group className="mt-2" controlId="Number">
                                         <Form.Label>Number*</Form.Label>
                                         <Form.Control {...register("Numbers")}
-                                            size="lg"
+                                            
                                             type="text"
                                             placeholder="Masukkan Number" />
                                     </Form.Group>
-                                    <Form.Group className="mb-3" controlId="Address">
+                                    <Form.Group className="mt-2" controlId="Address">
                                         <Form.Label>Address*</Form.Label>
                                         <Form.Control {...register("Address")}
-                                            size="lg"
+                                            
                                             type="text"
                                             placeholder="Masukkan Alamat" />
                                     </Form.Group>
-                                    <Form.Group className="mb-3" controlId="Role">
+                                    <Form.Group className="mt-2" controlId="Role">
                                         <Form.Label>Role*</Form.Label>
                                         <Controller 
                                             name="Role"
@@ -162,14 +183,14 @@ const RegisterDesktop = () => {
                                             )}
                                         />
                                     </Form.Group>
-                                    <Form.Group controlId="formFile" className="mb-3">
+                                    <Form.Group controlId="formFile" className="mt-2">
                                         <Form.Label>Foto*</Form.Label>
                                         <Form.Control type="file" onChange={e => handleImage(e)} />
                                     </Form.Group>
 
                                     <button
                                         type='submit'
-                                        className='tombol-masuk' 
+                                        className='tombol-masuk mt-4' 
                                     >
                                         Daftar Akun
                                     </button>

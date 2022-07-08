@@ -21,14 +21,21 @@ const authSlice = createSlice({
     reducers: {
         logout(state) {
             state.isLoggedIn = false;
+            state.token = ''
+            state.role = ''
+            state.user = ''
+            state.email = ''
             sessionStorage.removeItem('user')
         },
         setToken(state, action){
-            const userData = JSON.parse(action.payload)
-            state.token = userData?.access_token
-            state.role = userData?.role
-            state.user = userData?.email
-            state.isLoggedIn = true
+            if(state.token === ''){
+                state.token = action.payload?.accessToken
+                state.role = action.payload?.roles
+                state.user = action.payload?.username
+                state.email = action.payload?.email
+                state.isLoggedIn = true
+            }
+            
         },
         setOffShowMessage(state){
             state.showMessage = false
@@ -45,13 +52,11 @@ const authSlice = createSlice({
         builder.addCase(login.fulfilled, (state, action) => {
             // state.test = action.payload
             if (action.payload?.accessToken) {      
-                const isRole = action.payload?.role
-                const thatRole = isRole.replace("[",'').replace("]",'')
                 state.isLoggedIn = true
                 state.showMessage = true
                 state.token = action.payload?.accessToken
-                // sessionStorage.setItem('user', JSON.stringify(action.payload))
-                state.role = thatRole
+                sessionStorage.setItem('user', JSON.stringify(action.payload))
+                state.role = action.payload?.roles
                 state.user = action.payload?.username
                 state.email = action.payload?.email
                 state.message = "Login Success"
@@ -67,7 +72,7 @@ const authSlice = createSlice({
     }
 })
 
-// export const selectTest = (state) => state.auth.test;
+export const selectTest = (state) => state.auth.test;
 // export const selectShowMessage = (state) => state.auth.showMessage;
 export const selectAuth = (state) => state.auth.isLoggedIn;
 export const selectMessage = (state) => state.auth.message;

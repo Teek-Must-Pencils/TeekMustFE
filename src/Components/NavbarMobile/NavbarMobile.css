@@ -1,0 +1,30 @@
+.bg-canvas{
+   background-color: #FFFFF2 !important;
+}
+.button-login-active{
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+}
+.menu, .menu span{
+   text-decoration: none !important;
+   color: black;
+}
+
+.mobile-content-menu{
+   padding: 1% 0%;
+   background-color: #FFFFF2;
+   box-shadow: 5px 0px 5px rgba(10, 68, 0, 0.5);
+}
+.toggle-button{
+   border: none;
+   background-color: transparent;
+}
+.toggle-button:hover{
+   color:blue;
+   background-color: gray;
+}
+.mobile-location-title{
+   text-align: center;
+   font-weight: bolder;
+}
