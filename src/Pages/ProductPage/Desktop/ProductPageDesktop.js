@@ -99,7 +99,7 @@ const ProductPageDesktop = (props) => {
             close={handleModalBuyer} 
             onSubmitBuyerModalDesktop={onSubmitBuyerModalDesktop}
         />
-        <div className="container">
+        <div className="container container-content">
             <div className="row">
                 <div className="col-8">
                     <div className="d-flex flex-column">
