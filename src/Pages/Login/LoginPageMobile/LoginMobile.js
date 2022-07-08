@@ -5,12 +5,12 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { LoadingRedux, ModalNotificationRedux } from '../../../Components'
 import { login } from '../../../Redux/action/authAction';
-import { selectStatus, selectMessage, selectAuth } from '../../../Redux/slice/authSlice';
+import { selectStatus, selectMessage, selectAuth, authActions } from '../../../Redux/slice/authSlice';
 import "./LoginMobile.css"
 
 const LoginMobile = () => {
   let navigate = useNavigate();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const statusSelect = useSelector(selectStatus);
@@ -40,12 +40,14 @@ const LoginMobile = () => {
       setShow(true);
       setTimeout(() => {
         setShow(false)
+        dispatch(authActions.resetStatus())
       }, 1000);
     } 
     if(statusSelect === "success" && auth){
       setShow(true);
       setTimeout(() => {
         setShow(false)
+        dispatch(authActions.resetStatus())
         navigate('/')
       }, 1000);
     } 
@@ -70,18 +72,26 @@ const LoginMobile = () => {
               <Col >
                 <Form onSubmit={handleSubmit(onSubmit)} className={'form-login'} >
                   <Form.Group className="mb-3" controlId="form1">
-                    <Form.Label>Email*</Form.Label>
-                    <Form.Control  {...register("username")}
-                      size="lg"
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control  {...register("username", {required: true})}
+                      size="md"
                       type="username"
-                      placeholder="Masukkan Username" />
+                      placeholder="Masukkan Username"   
+                    />
+                    {errors.username && errors.username.type === "required" && 
+                      <div className='errors'><span>Username is required</span></div>
+                    }
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="form2">
-                    <Form.Label>Password*</Form.Label>
-                    <Form.Control {...register("password")}
-                      size="lg"
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control {...register("password", { required: true })}
+                      size="md"
                       type="password"
-                      placeholder="Masukkan password" />
+                      placeholder="Masukkan password" 
+                    />
+                    {errors.password && errors.password.type === "required" && 
+                      <div className='errors'><span>Password is required</span></div>
+                    }
                   </Form.Group>
                   <button 
                     type='submit'

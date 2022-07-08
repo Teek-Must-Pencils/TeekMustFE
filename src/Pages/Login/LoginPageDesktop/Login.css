@@ -61,4 +61,15 @@ form{
     padding: 5px;
     border: none;
 }
+.errors{
+    padding: 3% 0% 0% 0%;
+    display: flex;
+    justify-content: center;
+}
+.errors > span{
+    color: #FFFFF2;
+    background-color: #d79962;
+    padding: 1% 5% 1% 5%;
+    border-radius: 16px;
+}
 

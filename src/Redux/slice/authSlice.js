@@ -42,6 +42,9 @@ const authSlice = createSlice({
         },
         resetMessage(state){
             state.message = ''
+        },
+        resetStatus(state){
+            state.status = ''
         }
     },
     extraReducers(builder) {

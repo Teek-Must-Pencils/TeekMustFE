@@ -6,7 +6,6 @@ import { ArrowLeft } from 'react-feather';
 import "./InfoProfileDesktop.css"
 
 // Gambar
-import Kamera from "../../../Assets/Img/Group 1.png"
 import ServiceProfile from "../../../Services/ServiecProfile";
 
 
@@ -51,7 +50,7 @@ const InfoProfileMobile = (props) => {
     return (
         <div className="container-content">
 
-            <div className="button-back-content">
+            <div className="button-back-content-df">
                 <button 
                     className=''
                     onClick={()=> handleBack()}
