@@ -11,3 +11,11 @@
     background-color: transparent;
     border: none;
 }
+
+/* Redux */
+.redux-reject{
+    background-color: red;
+}
+.redux-success{
+    background-color: lightgreen;
+}

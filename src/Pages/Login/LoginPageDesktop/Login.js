@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../Redux/action/authAction';
-import {  selectStatus, selectMessage, selectAuth } from '../../../Redux/slice/authSlice';
+import {  selectStatus, selectMessage, selectAuth, authActions } from '../../../Redux/slice/authSlice';
 import { LoadingRedux, ModalNotificationRedux } from '../../../Components';
 import "./Login.css"
 
@@ -40,22 +40,23 @@ const Login = () => {
       setShow(true);
       setTimeout(() => {
         setShow(false)
+        dispatch(authActions.resetStatus())
       }, 1000);
     } 
     if(statusSelect === "success" && auth){
       setShow(true);
       setTimeout(() => {
         setShow(false)
+        dispatch(authActions.resetStatus())
         navigate('/')
       }, 1000);
     } 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusSelect])
-  
 
   return (
     <div className='img-background'>
-      {show && <ModalNotificationRedux message={message}/>}
+      {show && <ModalNotificationRedux message={message} status={statusSelect}/>}
       {statusSelect === "pending" && <LoadingRedux flag={statusSelect} />}
       <Container fluid>
         <Row>
