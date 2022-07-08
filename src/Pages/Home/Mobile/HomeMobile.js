@@ -29,6 +29,7 @@ const HomeMobile = (props) => {
         modules={[Pagination]}
         spaceBetween={5}
         slidesPerView={1}
+        grabCursor={true}
         onSlideChange={() => {}} 
         onSwiper={(swiper) => {}}
         centeredSlides={true}
