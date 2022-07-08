@@ -5,8 +5,6 @@ import { XCircle, CheckCircle } from 'react-feather';
 const ModalNotificationRedux = (props) => {
     const { message, status } = props;
 
-    console.log(status  === 'reject')
-
   return (
     <>
         <Modal
