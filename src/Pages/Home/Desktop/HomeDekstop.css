@@ -3,7 +3,7 @@
   height: 30vh;
 }
 .active-img{
-  transform: scale(1.2, 1.2);
+  transform: scale(1.2, 1);
 }
 .not-active-img{
   transform: scale(0.8, 0.8);
@@ -41,8 +41,9 @@
 
 .content-filter{
   display: flex;
-  flex-direction: raw;
+  flex-direction: row;
   justify-content: space-around;
+  margin: 2% 0%;
 }
 .btn-filter{
   border-style: none;

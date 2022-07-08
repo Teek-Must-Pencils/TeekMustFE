@@ -30,6 +30,7 @@ const HomeDekstop = (props) => {
         modules={[Pagination]}
         spaceBetween={30}
         slidesPerView={3}
+        grabCursor={true}
         onSlideChange={() => {}} 
         onSwiper={(swiper) => {}}
         centeredSlides={true}
