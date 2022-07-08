@@ -24,7 +24,7 @@ const HomeMobile = (props) => {
   }
 
   return (
-    <div>
+    <div className='container-content'>
      <Swiper
         modules={[Pagination]}
         spaceBetween={5}

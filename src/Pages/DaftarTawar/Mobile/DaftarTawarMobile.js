@@ -71,7 +71,7 @@ const DaftarTawarMobile = (props) => {
                     <Tab.Pane eventKey="1">
                         <div className="row">
                             <div className="col-4 col-sm-4 my-2">
-                                <button type="button" className="box h-100"
+                                <button type="button" className="color-content h-100"
                                     onClick={handleAddProduct}
                                 >
                                     <Icon.Plus/> Tambah

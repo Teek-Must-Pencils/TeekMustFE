@@ -4,6 +4,7 @@ import { ArrowLeft } from 'react-feather';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom'
 import usePreview from '../../../Hooks/usePreview';
+import second from '../../../Assets/Img/Group 1.png';
 import '../InfoProduct.css';
 
 const InfoProductDesktop = (props) => {
@@ -49,7 +50,7 @@ const InfoProductDesktop = (props) => {
 
     return (
         <>
-            <div className="container">
+            <div className="container-content">
                 <div className="row">
                     <div className="col-1">
                         <div className='ip-content-button'>
@@ -74,6 +75,7 @@ const InfoProductDesktop = (props) => {
                                 <div className='ip-box-input'>
                                     <label>Nama Produk</label>
                                     <input
+                                        className='bg-white'
                                         type="text"
                                         placeholder="Nama Produk"
                                         name="nama"
@@ -85,6 +87,7 @@ const InfoProductDesktop = (props) => {
                                 <div className='ip-box-input'>
                                     <label>Harga Produk</label>
                                     <input
+                                        className='bg-white'
                                         type="text"
                                         placeholder="Rp. 0,00"
                                         defaultValue={dataPreview.price || undefined}
@@ -140,7 +143,7 @@ const InfoProductDesktop = (props) => {
                                         // required={dataPreview.image ? false: true}
                                         />
                                         <img
-                                            src={image || dataPreview.image}
+                                            src={image || dataPreview.image || second}
                                             alt=""
                                         />
                                     </div>
@@ -148,7 +151,7 @@ const InfoProductDesktop = (props) => {
                                 <div className='ip-box-button'>
                                     <button
                                         type='submit'
-                                        className='ip-button-preview'
+                                        className='ip-button-preview color-content'
                                         onClick={
                                             () => setValue('button', 'preview')
                                         }

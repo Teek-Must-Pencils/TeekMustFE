@@ -25,7 +25,7 @@ const HomeDekstop = (props) => {
   }
 
   return (
-    <div className=''>
+    <div className='container-content'>
       <Swiper
         modules={[Pagination]}
         spaceBetween={30}
