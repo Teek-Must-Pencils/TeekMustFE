@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as Icon from 'react-feather';
 import { useSelector } from 'react-redux'
 import { selectAuth, selectRole } from '../../Redux/slice/authSlice'
-import IconNav from '../../Assets/Img/Rectangle 127.png'
+import IconNav from '../../Assets/Img/Rectanglenew.jpg'
 import './Navbar.css';
 
 const data = [
@@ -54,8 +54,8 @@ const MyNavbar = () => {
   }
 
   return (
-    <Navbar bg="white" expand="sm"  
-      className='shadow-sm p-3 mb-5 bg-body'
+    <Navbar expand="sm"  
+      className='shadow-sm p-3 bg-navbar'
       expanded={expanded}
       onToggle={overrideToggle}
     >

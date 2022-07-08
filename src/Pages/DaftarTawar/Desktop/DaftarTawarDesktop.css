@@ -1,14 +1,14 @@
 .btn-edit{
     border-radius: 8px;
     border: 1px solid #7126B5;
-    background: #FFFFFF;
+    background: #FFFFF2;
     width: 4rem;
     height: 2rem;
     margin-top: 0.5rem;
 }
 .btn-edit:hover{
     background: #7126B5;
-    color: white;
+    color: #FFFFF2;
 }
 .btn{
     border-style: none;
@@ -16,11 +16,11 @@
 }
 .btn:hover{
     color:#7126B5;
-    background:white;
+    background:#FFFFF2;
 }
 .box-action-df{
     padding: 10px 20px;
-    background: #FFFFFF;
+    background: #FFFFF2;
     box-shadow: 0 0px 10px rgba(0,0,0,15%);
     border-radius: 16px;
 }

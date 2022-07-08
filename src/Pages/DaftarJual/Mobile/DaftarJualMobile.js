@@ -24,7 +24,7 @@ const DaftarJualMobile = (props) => {
   return (
     <div>
         <div className="container-sm">
-            <font size="5"><b>Daftar Jual Saya</b></font>
+            {/* <font size="5"><b>Daftar Jual Saya</b></font> */}
             <div className="box-action my-5">
                 <div className="d-flex flex-row justify-content-between">
                     <div className='d-flex flex-row gap-2'>
@@ -36,13 +36,13 @@ const DaftarJualMobile = (props) => {
                             </span>
                         </div>
                     </div>
-                    <button className="btn-edit" onClick={handleEditProfile}>
+                    <button className="btn-edit-mobile" onClick={handleEditProfile}>
                         Edit
                     </button>
                 </div>
             </div>
             <Tab.Container 
-                className="d-flex flex-col" 
+                className="d-flex flex-col color-content" 
                 id="left-tabs-example" 
                 defaultActiveKey="1"
             >
