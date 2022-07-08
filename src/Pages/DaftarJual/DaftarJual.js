@@ -2,6 +2,7 @@ import React from 'react';
 import DaftarJualDesktop from './Desktop/DaftarJualDesktop';
 import DaftarJualMobile from './Mobile/DaftarJualMobile';
 import { useMediaQuery } from 'react-responsive';
+import { NavbarMobile } from '../../Components';
 
 const data = [
   {name:"dummy1", categories:["Pencil 2B"], price:2001},
@@ -18,7 +19,10 @@ const Home = () => {
   return (
     <>
       {isDesktopOrLaptop && (<DaftarJualDesktop data={data} />)}
-      {isMobile && (<DaftarJualMobile data={data} />)}
+      {isMobile && (<>
+        <NavbarMobile isSearch={false} location="Daftar Jual Saya" />
+        <DaftarJualMobile data={data} />
+      </>)}
     </>
   )
 }

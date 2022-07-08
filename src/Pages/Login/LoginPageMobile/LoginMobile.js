@@ -56,12 +56,12 @@ const LoginMobile = () => {
     <>
       {show && <ModalNotificationRedux message={message}/>}
       {statusSelect === "pending" && <LoadingRedux flag={statusSelect} />}
-      <Container fluid>
+      <Container>
         <Row>
 
-          <Col md={6} className='box-login'>
+          <Col md={6} className='box-login bg-mobile'>
 
-            <Row className='ms-md-5 me-md-5 form-login align-content-center'>
+            <Row className='form-login align-content-center'>
 
               <Col md={12}>
                 <h1 className="mb-4"> <b>Masuk</b></h1>
