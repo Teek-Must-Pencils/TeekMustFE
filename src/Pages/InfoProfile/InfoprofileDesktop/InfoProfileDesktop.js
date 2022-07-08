@@ -49,7 +49,7 @@ const InfoProfileMobile = (props) => {
     
 
     return (
-        <div className="info-profile ">
+        <div className="container-content">
 
             <div className="button-back-content">
                 <button 
@@ -59,8 +59,9 @@ const InfoProfileMobile = (props) => {
                     <ArrowLeft size='20px'/>
                 </button>
             </div>
-
-            <Row className=" form-profile justify-content-center align-items-center h-100">
+    
+        <div className="container">
+            <Row className="form-profile justify-content-center align-items-center">
                 <div className="col-6">
                     <Form onSubmit={handleSubmit(onSubmit)} className={'form-login'} >
                         <input type='hidden' defaultValue='' {...register("id")} />
@@ -81,17 +82,6 @@ const InfoProfileMobile = (props) => {
                                 defaultValue={userData.name}
                              />
                         </Form.Group>
-
-                        {/* <Form.Group className="mb-3" controlId="">
-                            <Form.Label>Kota*</Form.Label>
-                            <Form.Select size="lg" {...register("Kota")}>
-                                <option>Pilih Kota</option>
-                                <option>Jabodetabek</option>
-                                <option>Bali</option>
-                                <option>Luar Jawa</option>
-                            </Form.Select>
-
-                        </Form.Group> */}
 
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>Alamat</Form.Label>
@@ -123,6 +113,8 @@ const InfoProfileMobile = (props) => {
 
                 </div>
             </Row>
+        </div>
+            
 
 
         </div>

@@ -54,8 +54,8 @@ const MyNavbar = () => {
   }
 
   return (
-    <Navbar bg="white" expand="sm"  
-      className='shadow-sm p-3 mb-5 bg-body'
+    <Navbar expand="sm"  
+      className='shadow-sm p-3 bg-navbar'
       expanded={expanded}
       onToggle={overrideToggle}
     >

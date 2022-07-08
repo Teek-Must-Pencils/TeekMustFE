@@ -26,7 +26,7 @@ const DaftarJualDesktop = (props) => {
     <>
         <div className="container-sm">
             <h5><b>Daftar Jual Saya</b></h5>
-            <div className="box-action my-5">
+            <div className="box-action-df my-5">
                 <div className="d-flex flex-row justify-content-between">
                     <div className='d-flex flex-row gap-2'>
                         <img src={dummyProfile} alt="" />
@@ -43,41 +43,6 @@ const DaftarJualDesktop = (props) => {
                     </button>
                 </div>
             </div>
-            {/* <div className="row">
-                <div className="col-sm-3">
-                    <div className="box-action">
-                    <b>Kategori</b><br></br>
-                    <ul className="list-group list-group-flush">
-                        <li className="list-group-item"><button className="btn btn-semuaproduk"><Icon.Box/>Semua Produk</button></li>
-                        <li className="list-group-item"><button className="btn btn-diminati"><Icon.Heart/>Diminati</button></li>
-                        <li className="list-group-item"><button className="btn btn-terjual"><Icon.Box/>Terjual</button></li>
-                    </ul>
-                    </div>
-                </div>
-                    <div className="col-sm-9">
-                        <div className="row">
-                            <div className="col-3 col-sm-3 my-2">
-                                <button 
-                                    className="box h-100"
-                                    type="button" 
-                                    onClick={handleAddProduct}
-                                >
-                                    <Icon.Plus/> Tambah
-                                </button>
-                            </div>
-                            {data.map((value, i) => {
-                                return(
-                                     <div key={i} className="col-3 col-sm-3 my-2">
-                                       <CardProduct data={value} />
-                                    </div>
-                                )
-                            })
-
-                            }
-                           
-                        </div>
-                </div>
-            </div> */}
             <Tab.Container 
                 id="left-tabs-example" 
                 defaultActiveKey="1"

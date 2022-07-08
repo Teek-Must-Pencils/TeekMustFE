@@ -26,7 +26,7 @@ const DaftarTawarDesktop = (props) => {
     <>
         <div className="container-sm">
             <h5><b>Daftar Tawar Saya</b></h5>
-            <div className="box-action my-5">
+            <div className="box-action-df my-5">
                 <div className="d-flex flex-row justify-content-between">
                     <div className='d-flex flex-row gap-2'>
                         <img src={dummyProfile} alt="" />
@@ -78,7 +78,7 @@ const DaftarTawarDesktop = (props) => {
                     <Tab.Pane eventKey="1">
                         <div className="row">
                             <div className="col-4 col-sm-4 my-2">
-                                <button type="button" className="box h-100"
+                                <button type="button" className="color-content h-100"
                                     onClick={handleAddProduct}
                                 >
                                     <Icon.Plus/> Tambah
