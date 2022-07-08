@@ -106,6 +106,10 @@ const InfoPenawarMobile = () => {
         setModalShow(false)
     }
 
+    const handleModalStatusClosed = () => {
+        setModalStatusShow(false)
+    }
+
     const handleIsAccepted = () => {
         setIsAccepted(false)//ganti button
     }
@@ -144,7 +148,7 @@ const InfoPenawarMobile = () => {
 
             <ModalStatus
                 show={modalStatusShow}
-                close={handleModalClosed}
+                close={handleModalStatusClosed}
             />
             <NavbarMoblile/>
 

@@ -1,8 +1,5 @@
-.info-profile {
-    height: 75vh;
-}
-.tombol-simpan{
 
+.tombol-simpan{
     width: 100%;
     height: 48px;
     background-color: #7126B5;
@@ -12,22 +9,26 @@
     border: none;
 }
 
-.icon-back {
+.icon-back{
     position: relative;
     left: 20.83%;
     right: 50%;
     top: 20.83%;
     bottom: 20.83%;
 }
-.button-back-content{
+.button-back-content-df button{
     padding-left: 15%;
-}
-.button-back-content button{
-    background-color: transparent;
+    background-color:transparent;
     border: none;
-    border: 50%;
+
+
 }
 .button-back-content button:hover{
     background-color: lightgray;
     color: blue;
+}
+.if-img{
+    width: 200px;
+    height: 200px;
+    border-radius: 16px;
 }

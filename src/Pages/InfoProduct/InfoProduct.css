@@ -3,13 +3,14 @@
 }
 .ip-button-preview{
     border: none;
+    background-color: #FFFFF2;
     outline: #7126B5 solid 2px;
     border-radius: 10px;
     padding: 1% 5%;
     margin-bottom: 5%;
 }
 .ip-button-send{
-    color: white;
+    color: #FFFFF2;
     border: none;
     background-color: #7126B5;
     border-radius: 10px;

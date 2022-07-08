@@ -1,6 +1,10 @@
 body {
   font-family:  'Poppins', sans-serif !important;
   font-size: 14px;
+  background-image: url(./Assets/Img/background.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }
 
 h1 {
@@ -8,4 +12,9 @@ h1 {
   font-size: 20px;
   line-height: 30px;
 }
-
+.container-content{
+  padding-top: 2%;
+}
+.color-content{
+  background-color: #FFFFF2;
+}

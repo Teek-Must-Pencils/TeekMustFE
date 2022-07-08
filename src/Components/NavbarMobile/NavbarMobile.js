@@ -52,7 +52,7 @@ const NavbarMobile = (props) => {
             
             </div>
         </div>
-        <Offcanvas show={show} onHide={handleClose}>
+        <Offcanvas show={show} onHide={handleClose} className="bg-canvas">
           <Offcanvas.Header closeButton>
           <Link to='/' className='menu'>
               <Offcanvas.Title>Teek Must Pencil</Offcanvas.Title>

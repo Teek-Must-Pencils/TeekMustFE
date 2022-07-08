@@ -11,6 +11,7 @@ const ServiceProfile = {
     dataSend.append('id', value.id)
     dataSend.append('address', value.address)
     dataSend.append('number', value.number)
+    dataSend.append('img', value.imgFile)
 
     const data = await axios({
       method: 'PUT',

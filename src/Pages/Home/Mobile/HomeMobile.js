@@ -24,11 +24,12 @@ const HomeMobile = (props) => {
   }
 
   return (
-    <div>
+    <div className='container-content'>
      <Swiper
         modules={[Pagination]}
         spaceBetween={5}
         slidesPerView={1}
+        grabCursor={true}
         onSlideChange={() => {}} 
         onSwiper={(swiper) => {}}
         centeredSlides={true}
