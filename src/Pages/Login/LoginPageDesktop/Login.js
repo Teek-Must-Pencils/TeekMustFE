@@ -89,14 +89,14 @@ const Login = () => {
               <Col >
                 <Form onSubmit={handleSubmit(onSubmit)} className={'form-login'} >
                   <Form.Group className="mb-3" controlId="FormLogin1">
-                    <Form.Label>Username*</Form.Label>
+                    <Form.Label>Username</Form.Label>
                     <Form.Control  {...register("username")}
                       size="lg"
                       type="text"
                       placeholder="Contoh: johndee@gmail.com" />
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="FormLogin2">
-                    <Form.Label>Password*</Form.Label>
+                    <Form.Label>Password</Form.Label>
                     <Form.Control {...register("password")}
                       size="lg"
                       type="password"
