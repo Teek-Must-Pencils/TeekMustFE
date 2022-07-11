@@ -12,7 +12,7 @@ const serviceProduct = {
             url: process.env.REACT_APP_BASE_URL+'api/product/products',
             headers:{
                 "Authorization" : `Bearer ${token}`,
-                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/json'
             }
           })
           .then((response) => response)
