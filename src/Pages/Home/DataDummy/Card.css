@@ -31,3 +31,17 @@
     flex-direction: row;
     justify-content: center;
 }
+.tbl-lihat {
+    width: 50%;
+    height: 32px;
+    background-color: #7126B5;
+    border-radius: 8px;
+    color: white;
+    padding: 5px;
+    border: none;
+}
+
+.tbl-lihat:hover {
+    background-color:  #FF1493;
+    transition: .3s ease-in-out;
+  } 
