@@ -52,7 +52,7 @@ export const DataDummy = (props) => {
           </div>
           <div className='card-pi-button'>
             <button 
-              className='btn-outline-primary rounded-pill px-4'
+              className='tbl-lihat'
               onClick={handleProduct.bind(null, item.id)}
             >
               Lihat
