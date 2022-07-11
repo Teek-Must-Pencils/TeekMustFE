@@ -9,20 +9,19 @@
     border: none;
 }
 
-.icon-back {
+.icon-back{
     position: relative;
     left: 20.83%;
     right: 50%;
     top: 20.83%;
     bottom: 20.83%;
 }
-.button-back-content{
+.button-back-content-df button{
     padding-left: 15%;
-}
-.button-back-content button{
-    background-color: transparent;
+    background-color:transparent;
     border: none;
-    border: 50%;
+
+
 }
 .button-back-content button:hover{
     background-color: lightgray;

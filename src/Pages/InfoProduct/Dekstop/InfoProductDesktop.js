@@ -151,7 +151,7 @@ const InfoProductDesktop = (props) => {
                                 <div className='ip-box-button'>
                                     <button
                                         type='submit'
-                                        className='ip-button-preview color-content'
+                                        className='ip-button-preview'
                                         onClick={
                                             () => setValue('button', 'preview')
                                         }

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { selectUser } from '../../../Redux/slice/authSlice'
 import './DaftarJualDesktop.css'
-import { CardProduct } from '../../../Components';
+import { CardProduct, DataNotFound } from '../../../Components';
 import { Tab, Nav, Row, Col } from 'react-bootstrap';
 
 
@@ -22,6 +22,7 @@ const DaftarJualDesktop = (props) => {
         return navigate('/infoProduct')
     }
 
+    console.log()
   return (
     <>
         <div className="container-sm">
@@ -66,7 +67,7 @@ const DaftarJualDesktop = (props) => {
                             <hr/>
                             <Nav.Link eventKey="3" >
                                 <div className='btn-dt-d'>
-                                    <Icon.ShoppingBag /> <span>Terjual</span>
+                                    <Icon.DollarSign /> <span>Terjual</span>
                                 </div>
                             </Nav.Link>
                         </Nav>
@@ -84,38 +85,41 @@ const DaftarJualDesktop = (props) => {
                                     <Icon.Plus/> Tambah
                                 </button>
                             </div>
-                            {data.map((value, i)=>{
-                                return(
-                                    <div key={i} className='col-4 col-sm-4 my-2'>
-                                        <CardProduct data={value}/>
-                                    </div>
-                                )
-                            })
-                            }
+                                {data.map((value, i)=>{
+                                    return(
+                                        <div key={i} className='col-4 col-sm-4 my-2'>
+                                            <CardProduct data={value}/>
+                                        </div>
+                                    )})
+                                }
                         </div>
                     </Tab.Pane>
                     <Tab.Pane eventKey="2">
                         <div className="row">
-                            {data.map((value, i)=>{
+                            {(data.length < 1 || data?.filter((value) => value?.wishlist === true).length < 1) && 
+                                    <DataNotFound marker={'dfj1'} />
+                            }
+                            {data?.filter((value) => value?.wishlist === true).map((value, i)=>{
                                 return(
                                     <div key={i} className='col-4 col-sm-4 my-2'>
                                         <CardProduct data={value}/>
                                     </div>
-                                )
-                            })
+                                )})
                             }
                         </div>
                         
                     </Tab.Pane>
                     <Tab.Pane eventKey="3">
                         <div className="row">
-                            {data.map((value, i)=>{
+                            {(data.length < 1 || data?.filter((value) => value?.sell === true).length < 1)  && 
+                                <DataNotFound marker={'dfj2'}/>
+                            }
+                            {data?.length > 1 && data?.filter((value) => value?.sell === true).map((value, i)=>{
                                 return(
                                     <div key={i} className='col-4 col-sm-4 my-2'>
                                         <CardProduct data={value}/>
                                     </div>
-                                )
-                            })
+                                )}) 
                             }
                         </div>
                     </Tab.Pane>

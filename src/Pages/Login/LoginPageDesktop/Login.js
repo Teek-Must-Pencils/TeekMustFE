@@ -4,13 +4,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../Redux/action/authAction';
-import {  selectStatus, selectMessage, selectAuth } from '../../../Redux/slice/authSlice';
+import {  selectStatus, selectMessage, selectAuth, authActions } from '../../../Redux/slice/authSlice';
 import { LoadingRedux, ModalNotificationRedux } from '../../../Components';
 import "./Login.css"
 
 const Login = () => {
   let navigate = useNavigate();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const statusSelect = useSelector(selectStatus);
@@ -40,27 +40,28 @@ const Login = () => {
       setShow(true);
       setTimeout(() => {
         setShow(false)
+        dispatch(authActions.resetStatus())
       }, 1000);
     } 
     if(statusSelect === "success" && auth){
       setShow(true);
       setTimeout(() => {
         setShow(false)
+        dispatch(authActions.resetStatus())
         navigate('/')
       }, 1000);
     } 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusSelect])
-  
 
   return (
     <div className='img-background'>
-      {show && <ModalNotificationRedux message={message}/>}
+      {show && <ModalNotificationRedux message={message} status={statusSelect}/>}
       {statusSelect === "pending" && <LoadingRedux flag={statusSelect} />}
       <Container fluid>
         <Row>
         <Col md={6} className='ps-0' >
-            <Carousel fade>
+            <Carousel indicators={false} controls={false} fade>
               <Carousel.Item>
                 <Image
                   className="slide-satu d-block w-100 "
@@ -89,18 +90,27 @@ const Login = () => {
               <Col >
                 <Form onSubmit={handleSubmit(onSubmit)} className={'form-login'} >
                   <Form.Group className="mb-3" controlId="FormLogin1">
-                    <Form.Label>Username*</Form.Label>
-                    <Form.Control  {...register("username")}
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control  {...register("username", {required: true})}
                       size="lg"
                       type="text"
-                      placeholder="Contoh: johndee@gmail.com" />
+                      placeholder="Contoh: Masukan Username"   
+                    />
+                    {errors.username && errors.username.type === "required" && 
+                      <div className='errors'><span>Username is required</span></div>
+                    }
                   </Form.Group>
+                  
                   <Form.Group className="mb-3" controlId="FormLogin2">
-                    <Form.Label>Password*</Form.Label>
-                    <Form.Control {...register("password")}
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control {...register("password", { required: true })}
                       size="lg"
                       type="password"
-                      placeholder="Masukkan password" />
+                      placeholder="Masukkan password" 
+                    />
+                    {errors.password && errors.password.type === "required" && 
+                      <div className='errors'><span>Password is required</span></div>
+                    }
                   </Form.Group>
                   <button 
                     type='submit'
