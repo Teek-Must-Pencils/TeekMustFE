@@ -11,7 +11,7 @@ import { ModalNotification } from '../../../Components';
 const RegisterDesktop = () => {
 
 
-    const { register, handleSubmit, control, setValue } = useForm();
+    const { register, handleSubmit, control, setValue, formState: { errors } } = useForm();
     const [image, setImage] = useState("");
     const [isLoading, setLoading] = useState(false);
     const [isNotification, setIsNotification] = useState(false);
@@ -32,8 +32,8 @@ const RegisterDesktop = () => {
     //     }
     // }
 
-    const handleImage = (e) =>{
-        setValue("imageFile",  e.target.files[0])
+    const handleImage = (e) => {
+        setValue("imageFile", e.target.files[0])
         const reader = new FileReader();
         reader.onload = () => {
             if (reader.readyState === 2) {
@@ -48,9 +48,9 @@ const RegisterDesktop = () => {
         // console.log("data", dataSend)
         setLoading(true);
         ServiceRegister(data).then(
-            (res)=> {
+            (res) => {
                 console.log(res)
-                if(res.status === 201){
+                if (res.status === 201) {
                     setMessage(res.data);
                     setLoading(false);
                     setIsNotification(true);
@@ -58,7 +58,7 @@ const RegisterDesktop = () => {
                         setIsNotification(false);
                         setMessage('');
                     }, 1000);
-                }else{
+                } else {
                     // setMessage(res.data);
                     setMessage('User is Failed');
                     setLoading(false);
@@ -75,40 +75,40 @@ const RegisterDesktop = () => {
         )
     };
 
-    const handleIsLoading = () =>{
+    const handleIsLoading = () => {
         setLoading((prev) => !prev)
     }
-    const handleIsNotification = () =>{
+    const handleIsNotification = () => {
         setIsNotification((prev) => !prev)
     }
 
     return (
         <div className='img-background'>
-            <ModalNotification show={isNotification} close={handleIsNotification} message={message}/>
-            <Loading show={isLoading} close={handleIsLoading}/>
+            <ModalNotification show={isNotification} close={handleIsNotification} message={message} />
+            <Loading show={isLoading} close={handleIsLoading} />
             <Container fluid>
                 <Row>
-                <Col md={6} className='ps-0' >
-            <Carousel fade>
-              <Carousel.Item>
-                <Image
-                  className="slide-satu d-block w-100 "
-                />
-              </Carousel.Item>
-              <Carousel.Item>
-                <Image
-                  className="slide-dua d-block w-100"
-                />
-              </Carousel.Item>
-              <Carousel.Item>
-                <Image
-                  className="slide-tiga d-block w-100"
-                  alt=""
-                />
+                    <Col md={6} className='ps-0' >
+                        <Carousel fade>
+                            <Carousel.Item>
+                                <Image
+                                    className="slide-satu d-block w-100 "
+                                />
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <Image
+                                    className="slide-dua d-block w-100"
+                                />
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <Image
+                                    className="slide-tiga d-block w-100"
+                                    alt=""
+                                />
 
-              </Carousel.Item>
-            </Carousel>
-          </Col>
+                            </Carousel.Item>
+                        </Carousel>
+                    </Col>
 
                     <Col md={6} className='box-Register'>
 
@@ -127,51 +127,55 @@ const RegisterDesktop = () => {
 
                             <Col >
 
-                                <Form onSubmit={handleSubmit(onSubmit)} className={'form-input '} >
+                                <Form onSubmit={handleSubmit(onSubmit)} className={'form-input'} >
                                     <Form.Group className="mt-2" controlId="Name">
                                         <Form.Label>Nama*</Form.Label>
-                                        <Form.Control {...register("Nama")}
-                                       
+                                        <Form.Control {...register("Nama", { required: true })}
                                             type="text"
                                             placeholder="Nama Lengkap" />
+                                        {errors.username && errors.username.type === "required" &&
+                                        <div className='errors'><span>Username is required</span></div>}
                                     </Form.Group>
                                     <Form.Group className="mt-2" controlId="Email">
                                         <Form.Label>Email*</Form.Label>
-                                        <Form.Control {...register("Email")}
-                                       
-                                            // type="email"
-                                            type="text"
+                                        <Form.Control {...register("Email", { required: true })}
+                                            type="email"
                                             placeholder="Contoh: johndee@gmail.com" />
+                                        {errors.username && errors.username.type === "required" &&
+                                        <div className='errors'><span>Username is required</span></div>}
                                     </Form.Group>
                                     <Form.Group className="mt-2" controlId="Password">
                                         <Form.Label>Password*</Form.Label>
-                                        <Form.Control {...register("Password")}
-                                       
+                                        <Form.Control {...register("Password", { required: true })}
                                             type="password"
                                             placeholder="Masukkan password" />
+                                         {errors.username && errors.username.type === "required" &&
+                                        <div className='errors'><span>Username is required</span></div>}
                                     </Form.Group>
                                     <Form.Group className="mt-2" controlId="Number">
                                         <Form.Label>Number*</Form.Label>
-                                        <Form.Control {...register("Numbers")}
-                                            
+                                        <Form.Control {...register("Numbers", { required: true })}
                                             type="text"
                                             placeholder="Masukkan Number" />
+                                         {errors.username && errors.username.type === "required" &&
+                                        <div className='errors'><span>Username is required</span></div>}
                                     </Form.Group>
                                     <Form.Group className="mt-2" controlId="Address">
                                         <Form.Label>Address*</Form.Label>
-                                        <Form.Control {...register("Address")}
-                                            
+                                        <Form.Control {...register("Address", { required: true })}
                                             type="text"
                                             placeholder="Masukkan Alamat" />
+                                        {errors.username && errors.username.type === "required" &&
+                                        <div className='errors'><span>Username is required</span></div>}
                                     </Form.Group>
                                     <Form.Group className="mt-2" controlId="Role">
                                         <Form.Label>Role*</Form.Label>
-                                        <Controller 
+                                        <Controller
                                             name="Role"
                                             defaultValue=""
                                             control={control}
-                                            render={({field}) =>(
-                                                <Form.Select 
+                                            render={({ field }) => (
+                                                <Form.Select
                                                     // defaultValue=""
                                                     aria-label="Default select example"
                                                     {...field}
@@ -190,7 +194,7 @@ const RegisterDesktop = () => {
 
                                     <button
                                         type='submit'
-                                        className='tombol-masuk mt-4' 
+                                        className='tombol-masuk mt-4'
                                     >
                                         Daftar Akun
                                     </button>
