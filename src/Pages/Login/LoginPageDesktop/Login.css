@@ -62,6 +62,12 @@ form{
     padding: 5px;
     border: none;
 }
+
+.tombol-masuk:hover {
+    background-color:  #FF1493;
+    transition: .3s ease-in-out;
+  } 
+
 .errors{
     padding: 3% 0% 0% 0%;
     display: flex;

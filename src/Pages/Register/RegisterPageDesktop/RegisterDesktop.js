@@ -4,9 +4,11 @@ import { Container, Row, Col, Form, Carousel, Image } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { Controller, useForm } from "react-hook-form";
 import ServiceRegister from '../../../Services/ServiceRegister';
+import { selectStatus, selectAuth } from '../../../Redux/slice/authSlice';
 import './RegisterDesktop.css'
 import Loading from '../../../Components/Loading/Loading';
 import { ModalNotification } from '../../../Components';
+import { useSelector } from 'react-redux';
 
 const RegisterDesktop = () => {
 
@@ -16,6 +18,8 @@ const RegisterDesktop = () => {
     const [isLoading, setLoading] = useState(false);
     const [isNotification, setIsNotification] = useState(false);
     const [message, setMessage] = useState(false);
+    const statusSelect = useSelector(selectStatus);
+    const auth = useSelector(selectAuth);
     // const [email] = useState("");
     // const [password] = useState("")
     // const [alertStatus, setAlertStatus] = useState(false)
@@ -89,7 +93,7 @@ const RegisterDesktop = () => {
             <Container fluid>
                 <Row>
                     <Col md={6} className='ps-0' >
-                        <Carousel fade>
+                        <Carousel indicators={false} controls={false} fade>
                             <Carousel.Item>
                                 <Image
                                     className="slide-satu d-block w-100 "
@@ -129,47 +133,65 @@ const RegisterDesktop = () => {
 
                                 <Form onSubmit={handleSubmit(onSubmit)} className={'form-input'} >
                                     <Form.Group className="mt-2" controlId="Name">
-                                        <Form.Label>Nama*</Form.Label>
+                                        <Form.Label className='w-100'>
+                                            Name {' '}
+                                            {errors.Nama && errors.Nama.type === "required" &&
+                                                <span className='errors-register ms-2'>Name is required*</span>}
+                                        </Form.Label>
+
                                         <Form.Control {...register("Nama", { required: true })}
                                             type="text"
                                             placeholder="Nama Lengkap" />
-                                        {errors.username && errors.username.type === "required" &&
-                                        <div className='errors'><span>Username is required</span></div>}
                                     </Form.Group>
+
                                     <Form.Group className="mt-2" controlId="Email">
-                                        <Form.Label>Email*</Form.Label>
+                                        <Form.Label className='w-100'>
+                                            Email {' '}
+                                            {errors.Email && errors.Email.type === "required" &&
+                                                <span className='errors-register ms-2'>Email is required*</span>}
+                                        </Form.Label>
                                         <Form.Control {...register("Email", { required: true })}
                                             type="email"
                                             placeholder="Contoh: johndee@gmail.com" />
-                                        {errors.username && errors.username.type === "required" &&
-                                        <div className='errors'><span>Username is required</span></div>}
                                     </Form.Group>
+
                                     <Form.Group className="mt-2" controlId="Password">
-                                        <Form.Label>Password*</Form.Label>
+                                        <Form.Label className='w-100' >
+                                            Password {' '}
+                                            {errors.Password && errors.Password.type === "required" &&
+                                                <span className='errors-register ms-2'>Password is required*</span>}
+                                        </Form.Label>
                                         <Form.Control {...register("Password", { required: true })}
                                             type="password"
                                             placeholder="Masukkan password" />
-                                         {errors.username && errors.username.type === "required" &&
-                                        <div className='errors'><span>Username is required</span></div>}
                                     </Form.Group>
+
                                     <Form.Group className="mt-2" controlId="Number">
-                                        <Form.Label>Number*</Form.Label>
-                                        <Form.Control {...register("Numbers", { required: true })}
+                                        <Form.Label className='w-100'>
+                                            Number {''}
+                                            {errors.Number && errors.Number.type === "required" &&
+                                                <span className='errors-register ms-2'>Number is required*</span>}
+                                        </Form.Label>
+                                        <Form.Control {...register("Number", { required: true })}
                                             type="text"
                                             placeholder="Masukkan Number" />
-                                         {errors.username && errors.username.type === "required" &&
-                                        <div className='errors'><span>Username is required</span></div>}
                                     </Form.Group>
+
                                     <Form.Group className="mt-2" controlId="Address">
-                                        <Form.Label>Address*</Form.Label>
+                                        <Form.Label className='w-100'>
+                                            Address {''}
+                                            {errors.Address && errors.Address.type === "required" &&
+                                                <span className='errors-register ms-2'>Address is required*</span>}
+                                            </Form.Label>
                                         <Form.Control {...register("Address", { required: true })}
                                             type="text"
                                             placeholder="Masukkan Alamat" />
-                                        {errors.username && errors.username.type === "required" &&
-                                        <div className='errors'><span>Username is required</span></div>}
                                     </Form.Group>
+
                                     <Form.Group className="mt-2" controlId="Role">
-                                        <Form.Label>Role*</Form.Label>
+                                        <Form.Label className='w-100'>
+                                            Role {''}
+                                            </Form.Label>
                                         <Controller
                                             name="Role"
                                             defaultValue=""
@@ -194,13 +216,13 @@ const RegisterDesktop = () => {
 
                                     <button
                                         type='submit'
-                                        className='tombol-masuk mt-4'
+                                        className='tombol-masuk mt-2'
                                     >
                                         Daftar Akun
                                     </button>
                                 </Form>
                             </Col>
-                            <Col md={12} className={'text-center mt-4'}>
+                            <Col md={12} className={'text-center'}>
                                 <span >Sudah punya akun </span> <Link to='/login' className='link'> <b>Masuk disini</b></Link>
                             </Col>
                         </Row>
