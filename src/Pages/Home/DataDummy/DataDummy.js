@@ -3,21 +3,28 @@ import { useNavigate } from 'react-router-dom'
 import dummyJam from '../../../Assets/Img/dummyProduct.png'
 import { Col, Row } from 'react-bootstrap';
 import './Card.css'
+import { DataNotFound } from '../../../Components';
 
 export const DataDummy = (props) => {
   const { filter, data } = props
   const navigate = useNavigate();
 
-  let dataView, search;
-  if(filter === 0){
+  let dataView;
+  if(filter === ''){
     dataView = data
   }else{
-    if(filter === 1) { search = "PENCIL_2B"}
-    if(filter === 2) { search = "COLOR_PENCIL_8"}
-    if(filter === 3) { search = "Pencils 4B"}
-    if(filter === 4) { search = "Pencils 5B"}
-    if(filter === 5) { search = "Pencils Warna"}
-    dataView = data.filter((value) => value.categories.includes(search))
+    dataView = data.filter((value) => 
+      value.categories.includes(filter?.toUpperCase())
+    )
+  }
+
+  const handleCategory = (item) =>{
+    let result;
+    if (item.toLowerCase() === 'pencil_2b') { result = "Pencil 2B"}
+    else if(item.toLowerCase() === 'color_pencil_12'){ result = "Color Pencil 12"}
+    else if(item.toLowerCase() === 'color_pencil_24'){ result = "Color Pencil 24"}
+    else if(item.toLowerCase() === 'color_pencil_8'){ result = "Color Pencil 8"}
+    return result;
   }
 
   const handleProduct = (id) =>{
@@ -26,10 +33,14 @@ export const DataDummy = (props) => {
 
   const categories = (item) =>{
     const res = (
-      <div className='d-flex flex-column'>
+      <div className='card-pi-box'>
         {item.map((item, i)=>{
               return(
-                <div key={i}>{item}</div>
+                <div key={i}
+                  className="card-pi-box-category"
+                >
+                  {handleCategory(item)}
+                </div>
               )
             })
           }
@@ -41,9 +52,9 @@ export const DataDummy = (props) => {
   return (
     <div>
     <Row>
-    {dataView.length < 1 && (<div className='text-center p-5'>Data Kosong</div>)}
+    {dataView.length < 1 && (<DataNotFound />)}
     {dataView.length > 1 && dataView.map((item, idx) => (
-        <Col className='p-3' lg={2} md={2} xs={6} key={idx}>
+        <Col className='p-3' lg={3} md={3} xs={6} key={idx}>
         <div className='card-product'>
           <div>
             <img className='card-img' src={`data:image/png;base64,${item.imgB}` || dummyJam} alt="" />
@@ -55,7 +66,7 @@ export const DataDummy = (props) => {
           </div>
           <div className='card-pi-button'>
             <button 
-              className='btn-outline-primary rounded-pill px-4'
+              className='tbl-lihat'
               onClick={handleProduct.bind(null, item.id)}
             >
               Lihat

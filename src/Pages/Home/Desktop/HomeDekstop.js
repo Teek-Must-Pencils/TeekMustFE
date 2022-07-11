@@ -12,15 +12,25 @@ import "swiper/css";
 import 'swiper/css/pagination';
 
 const HomeDekstop = (props) => {
-  const { data } = props;
-  const { role } = props;
-  const [filter, setFilter] = useState(0);
+  const { data , role, category } = props;
+  const [filter, setFilter] = useState('');
+
+  const handleCategories = (id) =>{
+    let result;
+    if (id === 1) { result = "Pencil 2B"}
+    else if(id === 3){ result = "Color Pencil 12"}
+    else if(id === 4){ result = "Color Pencil 24"}
+    else if(id === 2){ result = "Color Pencil 8"}
+    return result;
+  }
+
   return (
-    <div className=''>
+    <div className='container-content'>
       <Swiper
         modules={[Pagination]}
         spaceBetween={30}
         slidesPerView={3}
+        grabCursor={true}
         onSlideChange={() => {}} 
         onSwiper={(swiper) => {}}
         centeredSlides={true}
@@ -47,121 +57,26 @@ const HomeDekstop = (props) => {
       <div className="container-sm">
       <p><b>Telusuri Kategori</b></p>
       <div className='content-filter'>
-         <button 
+        <button 
           className="btn-filter"
-          onClick={() => setFilter(0)}
-          >
+          onClick={() => setFilter('')}
+        >
             <Icon.Search/> <span>Semua</span>
         </button>
-        <button
-          className="btn-filter"
-          onClick={() => setFilter(1)}
-        >
-            <Icon.Search/> <span>Pencil 2B</span>
-        </button>
-        <button 
-          className="btn-filter"
-          onClick={() => setFilter(2)}
-        >
-            <Icon.Search/> <span>Pencil Warna</span>
-        </button>
-
-        <button 
-          className="btn-filter"
-          onClick={() => setFilter(3)}
-        >
-            <Icon.Search/> <span>Pencil 4B</span>
-        </button>
-        <button 
-          className="btn-filter"
-          onClick={() => setFilter(4)}
-        >
-            <Icon.Search/> <span>Pencil 5B</span>
-        </button>
-        <button 
-          className="btn-filter"
-          onClick={() => setFilter(5)}
-        >
-            <Icon.Search/> <span>Pencil Warna</span>
-        </button>
+          {category.length > 1 && category?.map((value)=>{
+              return(
+                <button 
+                  key={value.id}
+                  className="btn-filter"
+                  onClick={() => setFilter(value.categories)}
+                >
+                    <Icon.Search/> 
+                    <span>{handleCategories(value.id)}</span>
+                </button>
+              )
+            })
+          }
       </div>
-       
-
-          {/* tabs */}
-        {/* <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
-          <li className="nav-item" role="presentation">
-            <button 
-              className="nav-link active" id="pills-one-tab" data-bs-toggle="pill"  data-bs-target="#pills-one"
-               type="button" role="tab" aria-controls="pills-one" aria-selected="true"
-            >
-              <Icon.Search/> Semua
-            </button>
-          </li>
-          <li className="nav-item" role="presentation">
-            <button 
-              className="nav-link" id="pills-two-tab" data-bs-toggle="pill" data-bs-target="#pills-two" 
-              type="button" role="tab" aria-controls="pills-two" aria-selected="false"
-            >
-             <Icon.Search/> Pencil 2B
-            </button>
-          </li>
-          <li className="nav-item" role="presentation">
-            <button 
-              className="nav-link" id="pills-three-tab" data-bs-toggle="pill" data-bs-target="#pills-three" 
-              type="button" role="tab" aria-controls="pills-three" aria-selected="false"
-            >
-             <Icon.Search/> Pencil 3B
-            </button>
-          </li>
-          <li className="nav-item" role="presentation">
-            <button 
-              className="nav-link" id="pills-four-tab" data-bs-toggle="pill" data-bs-target="#pills-four" 
-              type="button" role="tab" aria-controls="pills-four" aria-selected="false"
-            >
-             <Icon.Search/> Pencil 4B
-            </button>
-          </li>
-          <li className="nav-item" role="presentation">
-            <button 
-              className="nav-link" id="pills-five-tab" data-bs-toggle="pill" data-bs-target="#pills-five" 
-              type="button" role="tab" aria-controls="pills-five" aria-selected="false"
-            >
-             <Icon.Search/> Pencil 4B
-            </button>
-          </li>
-        </ul>
-        <div className="tab-content" id="pills-tabContent">
-          <div
-            className="tab-pane fade show active" id="pills-one" 
-            role="tabpanel" aria-labelledby="pills-one-tab"
-          >
-            one
-          </div>
-          <div 
-            className="tab-pane fade" id="pills-two" role="tabpanel" 
-            aria-labelledby="pills-two-tab"
-          >
-            two
-          </div>
-          <div 
-            className="tab-pane fade" id="pills-three" 
-            role="tabpanel" aria-labelledby="pills-three-tab"
-          >
-            three
-          </div>
-          <div 
-            className="tab-pane fade" id="pills-four" 
-            role="tabpanel" aria-labelledby="pills-four-tab"
-          >
-            four
-          </div>
-          <div 
-            className="tab-pane fade" id="pills-five" 
-            role="tabpanel" aria-labelledby="pills-five-tab"
-          >
-            five
-          </div>
-        </div> */}
 
       <DataDummy 
         filter={filter}

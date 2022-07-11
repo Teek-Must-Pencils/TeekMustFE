@@ -5,6 +5,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
+  margin: 2% 0%;
 }
 .icon-mobile{
   width: 1rem;
@@ -45,9 +46,9 @@ background: #4B1979;
 }
 
 
-.btn-filter span{
+/* .btn-filter span{
   font-size: 2vw;
-}
+} */
 
 .offcanvas{
   width: 60% !important;
