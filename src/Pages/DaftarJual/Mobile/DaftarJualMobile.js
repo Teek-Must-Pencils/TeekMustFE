@@ -5,7 +5,7 @@ import './DaftarJualMobile.css'
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../../Redux/slice/authSlice';
-import { CardProduct } from '../../../Components';
+import { CardProduct, DataNotFound } from '../../../Components';
 import { Nav, Tab } from 'react-bootstrap';
 
 const DaftarJualMobile = (props) => {
@@ -24,7 +24,6 @@ const DaftarJualMobile = (props) => {
   return (
     <div>
         <div className="container-sm">
-            {/* <font size="5"><b>Daftar Jual Saya</b></font> */}
             <div className="box-action my-5">
                 <div className="d-flex flex-row justify-content-between">
                     <div className='d-flex flex-row gap-2'>
@@ -89,20 +88,25 @@ const DaftarJualMobile = (props) => {
                     </Tab.Pane>
                     <Tab.Pane eventKey="2">
                         <div className="row">
-                            {data.map((value, i)=>{
+                            {(data.length < 1 || data?.filter((value) => value?.wishlist === true).length < 1) && 
+                                <DataNotFound marker={'dfj1'}/>
+                            }
+                            {data.length > 1 && data?.filter((value) => value?.wishlist === true).map((value, i)=>{
                                 return(
                                     <div key={i} className='col-4 col-sm-4 my-2'>
                                         <CardProduct data={value}/>
                                     </div>
-                                )
-                            })
+                                )})
                             }
                         </div>
                         
                     </Tab.Pane>
                     <Tab.Pane eventKey="3">
                         <div className="row">
-                            {data.map((value, i)=>{
+                            {(data.length < 1 || data?.filter((value) => value?.sell === true).length < 1)  && 
+                                <DataNotFound marker={'dfj2'}/>
+                            }
+                            {data.length > 1 && data?.filter((value) => value?.sell === true).map((value, i)=>{
                                 return(
                                     <div key={i} className='col-4 col-sm-4 my-2'>
                                         <CardProduct data={value}/>
