@@ -5,7 +5,7 @@ import './DaftarTawarMobile.css'
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../../Redux/slice/authSlice';
-import { CardProduct } from '../../../Components';
+import { CardProduct, DataNotFound } from '../../../Components';
 import { Nav, Tab } from 'react-bootstrap';
 
 const DaftarTawarMobile = (props) => {
@@ -70,26 +70,33 @@ const DaftarTawarMobile = (props) => {
                 <Tab.Content className=''>
                     <Tab.Pane eventKey="1">
                         <div className="row">
-                            <div className="col-4 col-sm-4 my-2">
-                                <button type="button" className="color-content h-100"
-                                    onClick={handleAddProduct}
-                                >
-                                    <Icon.Plus/> Tambah
-                                </button>
-                            </div>
-                            {data.map((value, i)=>{
-                                return(
-                                    <div key={i} className='col-4 col-sm-4 my-2'>
-                                        <CardProduct data={value}/>
+                            {data?.length < 1  && <DataNotFound />}
+                            {data?.length > 1 && (
+                                <>
+                                    <div className="col-4 col-sm-4 my-2">
+                                        <button type="button" className="box h-100"
+                                            onClick={handleAddProduct}
+                                        >
+                                            <Icon.Plus/> Tambah
+                                        </button>
                                     </div>
-                                )
-                            })
-                            }
+                                    {data.map((value, i)=>{
+                                        return(
+                                            <div key={i} className='col-4 col-sm-4 my-2'>
+                                                <CardProduct data={value}/>
+                                            </div>
+                                        )
+                                    })}
+                                </>
+                            )}
                         </div>
                     </Tab.Pane>
                     <Tab.Pane eventKey="2">
                         <div className="row">
-                            {data.map((value, i)=>{
+                            {(data?.length < 1 || data?.filter((value) => value?.wishlist === true).length < 1)  && 
+                                <DataNotFound marker={'dft2'}/>
+                            }
+                            {data?.length > 1 && data?.filter((value) => value?.wishlist === true).map((value, i)=>{
                                 return(
                                     <div key={i} className='col-4 col-sm-4 my-2'>
                                         <CardProduct data={value}/>
@@ -102,7 +109,10 @@ const DaftarTawarMobile = (props) => {
                     </Tab.Pane>
                     <Tab.Pane eventKey="3">
                         <div className="row">
-                            {data.map((value, i)=>{
+                            {(data?.length < 1 || data?.filter((value) => value?.sell === true).length < 1)  && 
+                                <DataNotFound marker={'dft2'}/>
+                            }
+                            {data?.length > 1 && data?.filter((value) => value?.sell === true).map((value, i)=>{
                                 return(
                                     <div key={i} className='col-4 col-sm-4 my-2'>
                                         <CardProduct data={value}/>

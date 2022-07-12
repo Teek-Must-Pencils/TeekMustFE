@@ -69,21 +69,25 @@ const DaftarJualMobile = (props) => {
                 <Tab.Content className=''>
                     <Tab.Pane eventKey="1">
                         <div className="row">
-                            <div className="col-4 col-sm-4 my-2">
-                                <button type="button" className="box h-100"
-                                    onClick={handleAddProduct}
-                                >
-                                    <Icon.Plus/> Tambah
-                                </button>
-                            </div>
-                            {data.map((value, i)=>{
-                                return(
-                                    <div key={i} className='col-4 col-sm-4 my-2'>
-                                        <CardProduct data={value}/>
+                            {data?.length < 1  && <DataNotFound />}
+                            {data?.length > 1 && (
+                                <>
+                                    <div className="col-4 col-sm-4 my-2">
+                                        <button type="button" className="box h-100"
+                                            onClick={handleAddProduct}
+                                        >
+                                            <Icon.Plus/> Tambah
+                                        </button>
                                     </div>
-                                )
-                            })
-                            }
+                                    {data.map((value, i)=>{
+                                        return(
+                                            <div key={i} className='col-4 col-sm-4 my-2'>
+                                                <CardProduct data={value}/>
+                                            </div>
+                                        )
+                                    })}
+                                </>
+                            )}
                         </div>
                     </Tab.Pane>
                     <Tab.Pane eventKey="2">

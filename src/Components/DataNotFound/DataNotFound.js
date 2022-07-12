@@ -10,6 +10,10 @@ const DataNotFound = (props) => {
     content = 'Belum ada produkmu yang diminati'
   }else if(marker === 'dfj2'){
     content = 'Belum ada produkmu yang terjual'
+  }else if(marker === 'dft1'){
+    content = 'Belum ada produk yang ditawar'
+  }else if(marker === 'dft2'){
+    content = 'Belum ada produk yang dibeli'
   }else{
     content= 'Data Tidak Ada'
   }

@@ -45,3 +45,9 @@
 .btn-dt span{
     font-size: 2vw !important;
 }
+@media screen and (max-width: 426px) {
+    .btn-dt,
+    .btn-dt span {
+      padding: 5% !important;
+    }
+  }
