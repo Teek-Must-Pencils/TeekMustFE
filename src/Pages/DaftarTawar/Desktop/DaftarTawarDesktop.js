@@ -1,12 +1,12 @@
-import React from 'react'
-import dummyProfile from '../../../Assets/Img/profile.png'
+import React from 'react';
+import dummyProfile from '../../../Assets/Img/profile.png';
 import * as Icon from 'react-feather';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { selectUser } from '../../../Redux/slice/authSlice'
-import './DaftarTawarDesktop.css'
-import { CardProduct } from '../../../Components';
+import { selectUser } from '../../../Redux/slice/authSlice';
+import { CardProduct, DataNotFound } from '../../../Components';
 import { Tab, Nav, Row, Col } from 'react-bootstrap';
+import './DaftarTawarDesktop.css';
 
 
 const DaftarTawarDesktop = (props) => {
@@ -25,7 +25,6 @@ const DaftarTawarDesktop = (props) => {
   return (
     <>
         <div className="container-sm">
-            <h5><b>Daftar Tawar Saya</b></h5>
             <div className="box-action-df my-5">
                 <div className="d-flex flex-row justify-content-between">
                     <div className='d-flex flex-row gap-2'>
@@ -77,26 +76,33 @@ const DaftarTawarDesktop = (props) => {
                 <Tab.Content className=''>
                     <Tab.Pane eventKey="1">
                         <div className="row">
-                            <div className="col-4 col-sm-4 my-2">
-                                <button type="button" className="color-content h-100"
-                                    onClick={handleAddProduct}
-                                >
-                                    <Icon.Plus/> Tambah
-                                </button>
-                            </div>
-                            {data.map((value, i)=>{
-                                return(
-                                    <div key={i} className='col-4 col-sm-4 my-2'>
-                                        <CardProduct data={value}/>
+                            {data?.length < 1  && <DataNotFound />}
+                            {data?.length > 1 && (
+                                <>
+                                    <div className="col-4 col-sm-4 my-2">
+                                        <button type="button" className="box color-content h-100"
+                                            onClick={handleAddProduct}
+                                        >
+                                            <Icon.Plus/> Tambah
+                                        </button>
                                     </div>
-                                )
-                            })
-                            }
+                                    {data.map((value, i)=>{
+                                        return(
+                                            <div key={i} className='col-4 col-sm-4 my-2'>
+                                                <CardProduct data={value}/>
+                                            </div>
+                                        )
+                                    })}
+                                </>
+                            )} 
                         </div>
                     </Tab.Pane>
                     <Tab.Pane eventKey="2">
                         <div className="row">
-                            {data.map((value, i)=>{
+                            {(data?.length < 1 || data?.filter((value) => value?.wishlist === true).length < 1)  && 
+                                <DataNotFound marker={'dft1'}/>
+                            }
+                            {data?.length > 1 && data?.filter((value) => value?.wishlist === true).map((value, i)=>{
                                 return(
                                     <div key={i} className='col-4 col-sm-4 my-2'>
                                         <CardProduct data={value}/>
@@ -109,7 +115,10 @@ const DaftarTawarDesktop = (props) => {
                     </Tab.Pane>
                     <Tab.Pane eventKey="3">
                         <div className="row">
-                            {data.map((value, i)=>{
+                            {(data?.length < 1 || data?.filter((value) => value?.sell === true).length < 1)  && 
+                                <DataNotFound marker={'dft2'}/>
+                            }
+                            {data?.length > 1 && data?.filter((value) => value?.sell === true).map((value, i)=>{
                                 return(
                                     <div key={i} className='col-4 col-sm-4 my-2'>
                                         <CardProduct data={value}/>
