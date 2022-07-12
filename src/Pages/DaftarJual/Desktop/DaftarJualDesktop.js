@@ -22,7 +22,6 @@ const DaftarJualDesktop = (props) => {
         return navigate('/infoProduct')
     }
 
-    console.log()
   return (
     <>
         <div className="container-sm">
@@ -78,28 +77,33 @@ const DaftarJualDesktop = (props) => {
                 <Tab.Content className=''>
                     <Tab.Pane eventKey="1">
                         <div className="row">
-                            <div className="col-4 col-sm-4 my-2">
-                                <button type="button" className="box h-100"
-                                    onClick={handleAddProduct}
-                                >
-                                    <Icon.Plus/> Tambah
-                                </button>
-                            </div>
-                                {data.map((value, i)=>{
-                                    return(
-                                        <div key={i} className='col-4 col-sm-4 my-2'>
-                                            <CardProduct data={value}/>
-                                        </div>
-                                    )})
-                                }
+                            {data?.length < 1  && <DataNotFound />}
+                            {data?.length > 1 && (
+                                <>
+                                    <div className="col-4 col-sm-4 my-2">
+                                        <button type="button" className="box h-100"
+                                            onClick={handleAddProduct}
+                                        >
+                                            <Icon.Plus/> Tambah
+                                        </button>
+                                    </div>
+                                    {data?.map((value, i)=>{
+                                        return(
+                                            <div key={i} className='col-4 col-sm-4 my-2'>
+                                                <CardProduct data={value}/>
+                                            </div>
+                                        )})
+                                    }
+                                </>
+                            )}
                         </div>
                     </Tab.Pane>
                     <Tab.Pane eventKey="2">
                         <div className="row">
-                            {(data.length < 1 || data?.filter((value) => value?.wishlist === true).length < 1) && 
-                                    <DataNotFound marker={'dfj1'} />
+                            {(data?.length < 1 || data?.filter((value) => value?.wishlist === true).length < 1) && 
+                                <DataNotFound marker={'dfj1'} />
                             }
-                            {data?.filter((value) => value?.wishlist === true).map((value, i)=>{
+                            {data?.length > 1 && data?.filter((value) => value?.wishlist === true).map((value, i)=>{
                                 return(
                                     <div key={i} className='col-4 col-sm-4 my-2'>
                                         <CardProduct data={value}/>
@@ -107,11 +111,10 @@ const DaftarJualDesktop = (props) => {
                                 )})
                             }
                         </div>
-                        
                     </Tab.Pane>
                     <Tab.Pane eventKey="3">
                         <div className="row">
-                            {(data.length < 1 || data?.filter((value) => value?.sell === true).length < 1)  && 
+                            {(data?.length < 1 || data?.filter((value) => value?.sell === true).length < 1)  && 
                                 <DataNotFound marker={'dfj2'}/>
                             }
                             {data?.length > 1 && data?.filter((value) => value?.sell === true).map((value, i)=>{

@@ -55,7 +55,7 @@ const HomeDekstop = (props) => {
         <div className='pagination-swiper'></div>
       </Swiper>
       <div className="container-sm">
-      <p><b>Telusuri Kategori</b></p>
+      <h5><b>Telusuri Kategori</b></h5>
       <div className='content-filter'>
         <button 
           className="btn-filter"
