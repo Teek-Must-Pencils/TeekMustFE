@@ -5,11 +5,11 @@ import { useMediaQuery } from 'react-responsive';
 import { NavbarMobile } from '../../Components';
 
 const data = [
-  {name:"dummy1", categories:["Pencil 2B"], price:2001},
-  {name:"dummy2", categories:["Pencil 2B"], price:2002},
-  {name:"dummy3", categories:["Pencil 2B"], price:2003},
-  {name:"dummy4", categories:["Pencil 2B"], price:2004},
-  {name:"dummy5", categories:["Pencil 2B"], price:2005},
+  {name:"dummy1", categories:["Pencil_2B"], price:2001,  wishlist: true, sell:false},
+  {name:"dummy2", categories:["Pencil_2B"], price:2002,  wishlist: false, sell:false},
+  {name:"dummy3", categories:["Pencil_2B"], price:2003, wishlist: false, sell:false},
+  {name:"dummy4", categories:["COLOR_PENCIL_8"], price:2004, wishlist: true, sell:false},
+  {name:"dummy5", categories:["COLOR_PENCIL_12"], price:2005,  wishlist: true, sell:false},
 ]
 
 const Home = () => {

@@ -10,34 +10,46 @@ const CardProduct = (props) => {
     const handleProduct = (id) =>{
         return navigate(`/productPage/${id}`)
       }
+    const handleCategory = (item) =>{
+        let result;
+        if (item.toLowerCase() === 'pencil_2b') { result = "Pencil 2B"}
+        else if(item.toLowerCase() === 'color_pencil_12'){ result = "Color Pencil 12"}
+        else if(item.toLowerCase() === 'color_pencil_24'){ result = "Color Pencil 24"}
+        else if(item.toLowerCase() === 'color_pencil_8'){ result = "Color Pencil 8"}
+        return result;
+    }
     
-      const categories = (value) =>{
+      const categories = (item) =>{
         const res = (
-          <div className='d-flex flex-column'>
-            {value.map((item, i)=>{
+          <div className='cardProduct-pi-box'>
+            {item.map((item, i)=>{
                   return(
-                    <div key={i}>{item}</div>
+                    <div key={i}
+                      className="cardProduct-pi-box-category"
+                    >
+                      {handleCategory(item)}
+                    </div>
                   )
                 })
               }
           </div>
         )
         return res
-      } 
+      }
 
   return (
     <>
-        <div className='card-product'>
+        <div className='cardProduct-product'>
           <div>
-            {/* <img className='card-img' src={`data:image/png;base64,${data.imgB}` || dummyJam} alt="" /> */}
-            <img className='card-img' src={ dummyJam} alt="" />
+            {/* <img className='cardProduct-img' src={`data:image/png;base64,${data.imgB}` || dummyJam} alt="" /> */}
+            <img className='cardProduct-img' src={ dummyJam} alt="" />
           </div>
-          <div className='card-product-info'>
-            <span className='card-pi-title text-truncate'>{data.name}</span>
-            <span className='card-pi-category'>{categories(data.categories)}</span>
-            <span className='card-pi-price'>Rp. {data.price}</span>
+          <div className='cardProduct-product-info'>
+            <span className='cardProduct-pi-title text-truncate'>{data.name}</span>
+            <span className='cardProduct-pi-category'>{categories(data.categories)}</span>
+            <span className='cardProduct-pi-price'>Rp. {data.price}</span>
           </div>
-          <div className='card-pi-button'>
+          <div className='cardProduct-pi-button'>
             <button 
               className='tbl-lihat'
               onClick={handleProduct.bind(null, data.id)}

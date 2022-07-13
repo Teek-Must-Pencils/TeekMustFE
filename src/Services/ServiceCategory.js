@@ -2,16 +2,18 @@ import axios from 'axios';
 
 const serviceCategory = {
 
-    async getAllCategory(){
+    async GetAllCategory(){
         const sessionData = sessionStorage.getItem('user')
         const dt = JSON.parse(sessionData);
         const token = dt.accessToken
+        // console.log(token)
 
         const data = await axios({
             method: "GET",
             url: process.env.REACT_APP_BASE_URL+'api/category/products',
             headers:{
-                "Authorization" : `Bearer ${token}`
+                "Authorization" : `Bearer ${token}`,
+                // 'Content-Type': 'application/json'
             }
         })
         .then((response) => response)

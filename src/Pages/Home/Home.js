@@ -21,7 +21,7 @@ const Home = () => {
     setLoading(true);
     Promise.allSettled([
       serviceProduct.GetAllProduct(), 
-      serviceCategory.getAllCategory()
+      serviceCategory.GetAllCategory()
     ]).then(([product, category]) => {
       setProduct(product.value.data);
       setCategory(category.value.data)
@@ -36,6 +36,7 @@ const Home = () => {
     //   second
     // }
   }, [])
+  
 
   return (
     <>

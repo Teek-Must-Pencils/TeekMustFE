@@ -56,7 +56,7 @@ const LoginMobile = () => {
 
   return (
     <>
-      {show && <ModalNotificationRedux message={message}/>}
+      {show && <ModalNotificationRedux message={message} status={statusSelect}/>}
       {statusSelect === "pending" && <LoadingRedux flag={statusSelect} />}
       <Container>
         <Row>
