@@ -1,37 +1,36 @@
-import React, { useEffect, useState } from 'react'
-import { useMediaQuery } from 'react-responsive'
-import { useSelector } from 'react-redux'
-import ServiceProfile from '../../Services/ServiecProfile'
-import InfoProfileDesktop from './InfoprofileDesktop/InfoProfileDesktop'
-import InfoProfileMobile from './InfoProfileMobile/InfoProfileMobile'
-import dummy from '../../Assets/Img/profile.png'
+import React, { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { useSelector } from 'react-redux';
+import ServiceProfile from '../../Services/ServiecProfile';
+import InfoProfileDesktop from './InfoprofileDesktop/InfoProfileDesktop';
+import InfoProfileMobile from './InfoProfileMobile/InfoProfileMobile';
+import { selectUser } from '../../Redux/slice/authSlice';
+import { Loading } from '../../Components';
 
-const data ={
-  id: 14,
-  name: 'Test',
-  address: 'Test Address',
-  number:'123465569',
-  img: dummy,
-
-}
 
 const InfoProfile = () => {
+    const username = useSelector(selectUser);
+    const [isLoading, setIsLoading] = useState(false);
     const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'})
     const isMobile = useMediaQuery({query: '(max-width: 426px)'})
-    const username = useSelector((state) => state.auth.user)
-    const [dataUser, setDataUser] = useState(data);
+    const [dataUser, setDataUser] = useState();
 
-  // console.log('user', username)
     useEffect(() => {
-      // ServiceProfile.getUserByUsername(username)
-      // .then((res) => {
-      //   if(res.status === 200){
-      //     setDataUser(res.data)
-      //   }else{
-      //     console.log('errr', error)
-      //   }
-      //   console.log(res)
-      // })
+      // console.log('user', username)
+      setIsLoading(true)
+      ServiceProfile.getUserByUsername(username)
+      .then((res) => {
+        console.log(res)
+        if(res.status === 200){
+          setDataUser(res.data)
+          setIsLoading(false);
+        }else{
+          setIsLoading(false);
+          console.log('errr')
+        }
+        console.log(res)
+      })
+      setIsLoading(false);
       
     
       // return () => {
@@ -43,6 +42,7 @@ const InfoProfile = () => {
 
   return (
     <>
+        <Loading show={isLoading}  />
         { isDesktopOrLaptop &&  <InfoProfileDesktop userData={dataUser}/>}
         { isMobile &&  <InfoProfileMobile userData={dataUser}/>}
     </>

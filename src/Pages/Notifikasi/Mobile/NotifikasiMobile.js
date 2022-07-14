@@ -38,7 +38,7 @@ const NotifikasiMobile = () => {
                       <span>Ditawar Rp. 200.000</span>
                       <div className='mn-content-button'>
                         <button
-                          className='btn-outline-primary'
+                          className='mn-tbl-lihat'
                           onClick={handlePenawar.bind(null, value)}
                         >
                           Lihat tawaran

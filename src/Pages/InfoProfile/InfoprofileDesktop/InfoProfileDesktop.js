@@ -12,7 +12,7 @@ import ServiceProfile from "../../../Services/ServiecProfile";
 const InfoProfileMobile = (props) => {
     const { userData }= props;   
     const navigate = useNavigate();
-    const [image, setImage] = useState(userData.img);
+    const [image, setImage] = useState(userData?.img);
     const { register, handleSubmit, setValue } = useForm();
 
     const onSubmit = data => {
@@ -78,7 +78,7 @@ const InfoProfileMobile = (props) => {
                                 size="lg"
                                 type="text"
                                 placeholder="Nama" 
-                                defaultValue={userData.name}
+                                defaultValue={userData?.name}
                              />
                         </Form.Group>
 
@@ -90,7 +90,7 @@ const InfoProfileMobile = (props) => {
                                 size="lg"
                                 type="text"
                                 placeholder="Alamat" 
-                                defaultValue={userData.address}
+                                defaultValue={userData?.address}
                             />
                         </Form.Group>
 
@@ -100,7 +100,7 @@ const InfoProfileMobile = (props) => {
                                 size="lg"
                                 type="number"
                                 placeholder="contoh: +628123456789" 
-                                defaultValue={userData.number}
+                                defaultValue={userData?.number}
                             />
                         </Form.Group>
 

@@ -40,11 +40,9 @@ function MyVerticallyCenteredModal(props) {
                             Segera hubungi pembeli melalui whatsapp untuk transaksi selanjutnya
                         </div>
                         <div className="modal-box-product d-flex flex-column">
-
                             <div className='text-center mt-2'>
                                 <span><b>Product Match</b></span>
                             </div>
-
                             <div className="d-flex flex-row gap-2 ms-2">
                                 <div className='me-2'>
                                     <img src={dummyProfile} alt="" />
@@ -54,10 +52,8 @@ function MyVerticallyCenteredModal(props) {
                                     <span className="text-profile">
                                         kota
                                     </span>
-
                                 </div>
                             </div>
-
                             <div className="d-flex flex-row gap-2 mt-1 mb-2 ms-2">
                                 <div className='me-2'>
                                     <img src={dummyProduct} alt="" />
@@ -69,7 +65,6 @@ function MyVerticallyCenteredModal(props) {
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
 
@@ -159,7 +154,7 @@ const InfoPenawarMobile = () => {
                         <div className="box-action mt-3 ms-4">
                             <div className="d-flex flex-row gap-2 ms">
                                 <img src={dummyProfile} alt="" />
-                                <div className='d-flex flex-column '>
+                                <div className='d-flex flex-column'>
                                     <span><b>Nama Pembeli</b></span>
                                     <span className="text-profile">
                                         kota
@@ -172,8 +167,8 @@ const InfoPenawarMobile = () => {
                             <span><b>Daftar Produkmu yang Ditawar</b></span>
                             <span className="text-profile"> 20 Apr, 14:04 </span>
                         </div>
-
-                        <div className="d-flex flex-row gap-2 b mt-4 ms-4">
+                    
+                        <div className="d-flex flex-row gap-2 b mt-4 ms-4 color-content">
                             <div className='me-2'>
                                 <img src={dummyProduct} alt="" />
                             </div>
@@ -188,13 +183,6 @@ const InfoPenawarMobile = () => {
                         </div>
 
                         <div className="d-flex justify-content-between mt-4 ms-4 ">
-
-                            {/* <button className='tombol-tolak me-2 '>
-                                Tolak
-                            </button>
-                            <button type='button' className='tombol-terima ms-2 ' onClick={handleModalOpen} >
-                                Terima
-                            </button> */}
                             {buttonBox}
                         </div>
 
