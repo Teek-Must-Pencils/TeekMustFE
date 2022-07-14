@@ -9,7 +9,7 @@ import { Loading } from '../../Components';
 
 
 const InfoProfile = () => {
-    const username = useSelector(selectUser);
+    // const username = useSelector(selectUser);
     const [isLoading, setIsLoading] = useState(false);
     const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'})
     const isMobile = useMediaQuery({query: '(max-width: 426px)'})
@@ -17,26 +17,31 @@ const InfoProfile = () => {
 
     useEffect(() => {
       // console.log('user', username)
+      const user = sessionStorage.getItem('user');
+      const username =JSON.parse(user).username;
       setIsLoading(true)
-      ServiceProfile.getUserByUsername(username)
-      .then((res) => {
-        console.log(res)
-        if(res.status === 200){
-          setDataUser(res.data)
-          setIsLoading(false);
-        }else{
-          setIsLoading(false);
-          console.log('errr')
+      ServiceProfile.getUserByUsername(username).then(
+        (res) => {
+          console.log(res)
+          if (res.status === 200) {
+            setDataUser(res.data)
+            setIsLoading(false)
+          }else{
+            console.log(res)
+            setIsLoading(false)
+          }
         }
-        console.log(res)
-      })
-      setIsLoading(false);
+      )
+
+
+      
+      // setIsLoading(false);
       
     
       // return () => {
       //   second
       // }
-    }, [username])
+    }, [])
     
 
 

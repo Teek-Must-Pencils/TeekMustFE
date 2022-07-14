@@ -10,7 +10,7 @@ import ServiceProfile from "../../../Services/ServiecProfile";
 
 
 const InfoProfileMobile = (props) => {
-    const { userData }= props;   
+    const { userData }= props; 
     const navigate = useNavigate();
     const [image, setImage] = useState(userData?.img);
     const { register, handleSubmit, setValue } = useForm();
@@ -36,6 +36,7 @@ const InfoProfileMobile = (props) => {
     const handleBack = () =>{
         navigate(-1)
     }
+    
 
 
     return (
@@ -68,7 +69,7 @@ const InfoProfileMobile = (props) => {
                                     size="sm"
                                     type="text"
                                     placeholder="Nama" 
-                                    defaultValue={userData?.name}
+                                    defaultValue={userData?.username}
                                 />
                             </Form.Group>
 

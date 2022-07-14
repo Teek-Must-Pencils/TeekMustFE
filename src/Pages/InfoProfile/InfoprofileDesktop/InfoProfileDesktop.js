@@ -9,8 +9,8 @@ import "./InfoProfileDesktop.css"
 import ServiceProfile from "../../../Services/ServiecProfile";
 
 
-const InfoProfileMobile = (props) => {
-    const { userData }= props;   
+const InfoProfileDesktop = (props) => {
+    const { userData }= props; 
     const navigate = useNavigate();
     const [image, setImage] = useState(userData?.img);
     const { register, handleSubmit, setValue } = useForm();
@@ -73,12 +73,12 @@ const InfoProfileMobile = (props) => {
                         </div>
                        
                         <Form.Group className="mb-3" controlId="">
-                            <Form.Label>Nama*</Form.Label>
+                            <Form.Label>Username*</Form.Label>
                             <Form.Control {...register("name")}
                                 size="lg"
                                 type="text"
-                                placeholder="Nama" 
-                                defaultValue={userData?.name}
+                                placeholder="Username" 
+                                defaultValue={userData?.username}
                              />
                         </Form.Group>
 
@@ -120,4 +120,4 @@ const InfoProfileMobile = (props) => {
     )
 }
 
-export default InfoProfileMobile
+export default InfoProfileDesktop
