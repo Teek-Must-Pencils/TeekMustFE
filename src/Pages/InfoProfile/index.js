@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector } from 'react-redux';
 import ServiceProfile from '../../Services/ServiecProfile';
 import InfoProfileDesktop from './InfoprofileDesktop/InfoProfileDesktop';
 import InfoProfileMobile from './InfoProfileMobile/InfoProfileMobile';
-import { selectUser } from '../../Redux/slice/authSlice';
 import { Loading } from '../../Components';
 
 
