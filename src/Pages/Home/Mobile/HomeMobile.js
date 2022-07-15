@@ -4,11 +4,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import slide2 from '../../../Assets/Img/Group 9.png'
 import * as Icon from 'react-feather';
 import { Link } from 'react-router-dom';
-import { DataDummy } from '../DataDummy/DataDummy'
+import { Row, Col } from 'react-bootstrap';
 import './HomeMobile.css'
 
 // Import Swiper styles
 import "swiper/css";
+import { DataNotFound, CardProduct } from '../../../Components';
 
 const HomeMobile = (props) => {
   const { data, role, category } = props;
@@ -21,6 +22,15 @@ const HomeMobile = (props) => {
     else if(id === 4){ result = "Color Pencil 24"}
     else if(id === 2){ result = "Color Pencil 8"}
     return result;
+  }
+
+  let dataView;
+  if(filter === ''){
+    dataView = data
+  }else{
+    dataView = data.filter((value) => 
+      value.categories.includes(filter?.toUpperCase())
+    )
   }
 
   return (
@@ -70,11 +80,18 @@ const HomeMobile = (props) => {
           }) 
          }
       </div>
-          <DataDummy
-          // device="mobile"
-          filter={filter}
-          data={data}
-        />    
+      <div>
+        <Row>
+          {dataView.length < 1 && (<DataNotFound />)}
+          {dataView.length > 1 && dataView.map((item, idx) => {
+            return (
+              <Col className='p-3' lg={3} md={3} xs={6} key={idx}>
+                <CardProduct data={item}/>
+              </Col>
+              )
+          })}
+        </Row> 
+      </div>   
       </div>
 
       {role.includes('seller') && (
