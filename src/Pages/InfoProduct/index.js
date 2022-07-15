@@ -137,7 +137,7 @@ const InfoProduct = () => {
 
     useEffect(() => {
       setIsLoading(true);
-      ServiceCategory.getAllCategory()
+      ServiceCategory.GetAllCategory()
       .then((res) => {
         if(res.status === 200){
           setCategory(res.data);

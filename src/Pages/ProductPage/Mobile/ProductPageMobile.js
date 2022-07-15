@@ -83,11 +83,11 @@ const ProductPageMobile = (props) => {
       </div>
         <div className='mobile-box-description'>
             <div className='mobile-box-info'>
-              <span><b>{data.name || dataPreview.name}</b></span>
-              <span className='text-category'>
+              <div><b>{data.name || dataPreview.name}</b></div>
+              <div className='text-category'>
                 {data.category || dataPreview.category}
-              </span>
-              <span><b>{data.price || dataPreview.price}</b></span>
+              </div>
+              <div><b>{data.price || dataPreview.price}</b></div>
             </div>
             <div className='mobile-box-user'>
               <img src={Profile} alt='' />

@@ -88,4 +88,10 @@ background: #4B1979;
   background-color: lightgray;
 }
 
+@media screen and (max-width: 426px) {
+  .swiper-slide img {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
 
