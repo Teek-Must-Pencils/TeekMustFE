@@ -4,12 +4,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import slide2 from '../../../Assets/Img/img banner.png'
 import * as Icon from 'react-feather';
 import { Link } from 'react-router-dom';
+import { Row, Col } from 'react-bootstrap';
 import './HomeDekstop.css'
-import { DataDummy } from '../DataDummy/DataDummy'
 
 // Import Swiper styles
 import "swiper/css";
 import 'swiper/css/pagination';
+import { CardProduct, DataNotFound } from '../../../Components';
 
 const HomeDekstop = (props) => {
   const { data , role, category } = props;
@@ -22,6 +23,15 @@ const HomeDekstop = (props) => {
     else if(id === 4){ result = "Color Pencil 24"}
     else if(id === 2){ result = "Color Pencil 8"}
     return result;
+  }
+
+  let dataView;
+  if(filter === ''){
+    dataView = data
+  }else{
+    dataView = data.filter((value) => 
+      value.categories.includes(filter?.toUpperCase())
+    )
   }
 
   return (
@@ -55,7 +65,7 @@ const HomeDekstop = (props) => {
         <div className='pagination-swiper'></div>
       </Swiper>
       <div className="container-sm">
-      <p><b>Telusuri Kategori</b></p>
+      <h5><b>Telusuri Kategori</b></h5>
       <div className='content-filter'>
         <button 
           className="btn-filter"
@@ -78,10 +88,18 @@ const HomeDekstop = (props) => {
           }
       </div>
 
-      <DataDummy 
-        filter={filter}
-        data={data}
-      />
+      <div>
+        <Row>
+        {dataView.length < 1 && (<DataNotFound />)}
+        {dataView.length > 1 && dataView.map((item, idx) => {
+          return (
+            <Col className='p-3' lg={3} md={3} xs={6} key={idx}>
+              <CardProduct data={item}/>
+            </Col>
+            )
+        })}
+      </Row>
+    </div>
       </div>
 
       {role.includes('seller') && (
