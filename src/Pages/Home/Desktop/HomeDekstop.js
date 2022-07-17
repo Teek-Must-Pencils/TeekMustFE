@@ -1,37 +1,45 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import slide2 from '../../../Assets/Img/img banner.png'
 import * as Icon from 'react-feather';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
+import { CardProduct, DataNotFound } from '../../../Components';
+import { useDispatch } from 'react-redux';
+import { searchActions } from '../../../Redux/slice/searchSlice';
 import './HomeDekstop.css'
 
 // Import Swiper styles
 import "swiper/css";
 import 'swiper/css/pagination';
-import { CardProduct, DataNotFound } from '../../../Components';
+
 
 const HomeDekstop = (props) => {
   const { data , role, category } = props;
-  const [filter, setFilter] = useState('');
+  const dispatch =  useDispatch();
+  // const [filter, setFilter] = useState('');
 
   const handleCategories = (id) =>{
     let result;
     if (id === 1) { result = "Pencil 2B"}
+    else if(id === 2){ result = "Color Pencil 8"}
     else if(id === 3){ result = "Color Pencil 12"}
     else if(id === 4){ result = "Color Pencil 24"}
-    else if(id === 2){ result = "Color Pencil 8"}
     return result;
   }
 
-  let dataView;
-  if(filter === ''){
-    dataView = data
-  }else{
-    dataView = data.filter((value) => 
-      value.categories.includes(filter?.toUpperCase())
-    )
+  // let dataView;
+  // if(filter === ''){
+  //   dataView = data
+  // }else{
+  //   dataView = data.filter((value) => 
+  //     value.categories.includes(filter?.toUpperCase())
+  //   )
+  // }
+
+  const handleSearchCategory = (value) =>{
+    dispatch(searchActions.setSearch(value));
   }
 
   return (
@@ -69,7 +77,8 @@ const HomeDekstop = (props) => {
       <div className='content-filter'>
         <button 
           className="btn-filter"
-          onClick={() => setFilter('')}
+          // onClick={() => setFilter('')}
+          onClick={() => handleSearchCategory('')}
         >
             <Icon.Search/> <span>Semua</span>
         </button>
@@ -78,7 +87,8 @@ const HomeDekstop = (props) => {
                 <button 
                   key={value.id}
                   className="btn-filter"
-                  onClick={() => setFilter(value.categories)}
+                  // onClick={() => setFilter(value.categories)}
+                  onClick={() => handleSearchCategory(value.categories)}
                 >
                     <Icon.Search/> 
                     <span>{handleCategories(value.id)}</span>
@@ -90,8 +100,16 @@ const HomeDekstop = (props) => {
 
       <div>
         <Row>
-        {dataView.length < 1 && (<DataNotFound />)}
+        {/* {dataView.length < 1 && (<DataNotFound />)}
         {dataView.length > 1 && dataView.map((item, idx) => {
+          return (
+            <Col className='p-3' lg={3} md={3} xs={6} key={idx}>
+              <CardProduct data={item}/>
+            </Col>
+            )
+        })} */}
+        {data.length < 1 && (<DataNotFound />)}
+        {data.length > 1 && data.map((item, idx) => {
           return (
             <Col className='p-3' lg={3} md={3} xs={6} key={idx}>
               <CardProduct data={item}/>

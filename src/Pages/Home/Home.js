@@ -9,6 +9,9 @@ import serviceProduct from '../../Services/ServiceProduct';
 import serviceCategory from '../../Services/ServiceCategory';
 import { selectSearch } from '../../Redux/slice/searchSlice';
 
+const cate = [
+  'pencil_2b', 'color_pencil_24', 'color_pencil_12', 'color_pencil_8'
+]
 
 const Home = () => {
   const [isLoading, setLoading] = useState(false);
@@ -21,25 +24,70 @@ const Home = () => {
   
   useEffect(() => {
     setLoading(true);
-    Promise.allSettled([
-      serviceProduct.GetAllProduct(), 
-      serviceCategory.GetAllCategory()
-    ]).then(([product, category]) => {
-      setProduct(product.value.data);
-      setCategory(category.value.data)
-      setLoading(false)
-    }).catch((err) => {
-      console.log(err.message)
-      setLoading(false)
-    })
+    if(search === ''){
+      Promise.allSettled([
+        serviceProduct.GetAllProduct(), 
+        serviceCategory.GetAllCategory()
+      ]).then(([product, category]) => {
+        setProduct(product.value.data);
+        setCategory(category.value.data)
+        setLoading(false)
+      }).catch((err) => {
+        console.log(err.message)
+        setLoading(false)
+      })
+    }else{
+      if(cate.includes(search)){
+        Promise.allSettled([
+          serviceProduct.SearchByCategory(search), 
+          serviceCategory.GetAllCategory()
+        ]).then(([product, category]) => {
+          console.log(product)
+          setProduct(product.value.data);
+          setCategory(category.value.data)
+          setLoading(false)
+        }).catch((err) => {
+          console.log(err.message)
+          setLoading(false)
+        })
+      }else{
+         Promise.allSettled([
+          serviceProduct.SearchByName(search), 
+          serviceCategory.GetAllCategory()
+        ]).then(([product, category]) => {
+          console.log(product)
+          setProduct(product.value.data);
+          setCategory(category.value.data)
+          setLoading(false)
+        }).catch((err) => {
+          console.log(err.message)
+          setLoading(false)
+        })
+      }
+      
+    }
+    // setLoading(true);
+    // Promise.allSettled([
+    //   serviceProduct.GetAllProduct(), 
+    //   serviceCategory.GetAllCategory()
+    // ]).then(([product, category]) => {
+    //   setProduct(product.value.data);
+    //   setCategory(category.value.data)
+    //   setLoading(false)
+    // }).catch((err) => {
+    //   console.log(err.message)
+    //   setLoading(false)
+    // })
     // setLoading(false);
 
     // return () => {
     //   second
     // }
-  }, [])
+  }, [search])
   
-  console.log('home',search)
+  // console.log('home',search.includes(cate))
+  // console.log('search', search)
+  console.log('data', product)
 
   return (
     <>

@@ -21,7 +21,7 @@ const serviceProduct = {
           return data
     },
 
-    async GeProductById(id){
+    async GetProductById(id){
         const sessionData = sessionStorage.getItem('user')
         const dt = JSON.parse(sessionData);
         const token = dt.accessToken
@@ -52,13 +52,8 @@ const serviceProduct = {
         dataSend.append("seller", value.seller);
         dataSend.append("city", value.city);
 
-        // dataSend.forEach(element => {
-        //     console.log(element)
-        // });
-
-        // console.log(token)
         const data = await axios({
-            method: 'post',
+            method: 'POST',
             url: process.env.REACT_APP_BASE_URL+'api/product/',
             data: dataSend,
             headers:{
@@ -70,7 +65,41 @@ const serviceProduct = {
           .catch((err) => err.response)
        
           return data
-    }
+    },
+
+    async SearchByName(name){
+        const sessionData = sessionStorage.getItem('user')
+        const dt = JSON.parse(sessionData);
+        const token = dt.accessToken
+        const data = await axios({
+            method: 'GET',
+            url: process.env.REACT_APP_BASE_URL+`api/product/productName/${name}`,
+            headers:{
+                "Authorization" : `Bearer ${token}`
+            }
+          })
+          .then((response) => response)
+          .catch((err) => err.response)
+       
+          return data
+    },
+
+    async SearchByCategory(category){
+        const sessionData = sessionStorage.getItem('user')
+        const dt = JSON.parse(sessionData);
+        const token = dt.accessToken
+        const data = await axios({
+            method: 'GET',
+            url: process.env.REACT_APP_BASE_URL+`api/product/${category}`,
+            headers:{
+                "Authorization" : `Bearer ${token}`
+            }
+          })
+          .then((response) => response)
+          .catch((err) => err.response)
+       
+          return data
+    },
 }
 
 export default serviceProduct;
