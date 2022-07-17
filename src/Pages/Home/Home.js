@@ -7,6 +7,7 @@ import { selectRole } from '../../Redux/slice/authSlice';
 import { Loading, NavbarMobile } from '../../Components';
 import serviceProduct from '../../Services/ServiceProduct';
 import serviceCategory from '../../Services/ServiceCategory';
+import { selectSearch } from '../../Redux/slice/searchSlice';
 
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
   const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'});
   const isMobile = useMediaQuery({query: '(max-width: 426px)'});
   const role = useSelector(selectRole);
+  const search = useSelector(selectSearch);
   
   useEffect(() => {
     setLoading(true);
@@ -37,6 +39,7 @@ const Home = () => {
     // }
   }, [])
   
+  console.log('home',search)
 
   return (
     <>
