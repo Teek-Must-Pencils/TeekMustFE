@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Container, Navbar, OverlayTrigger, Popover
 } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Icon from 'react-feather';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectAuth, selectRole } from '../../Redux/slice/authSlice'
 import IconNav from '../../Assets/Img/Rectanglenew.jpg'
 import './Navbar.css';
+import { searchActions } from '../../Redux/slice/searchSlice';
 
 const data = [
   {
@@ -28,20 +29,14 @@ const data = [
 ]
 
 const MyNavbar = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const auth = useSelector(selectAuth)
   const role = useSelector(selectRole)
-  const [expanded, setExpanded] = useState(false)
-
-  useEffect(() => {
-  }, [])
+  const [search, setSearch] = useState()
   
 
-  const overrideToggle = () =>  {
-    setExpanded((prev) => !prev)
-  }
-
-  const handleList =() =>{
+  const handleList = () =>{
     if(role.includes('seller')){
       return navigate("/DaftarJual")
     }else{
@@ -53,11 +48,18 @@ const MyNavbar = () => {
     return navigate("/")
   }
 
+  const handleSubmit = (value) => {
+    value.preventDefault()
+    dispatch(searchActions.setSearch(search))
+  }
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  }
+
   return (
     <Navbar expand="sm"  
       className='shadow-sm p-3 bg-navbar'
-      expanded={expanded}
-      onToggle={overrideToggle}
     >
         <Container fluid className='px-5'>
             <Navbar.Brand
@@ -67,11 +69,14 @@ const MyNavbar = () => {
             </Navbar.Brand>
           
           <div className='d-flex flex-row justify-content-between w-100 my-2 gap-1'>
-            <form className="d-flex">
+            <form className="d-flex" onSubmit={handleSubmit}>
               <input
                 type="text"
+                name='search'
                 placeholder="Cari di sini..."
                 className="w-100 inp-search"
+                onChange={e => handleSearch(e)}
+
               />
               <button type='submit'>
                 <Icon.Search color='gray'/>
