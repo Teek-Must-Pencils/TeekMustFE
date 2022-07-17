@@ -43,7 +43,7 @@ const CardProduct = (props) => {
           <div>
             {/* <img className='cardProduct-img' src={`data:image/png;base64,${data.imgB}` || dummyJam} alt="" /> */}
             <img className='cardProduct-img' 
-              src={`data:image/png;base64,${data.imgB}`||dummyJam} alt="" 
+              src={data.imgB ? `data:image/png;base64,${data.imgB}` : dummyJam} alt="" 
             />
           </div>
           <div className='cardProduct-product-info'>
