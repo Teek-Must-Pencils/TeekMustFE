@@ -6,7 +6,8 @@ import { authActions } from '../../../Redux/slice/authSlice';
 import dummy from '../../../Assets/Img/Group 1.png'
 import '../MyAccount.css'
 
-const MyAccountMobile = () => {
+const MyAccountMobile = (props) => {
+    const { user } = props;
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -21,7 +22,12 @@ const MyAccountMobile = () => {
   return (
     <div className='mma-container'>
         <div className='mma-image-content'>
-            <img className='mma-img-user' src={dummy} alt="" />
+            <img 
+                className='mma-img-user' 
+                src={user.imgB ? `data:image/png;base64,${user.imgB}`: dummy} 
+                alt=""
+            />
+            <div>{user?.username}</div>
         </div>
         <div className='mma-content-button'>
             <div 
