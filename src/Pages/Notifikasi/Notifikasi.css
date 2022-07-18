@@ -8,6 +8,10 @@
     margin: 2% 0%;
     border-radius:8px;
     box-shadow: 1px 1px 5px 1px rgba(124, 104, 104, 0.25);
+    transition: transform .5s;
+}
+.dn-card:hover{
+    transform: scale(1.1);
 }
 .dn-content-image{
     width: 20%;
