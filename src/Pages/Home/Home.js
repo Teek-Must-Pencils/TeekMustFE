@@ -66,28 +66,11 @@ const Home = () => {
       }
       
     }
-    // setLoading(true);
-    // Promise.allSettled([
-    //   serviceProduct.GetAllProduct(), 
-    //   serviceCategory.GetAllCategory()
-    // ]).then(([product, category]) => {
-    //   setProduct(product.value.data);
-    //   setCategory(category.value.data)
-    //   setLoading(false)
-    // }).catch((err) => {
-    //   console.log(err.message)
-    //   setLoading(false)
-    // })
-    // setLoading(false);
-
     // return () => {
     //   second
     // }
   }, [search])
   
-  // console.log('home',search.includes(cate))
-  // console.log('search', search)
-  console.log('data', product)
 
   return (
     <>
