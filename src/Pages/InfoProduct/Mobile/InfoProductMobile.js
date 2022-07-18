@@ -8,6 +8,7 @@ const InfoProductMobile = (props) => {
   const {
     onSubmitMobileInput,
     // handlePreview
+    category
 } = props;
   const navigate = useNavigate();
   const dataPreview = usePreview();
@@ -32,8 +33,17 @@ const InfoProductMobile = (props) => {
   }
   
   const handleBack = () =>{
-    navigate('/')
+    navigate(-1)
   }
+
+  const handleCategories = (id) =>{
+    let result;
+    if (id === 1) { result = "Pencil 2B"}
+    else if(id === 2){ result = "Color Pencil 12"}
+    else if(id === 3){ result = "Color Pencil 24"}
+    else if(id === 4){ result = "Color Pencil 8"}
+    return result;
+}
 
   return (
     <>
@@ -89,10 +99,17 @@ const InfoProductMobile = (props) => {
                       // required
                   >
                       <option value="" disabled>Pilih Kategori</option>
-                      <option className="color-black" value="1" >1</option>
-                      <option className="color-black" value="2" >2</option>
-                      <option className="color-black" value="3" >3</option>
-                      <option className="color-black" value="4" >4</option>
+                      {category?.map((value, i) =>{
+                          return (
+                                  <option 
+                                      key={i}
+                                      className="color-black" 
+                                      value={value.categories}
+                                  >
+                                      {handleCategories(value.id)}
+                                  </option>
+                          )})
+                      }
                   </select>}
               />
             </div>
@@ -111,7 +128,7 @@ const InfoProductMobile = (props) => {
               <div className='ipm-body-inputImage'>
                 <input 
                     type="file"
-                    accept="image/*"
+                    accept="image/png"
                     onChange={(e) => handleInputImage(e)}
                     // required={dataPreview.image ? false: true}
                 />
@@ -136,7 +153,7 @@ const InfoProductMobile = (props) => {
                 type='submit'
                 className='ip-button-send'
                 onClick={
-                    () => setValue('button', 'preview')
+                    () => setValue('button', 'submit')
                 }
                 {...register('button')}
               >

@@ -22,3 +22,11 @@
     text-decoration: none;
     margin-top: 40px;
 }
+
+.errors-register{
+    color: #ffff;
+    background-color: #d79962;
+    padding: .5% 2%;
+    border-radius: 8px;
+    font-size: 80%;
+}

@@ -5,6 +5,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
+  margin: 2% 0%;
 }
 .icon-mobile{
   width: 1rem;
@@ -45,9 +46,9 @@ background: #4B1979;
 }
 
 
-.btn-filter span{
+/* .btn-filter span{
   font-size: 2vw;
-}
+} */
 
 .offcanvas{
   width: 60% !important;
@@ -70,21 +71,11 @@ background: #4B1979;
   border: none;
   padding: 5px;
 }
-.search-mobile{
-  width: 100%;
-}
-.container-search-mobile{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  border: 10px solid  black;
-}
-.container-search-mobile input{
-  border: 2px solid gray;
-}
-.container-search-mobile button:hover{
-  background-color: lightgray;
-}
 
+@media screen and (max-width: 426px) {
+  .swiper-slide img {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
 

@@ -3,13 +3,14 @@ import { Offcanvas } from 'react-bootstrap';
 import { Menu, Search, LogIn, Bell, List, User } from 'react-feather';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { authActions, selectAuth } from '../../Redux/slice/authSlice';
+import { authActions, selectAuth, selectRole } from '../../Redux/slice/authSlice';
 import './NavbarMobile.css' 
 
 const NavbarMobile = (props) => {
     const { isSearch, location } = props;
     const dispatch = useDispatch();
     const auth = useSelector(selectAuth);
+    const role = useSelector(selectRole);
     const [show, setShow] = useState(false);
 
     const handleShow = () =>{
@@ -25,8 +26,8 @@ const NavbarMobile = (props) => {
     <>
         <div className='mobile-content-menu'>
             <button 
-            className='toggle-button'
-            onClick={()=>handleShow()}
+                className='toggle-button'
+                onClick={()=>handleShow()}
             >
                 <Menu />
             </button>
@@ -51,7 +52,7 @@ const NavbarMobile = (props) => {
             
             </div>
         </div>
-        <Offcanvas show={show} onHide={handleClose}>
+        <Offcanvas show={show} onHide={handleClose} className="bg-canvas">
           <Offcanvas.Header closeButton>
           <Link to='/' className='menu'>
               <Offcanvas.Title>Teek Must Pencil</Offcanvas.Title>
@@ -79,11 +80,11 @@ const NavbarMobile = (props) => {
                     </div>
                 </Link>
                 <Link
-                    to='/DaftarJual'
+                    to={`${role.includes('seller') ? '/DaftarJual' : '/DaftarTawar'}`}
                     className='menu'
                 >
                     <div >
-                        <List/> <span>Daftar Jual</span>
+                        <List/> <span>{role.includes('seller') ? 'Daftar Jual' : 'Daftar Tawar'}</span>
                     </div>
                 </Link>
                 <Link

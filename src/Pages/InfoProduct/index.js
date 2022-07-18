@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -8,6 +8,7 @@ import { selectEmail, selectUser } from '../../Redux/slice/authSlice'
 import { Loading, ModalNotification } from '../../Components'
 import InfoProductDesktop from './Dekstop/InfoProductDesktop';
 import InfoProductMobile from './Mobile/InfoProductMobile';
+import ServiceCategory from '../../Services/ServiceCategory';
 
 const InfoProduct = () => {
     let navigate = useNavigate();
@@ -17,10 +18,10 @@ const InfoProduct = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [isNotification, setIsNotification] = useState(false)
     const [message, setMessage] = useState(false);
+    const [category, setCategory] = useState([]);
     const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'});
     const isMobile = useMediaQuery({query: '(max-width: 426px)'});
-    
-    // console.log('user', user)
+
     // Desktop
     const onSubmitSellerInput = (value) =>{
       if(value.button === 'submit'){  
@@ -38,27 +39,29 @@ const InfoProduct = () => {
         serviceProduct.AddNewData(data).then(
           (res) => {
             console.log('res', res)
-            // if(res.status === 201){
-              setMessage("tets")
+            if(res.status === 201){
+              setMessage(res.data)
+              setIsLoading(false)
+              setIsNotification(true)
+              setTimeout(() => {
+                setIsNotification(false);
+                setMessage('')  
+                navigate('/')
+              }, 1000);
+            
+            }else{
+              setMessage("Gagal Input")
               setIsLoading(false)
               setIsNotification(true)
               setTimeout(() => {
                 setIsNotification(false);
                 setMessage('')
               }, 1000);
-            // }else{
-              // setMessage("tets")
-              // setIsLoading(false)
-              // setIsNotification(true)
-              // setTimeout(() => {
-              //   setIsNotification(false);
-              //   setMessage('')
-              // }, 1000);
-          // }
+          }
             console.log("res", res)
           }
         )
-        console.log("desktopValueInput", data);
+        // console.log("desktopValueInput", data);
       }else{
         const data ={
           name: value.nama,
@@ -76,7 +79,42 @@ const InfoProduct = () => {
     // Mobile
     const onSubmitMobileInput = (value) =>{
       if(value.button === 'submit'){  
-        console.log("MobileValueInput", value);
+        setIsLoading(true);
+        const data ={
+          name: value.nama,
+          price: value.harga,
+          category: [value.kategori],
+          description: value.deskripsi,
+          imageFile: value.imageFile,
+          // image: value.image,
+          seller: user,
+          city: email
+        }
+        serviceProduct.AddNewData(data).then(
+          (res) => {
+            // console.log('res', res)
+            if(res.status === 201){
+              setMessage(res.data)
+              setIsLoading(false)
+              setIsNotification(true)
+              setTimeout(() => {
+                setIsNotification(false);
+                setMessage('')  
+                navigate('/')
+              }, 1000);
+            
+            }else{
+              setMessage(res.data.error)
+              setIsLoading(false)
+              setIsNotification(true)
+              setTimeout(() => {
+                setIsNotification(false);
+                setMessage('')
+              }, 1000);
+          }
+            // console.log("res", res)
+          }
+        )
       }else{
         const data ={
           name: value.nama,
@@ -95,6 +133,26 @@ const InfoProduct = () => {
     setIsNotification(false);
   }
     // console.log('preview', preview.image)
+
+
+    useEffect(() => {
+      setIsLoading(true);
+      ServiceCategory.GetAllCategory()
+      .then((res) => {
+        if(res.status === 200){
+          setCategory(res.data);
+          setIsLoading(false);
+        }else{
+          console.log(res)
+          setIsLoading(false)
+        }
+      })
+    
+      // return () => {
+      //   second
+      // }
+    }, [])
+    
   return (
     <>
      <ModalNotification show={isNotification} close={handleIsNotification} message={message}/>
@@ -102,11 +160,13 @@ const InfoProduct = () => {
       { isDesktopOrLaptop &&  (
         <InfoProductDesktop 
           onSubmitSellerInput={onSubmitSellerInput}
+          category={category}
         />
       )}
       { isMobile && (
           <InfoProductMobile
             onSubmitMobileInput={onSubmitMobileInput}
+            category={category}
           />
       )}
     </>
