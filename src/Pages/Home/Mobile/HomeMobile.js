@@ -1,7 +1,9 @@
 import React from 'react'
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import slide2 from '../../../Assets/Img/Group 9.png'
+import slide1 from '../../../Assets/Img/img banner 2.png'
+import slide2 from '../../../Assets/Img/img banner 3.png'
+import slide3 from '../../../Assets/Img/img banner.png'
 import * as Icon from 'react-feather';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
@@ -53,13 +55,13 @@ const HomeMobile = (props) => {
         pagination={{ clickable: true, el:".pagination-swiper" }}
       >
         <SwiperSlide>
-              <img className='hm-img'  src={slide2} alt="" />
+              <img className='hm-img'  src={slide1} alt="" />
         </SwiperSlide> 
         <SwiperSlide>
               <img className='hm-img'  src={slide2} alt="" />
         </SwiperSlide> 
         <SwiperSlide>
-              <img className='hm-img'  src={slide2} alt="" />
+              <img className='hm-img'  src={slide3} alt="" />
         </SwiperSlide> 
         <div className='pagination-swiper'></div>
       </Swiper>
