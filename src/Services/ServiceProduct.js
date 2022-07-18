@@ -11,7 +11,8 @@ const serviceProduct = {
             method: 'get',
             url: process.env.REACT_APP_BASE_URL+'api/product/products',
             headers:{
-                "Authorization" : `Bearer ${token}`
+                "Authorization" : `Bearer ${token}`,
+                // 'Content-Type': 'application/json'
             }
           })
           .then((response) => response)
@@ -20,7 +21,7 @@ const serviceProduct = {
           return data
     },
 
-    async GeProductById(id){
+    async GetProductById(id){
         const sessionData = sessionStorage.getItem('user')
         const dt = JSON.parse(sessionData);
         const token = dt.accessToken
@@ -43,7 +44,7 @@ const serviceProduct = {
         const token = dt.accessToken
         let FormData = require('form-data');
         let dataSend = new FormData();
-        dataSend.append('productName', value.name);
+        dataSend.append('name', value.name);
         dataSend.append('categories', value.category);
         dataSend.append('price', value.price);
         dataSend.append('description', value.description);
@@ -51,13 +52,8 @@ const serviceProduct = {
         dataSend.append("seller", value.seller);
         dataSend.append("city", value.city);
 
-        // dataSend.forEach(element => {
-        //     console.log(element)
-        // });
-
-        // console.log(token)
         const data = await axios({
-            method: 'post',
+            method: 'POST',
             url: process.env.REACT_APP_BASE_URL+'api/product/',
             data: dataSend,
             headers:{
@@ -69,8 +65,41 @@ const serviceProduct = {
           .catch((err) => err.response)
        
           return data
-        //   return token
-    }
+    },
+
+    async SearchByName(name){
+        const sessionData = sessionStorage.getItem('user')
+        const dt = JSON.parse(sessionData);
+        const token = dt.accessToken
+        const data = await axios({
+            method: 'GET',
+            url: process.env.REACT_APP_BASE_URL+`api/product/productName/${name}`,
+            headers:{
+                "Authorization" : `Bearer ${token}`
+            }
+          })
+          .then((response) => response)
+          .catch((err) => err.response)
+       
+          return data
+    },
+
+    async SearchByCategory(category){
+        const sessionData = sessionStorage.getItem('user')
+        const dt = JSON.parse(sessionData);
+        const token = dt.accessToken
+        const data = await axios({
+            method: 'GET',
+            url: process.env.REACT_APP_BASE_URL+`api/product/${category}`,
+            headers:{
+                "Authorization" : `Bearer ${token}`
+            }
+          })
+          .then((response) => response)
+          .catch((err) => err.response)
+       
+          return data
+    },
 }
 
 export default serviceProduct;

@@ -16,73 +16,73 @@ function MyVerticallyCenteredModal(props) {
 
 
     return (
-        <Modal
-            size='sm'
-            show={show}
-            onHide={close}
-            animation={false}
-            centered
-        >
-            <Modal.Body >
-                <div className='modal-buyer'>
-                    <div className='modal-button'>
-                        <button
-                            className='modal-button-closed'
-                            onClick={close}
-                        >
-                            X
+            <Modal
+                size='sm'
+                show={show}
+                onHide={close}
+                animation={false}
+                centered
+            >
+                <Modal.Body >
+                    <div className='modal-buyer'>
+                        <div className='modal-button'>
+                            <button
+                                className='modal-button-closed'
+                                onClick={close}
+                            >
+                                X
+                            </button>
+                        </div>
+                        <div className="modal-container-info">
+                            <div className='modal-text-title'>
+                                Yeay kamu berhasil mendapat harga yang sesuai
+                            </div>
+                            <div className='modal-text-noted'>
+                                Segera hubungi pembeli melalui whatsapp untuk transaksi selanjutnya
+                            </div>
+                            <div className="modal-box-product d-flex flex-column">
+
+                                <div className='text-center mt-2'>
+                                    <span><b>Product Match</b></span>
+                                </div>
+
+                                <div className="d-flex flex-row gap-2 ms-2">
+                                    <div className='me-2'>
+                                        <img src={dummyProfile} alt="" />
+                                    </div>
+                                    <div className=' d-flex flex-column'>
+                                        <span><b>Nama Pembeli</b></span>
+                                        <span className="text-profile">
+                                            kota
+                                        </span>
+
+                                    </div>
+                                </div>
+
+                                <div className="d-flex flex-row gap-2 mt-1 mb-2 ms-2">
+                                    <div className='me-2'>
+                                        <img src={dummyProduct} alt="" />
+                                    </div>
+                                    <div className=' d-flex flex-column'>
+                                        <span>Jam Tangan Casio</span>
+                                        <span><s> Rp 250.000 </s></span>
+                                        <span> Ditawar Rp 200.000</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <button className='tombol-masuk mt-3 ' >
+                            Hubungi via Whatsapp <Image className='ms-2' src={iconWA} />
                         </button>
-                    </div>
-                    <div className="modal-container-info">
-                        <div className='modal-text-title'>
-                            Yeay kamu berhasil mendapat harga yang sesuai
-                        </div>
-                        <div className='modal-text-noted'>
-                            Segera hubungi pembeli melalui whatsapp untuk transaksi selanjutnya
-                        </div>
-                        <div className="modal-box-product d-flex flex-column">
-
-                            <div className='text-center mt-2'>
-                                <span><b>Product Match</b></span>
-                            </div>
-
-                            <div className="d-flex flex-row gap-2 ms-2">
-                                <div className='me-2'>
-                                    <img src={dummyProfile} alt="" />
-                                </div>
-                                <div className=' d-flex flex-column'>
-                                    <span><b>Nama Pembeli</b></span>
-                                    <span className="text-profile">
-                                        kota
-                                    </span>
-
-                                </div>
-                            </div>
-
-                            <div className="d-flex flex-row gap-2 mt-1 mb-2 ms-2">
-                                <div className='me-2'>
-                                    <img src={dummyProduct} alt="" />
-                                </div>
-                                <div className=' d-flex flex-column'>
-                                    <span>Jam Tangan Casio</span>
-                                    <span><s> Rp 250.000 </s></span>
-                                    <span> Ditawar Rp 200.000</span>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
+                </Modal.Body>
 
 
-                    <button className='tombol-masuk mt-3 ' >
-                        Hubungi via Whatsapp <Image className='ms-2' src={iconWA} />
-                    </button>
-
-                </div>
-            </Modal.Body>
-
-
-        </Modal>
+            </Modal>
     );
 }
 
@@ -105,13 +105,16 @@ const InfoPenawarDesktop = () => {
     const handleModalClosed = () => {
         setModalShow(false)
     }
+    const handleModalShowClosed = () => {
+        setModalStatusShow(false)
+    }
 
     const handleIsAccepted = () => {
         setIsAccepted(false)//ganti button
     }
 
     const handleBack = () =>{
-        navigate('/')
+        navigate(-1)
     }
 
     
@@ -120,7 +123,7 @@ const InfoPenawarDesktop = () => {
     if (isAccepted) {
         buttonBox = (
             <>
-                <button className='tombol-tolak me-2 ' onClick={handleIsAccepted}>
+                <button className='tombol-tolak me-2' onClick={handleIsAccepted}>
                     Tolak
                 </button>
                 <button type='button' className='tombol-terima ms-2 ' onClick={handleModalOpen} >
@@ -143,6 +146,7 @@ const InfoPenawarDesktop = () => {
 
     return (
         <>
+        <div className='container-content'>
             <MyVerticallyCenteredModal
                 show={modalShow}
                 close={handleModalClosed}
@@ -150,7 +154,7 @@ const InfoPenawarDesktop = () => {
 
             <ModalStatus
                 show={modalStatusShow}
-                close={handleModalClosed}
+                close={handleModalShowClosed}
             />
 
 
@@ -160,7 +164,7 @@ const InfoPenawarDesktop = () => {
                         <Image src={iconBack} onClick={()=> handleBack()} />
                     </div>
                     <div className='col-11'>
-                        <div className="box-action">
+                        <div className="box-action color-content">
                             <div className="d-flex flex-row gap-2 b">
                                 <img src={dummyProfile} alt="" />
                                 <div className='d-flex flex-column ms-1'>
@@ -172,45 +176,45 @@ const InfoPenawarDesktop = () => {
                             </div>
                         </div>
 
-                        <div className='mt-4 d-flex justify-content-between'>
+                        <div className='my-4 d-flex justify-content-between'>
                             <span><b>Daftar Produkmu yang Ditawar</b></span>
                             <span className="text-profile"> 20 Apr, 14:04 </span>
                         </div>
-
-                        <div className="d-flex flex-row gap-2 b mt-4">
-                            <div className='me-2'>
-                                <img src={dummyProduct} alt="" />
+                        <div className='color-content py-1 px-2 my-1 rounded shadow-lg'>
+                             <div className="d-flex flex-row gap-2 b mt-4">
+                                <div className='me-2'>
+                                    <img src={dummyProduct} alt="" />
+                                </div>
+                                <div className=' d-flex flex-column'>
+                                    <span className="text-profile">
+                                        Penawaran Produk
+                                    </span>
+                                    <span>Jam Tangan Casio</span>
+                                    <span> Rp 250.000</span>
+                                    <span> Ditawar Rp 200.000</span>
+                                </div>
                             </div>
-                            <div className=' d-flex flex-column'>
-                                <span className="text-profile">
-                                    Penawaran Produk
-                                </span>
-                                <span>Jam Tangan Casio</span>
-                                <span> Rp 250.000</span>
-                                <span> Ditawar Rp 200.000</span>
+
+                            <div className="d-flex justify-content-end my-2 ">
+
+                                {/* <button className='tombol-tolak me-2 '>
+                                    Tolak
+                                </button>
+                                <button type='button' className='tombol-terima ms-2 ' onClick={handleModalOpen} >
+                                    Terima
+                                </button> */}
+                                {buttonBox}
                             </div>
                         </div>
-
-                        <div className="d-flex justify-content-end mt-2 ">
-
-                            {/* <button className='tombol-tolak me-2 '>
-                                Tolak
-                            </button>
-                            <button type='button' className='tombol-terima ms-2 ' onClick={handleModalOpen} >
-                                Terima
-                            </button> */}
-                            {buttonBox}
-                        </div>
+                       
 
                     </div>
 
 
                 </Row>
             </Col>
+          </div>
         </>
-
-
-
     )
 }
 

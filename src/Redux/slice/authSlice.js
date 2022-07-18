@@ -29,15 +29,12 @@ const authSlice = createSlice({
         },
         setToken(state, action){
             if(state.token === ''){
-                const isRole = action.payload?.role
-                const thatRole = isRole.replace("[",'').replace("]",'')
                 state.token = action.payload?.accessToken
-                state.role = thatRole
+                state.role = action.payload?.roles
                 state.user = action.payload?.username
                 state.email = action.payload?.email
                 state.isLoggedIn = true
             }
-            
             
         },
         setOffShowMessage(state){
@@ -45,6 +42,9 @@ const authSlice = createSlice({
         },
         resetMessage(state){
             state.message = ''
+        },
+        resetStatus(state){
+            state.status = ''
         }
     },
     extraReducers(builder) {
@@ -55,13 +55,11 @@ const authSlice = createSlice({
         builder.addCase(login.fulfilled, (state, action) => {
             // state.test = action.payload
             if (action.payload?.accessToken) {      
-                const isRole = action.payload?.role
-                const thatRole = isRole.replace("[",'').replace("]",'')
                 state.isLoggedIn = true
                 state.showMessage = true
                 state.token = action.payload?.accessToken
                 sessionStorage.setItem('user', JSON.stringify(action.payload))
-                state.role = thatRole
+                state.role = action.payload?.roles
                 state.user = action.payload?.username
                 state.email = action.payload?.email
                 state.message = "Login Success"
@@ -77,7 +75,7 @@ const authSlice = createSlice({
     }
 })
 
-// export const selectTest = (state) => state.auth.test;
+export const selectTest = (state) => state.auth.test;
 // export const selectShowMessage = (state) => state.auth.showMessage;
 export const selectAuth = (state) => state.auth.isLoggedIn;
 export const selectMessage = (state) => state.auth.message;
