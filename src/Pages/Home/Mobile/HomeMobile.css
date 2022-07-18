@@ -71,22 +71,6 @@ background: #4B1979;
   border: none;
   padding: 5px;
 }
-.search-mobile{
-  width: 100%;
-}
-.container-search-mobile{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  border: 10px solid  black;
-}
-.container-search-mobile input{
-  border: 2px solid gray;
-}
-.container-search-mobile button:hover{
-  background-color: lightgray;
-}
 
 @media screen and (max-width: 426px) {
   .swiper-slide img {

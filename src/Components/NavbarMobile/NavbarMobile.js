@@ -26,8 +26,8 @@ const NavbarMobile = (props) => {
     <>
         <div className='mobile-content-menu'>
             <button 
-            className='toggle-button'
-            onClick={()=>handleShow()}
+                className='toggle-button'
+                onClick={()=>handleShow()}
             >
                 <Menu />
             </button>
