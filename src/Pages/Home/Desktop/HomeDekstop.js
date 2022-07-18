@@ -1,7 +1,9 @@
 import React from 'react'
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import slide2 from '../../../Assets/Img/img banner.png'
+import slide1 from '../../../Assets/Img/img banner 2.png'
+import slide2 from '../../../Assets/Img/img banner 3.png'
+import slide3 from '../../../Assets/Img/img banner.png'
 import * as Icon from 'react-feather';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
@@ -57,7 +59,7 @@ const HomeDekstop = (props) => {
       >
         <SwiperSlide>
             {({ isActive }) => (
-              <img className={`${isActive ? 'active-img' : 'not-active-img'}`}  src={slide2} alt="" />
+              <img className={`${isActive ? 'active-img' : 'not-active-img'}`}  src={slide1} alt="" />
             )}
         </SwiperSlide> 
         <SwiperSlide>
@@ -67,7 +69,7 @@ const HomeDekstop = (props) => {
         </SwiperSlide> 
         <SwiperSlide>
             {({ isActive }) => (
-              <img className={`${isActive ? 'active-img' : 'not-active-img'}`}  src={slide2} alt="" />
+              <img className={`${isActive ? 'active-img' : 'not-active-img'}`}  src={slide3} alt="" />
             )}
         </SwiperSlide> 
         <div className='pagination-swiper'></div>
