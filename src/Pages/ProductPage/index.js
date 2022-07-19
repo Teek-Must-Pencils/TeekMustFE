@@ -55,7 +55,7 @@ const ProductPage = () => {
           description: data.description,
           imageFile: data.imageFile,
           seller: data.seller,
-          city: data.address
+          address: data.address
       }
       serviceProduct.AddNewData(dataSend).then(
         (res) => {
@@ -109,7 +109,7 @@ const ProductPage = () => {
         imageFile: data.imageFile,
         // image: data.image,
         seller: data.seller,
-        city: data.address
+        address: data.address
     }
     // serviceProduct.AddNewData(dataSend).then(
     //   (res) => console.log('res',res)
