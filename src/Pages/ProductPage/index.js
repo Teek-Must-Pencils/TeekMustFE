@@ -7,17 +7,24 @@ import ProductPageDesktop from './Desktop/ProductPageDesktop';
 import ProductPageMobile from './Mobile/ProductPageMobile';
 import { selectRole } from '../../Redux/slice/authSlice';
 import { useParams } from 'react-router-dom';
+import { Loading } from '../../Components';
+import { useNavigate } from 'react-router-dom';
 
 const ProductPage = () => {
-    let { id } = useParams();
+  const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'});
+  const isMobile = useMediaQuery({query: '(max-width: 426px)'});
+    const navigate = useNavigate();
+    const preview = usePreview();
+    const { id } = useParams();
     const data = usePreview();
     const role = useSelector(selectRole);
+    const [product, setProduct] = useState();
+    const [isLoading, setIsLoading] = useState(false);
     const [showModalDesktop, setShowModalDesktop] = useState(false);
     const [showModalMobile, setShowModalMobile] = useState(false);
     const [showNotif, setShowNotif] = useState(false);
     const [notifMessage, setNotifMessage] = useState(false);
-    const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'});
-    const isMobile = useMediaQuery({query: '(max-width: 426px)'});
+    
 
     const toogleNotif = () =>{
       setShowNotif((prev) => !prev)
@@ -40,20 +47,40 @@ const ProductPage = () => {
       }
     }
     const onSubmitSellerModalDesktop = () =>{
+      setIsLoading(true)
       const dataSend = {
           name: data.name,
           price: data.price,
           category: data.category,
           description: data.description,
           imageFile: data.imageFile,
-          // image: data.image,
-          seller: "SellerTiga",
-          city: "New York"
+          seller: data.seller,
+          city: data.address
       }
       serviceProduct.AddNewData(dataSend).then(
-        (res) => console.log('res',res)
+        (res) => {
+          if(res.status === 201){
+            setNotifMessage(res.data)
+            setIsLoading(false)
+            setShowNotif(true)
+            setTimeout(() => {
+              setShowNotif(false);
+              setNotifMessage('') 
+              preview.resetPreview();
+              navigate('/')
+            }, 1000);
+          }else{
+            setNotifMessage("Gagal Input")
+            setIsLoading(false)
+            setShowNotif(true)
+            setTimeout(() => {
+              setShowNotif(false);
+              setShowNotif('')
+            }, 1000);
+          }
+        }
       )
-      console.log('DesktopSeller',dataSend)
+      // console.log('DesktopSeller',dataSend)
     }
 
 
@@ -81,17 +108,26 @@ const ProductPage = () => {
         description: data.description,
         imageFile: data.imageFile,
         // image: data.image,
-        seller: "SellerTiga",
-        city: "New York"
+        seller: data.seller,
+        city: data.address
     }
-    serviceProduct.AddNewData(dataSend).then(
-      (res) => console.log('res',res)
-    )
+    // serviceProduct.AddNewData(dataSend).then(
+    //   (res) => console.log('res',res)
+    // )
     console.log('MobileSeller',dataSend)
     }
 
     useEffect(() => {
-      console.log('this id', id)
+      setIsLoading(true);
+      Promise.allSettled([
+        serviceProduct.GetProductById(id),
+      ]).then(([product]) =>{
+        setProduct(product.value.data);
+        setIsLoading(false)
+      }).catch((err) => {
+        console.log(err)
+        setIsLoading(false)
+      })
     
       // return () => {
       //   second
@@ -101,8 +137,10 @@ const ProductPage = () => {
 
   return (
     <>
+      <Loading show={isLoading} />
       { isDesktopOrLaptop &&  (
         <ProductPageDesktop 
+          product={product}
           role={role}
           showModal={showModalDesktop}
           handleModalBuyer={handleModalBuyerDesktop}
@@ -115,6 +153,7 @@ const ProductPage = () => {
       )}
       { isMobile && (
         <ProductPageMobile
+          product={product}
           role={role}
           showModal={showModalMobile}
           handleModalBuyer={handleModalBuyerMobile}

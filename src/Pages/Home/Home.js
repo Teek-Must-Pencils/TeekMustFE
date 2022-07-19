@@ -42,7 +42,6 @@ const Home = () => {
           serviceProduct.SearchByCategory(search), 
           serviceCategory.GetAllCategory()
         ]).then(([product, category]) => {
-          console.log(product)
           setProduct(product.value.data);
           setCategory(category.value.data)
           setLoading(false)
@@ -55,7 +54,6 @@ const Home = () => {
           serviceProduct.SearchByName(search), 
           serviceCategory.GetAllCategory()
         ]).then(([product, category]) => {
-          console.log(product)
           setProduct(product.value.data);
           setCategory(category.value.data)
           setLoading(false)

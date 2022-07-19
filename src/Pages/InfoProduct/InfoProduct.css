@@ -119,6 +119,7 @@
     padding: 0% 8%;
 }
 .ipm-body-input input{
+    background-color: #FFFFF2;
     border: 2px solid lightgray;
 }
 .ipm-body-input select{

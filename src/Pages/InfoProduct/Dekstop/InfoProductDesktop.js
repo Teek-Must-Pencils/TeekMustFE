@@ -4,13 +4,16 @@ import { ArrowLeft } from 'react-feather';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom'
 import usePreview from '../../../Hooks/usePreview';
-import second from '../../../Assets/Img/Group 1.png';
+// import second from '../../../Assets/Img/Group 1.png';
 import '../InfoProduct.css';
 
 const InfoProductDesktop = (props) => {
     const {
+        id,
+        product,
+        user,
         onSubmitSellerInput,
-        // handlePreview
+        onSubmitSellerEdit,
         category
     } = props;
     let navigate = useNavigate();
@@ -21,6 +24,21 @@ const InfoProductDesktop = (props) => {
     if (dataPreview.image) {
         setValue("imageFile", dataPreview.imageFile);
         setValue("image", dataPreview.image)
+        setValue('seller', user?.username)
+        setValue('address', user?.address)
+    }else if(product){
+        setValue('id', product?.id)
+        setValue("name", product?.name);
+        setValue("category", product?.categories?.at(0).toLowerCase())
+        setValue("imageFile", product?.imgB);
+        setValue("image", `data:image/png;base64,${product?.imgB}`)
+        setValue("description", product?.description)
+        setValue("price", product?.price)
+        setValue("seller", product?.seller)
+        setValue("address", product?.city)
+    }else{
+        setValue('seller', user?.username)
+        setValue('address', user?.address)
     }
 
     const handleInputImage = (e) => {
@@ -47,7 +65,7 @@ const InfoProductDesktop = (props) => {
         else if (id === 4) { result = "Color Pencil 8" }
         return result;
     }
-
+    
     return (
         <>
             <div className="container-content">
@@ -67,10 +85,10 @@ const InfoProductDesktop = (props) => {
                         <div className="col-6">
                             <form
                                 className="ip-content-form"
-                                onSubmit={handleSubmit(onSubmitSellerInput)}
+                                onSubmit={handleSubmit(id ? onSubmitSellerEdit : onSubmitSellerInput)}
                             >
-
-
+                            <input type="hidden" {...register('seller')} />
+                            <input type="hidden" {...register('address')} />
 
                                 <div className='ip-box-input'>
                                     <label>Nama Produk</label>
@@ -80,7 +98,7 @@ const InfoProductDesktop = (props) => {
                                         placeholder="Nama Produk"
                                         name="nama"
                                         defaultValue={dataPreview.name || undefined}
-                                        {...register("nama")}
+                                        {...register("name")}
                                     // required
                                     />
                                 </div>
@@ -91,16 +109,16 @@ const InfoProductDesktop = (props) => {
                                         type="text"
                                         placeholder="Rp. 0,00"
                                         defaultValue={dataPreview.price || undefined}
-                                        {...register("harga")}
+                                        {...register("price")}
                                     // required
                                     />
                                 </div>
                                 <div className='ip-box-input'>
                                     <label>Kategori</label>
                                     <Controller
-                                        name="kategori"
+                                        name="category"
                                         control={control}
-                                        defaultValue={dataPreview.category || ""}
+                                        defaultValue={ dataPreview.category  || ""}
                                         render={({ field }) =>
                                             <select
                                                 // defaultValue=""
@@ -129,7 +147,7 @@ const InfoProductDesktop = (props) => {
                                         placeholder='Deskripsi'
                                         rows={5}
                                         defaultValue={dataPreview.description || undefined}
-                                        {...register("deskripsi")}
+                                        {...register("description")}
                                     // required
                                     />
                                 </div>
@@ -143,12 +161,13 @@ const InfoProductDesktop = (props) => {
                                         // required={dataPreview.image ? false: true}
                                         />
                                         <img
-                                            src={image || dataPreview.image || second}
+                                            src={ image || dataPreview.image || `data:image/png;base64,${product?.imgB}`}
                                             alt=""
                                         />
                                     </div>
                                 </div>
                                 <div className='ip-box-button'>
+                                {!product &&
                                     <button
                                         type='submit'
                                         className='ip-button-preview'
@@ -159,6 +178,7 @@ const InfoProductDesktop = (props) => {
                                     >
                                         Preview
                                     </button>
+                                }
                                     <button
                                         type='submit'
                                         className='ip-button-send'
