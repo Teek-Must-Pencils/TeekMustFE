@@ -69,6 +69,37 @@ const serviceProduct = {
           return data
     },
 
+    async EditProduct(id, value){
+        const sessionData = sessionStorage.getItem('user')
+        const dt = JSON.parse(sessionData);
+        const token = dt.accessToken
+        const cate =  [value.category];
+        let FormData = require('form-data');
+        let dataSend = new FormData();
+        dataSend.append('name', value.name);
+        dataSend.append('categories', cate);
+        dataSend.append('price', value.price);
+        dataSend.append('description', value.description);
+        dataSend.append("img", value.imageFile);
+        dataSend.append("seller", value.seller);
+        dataSend.append("city", value.address);
+
+        // console.log(value)
+        const data = await axios({
+            method: 'PUT',
+            url: process.env.REACT_APP_BASE_URL+`api/product/${id}`,
+            data: dataSend,
+            headers:{
+                "Authorization" : `Bearer ${token}`
+            }
+
+          })
+          .then((response) => response)
+          .catch((err) => err.response)
+       
+          return data
+    },
+
     async SearchByName(name){
         const sessionData = sessionStorage.getItem('user')
         const dt = JSON.parse(sessionData);
