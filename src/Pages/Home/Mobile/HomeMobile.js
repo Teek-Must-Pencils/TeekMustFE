@@ -7,19 +7,16 @@ import slide3 from '../../../Assets/Img/img banner.png'
 import * as Icon from 'react-feather';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { searchActions } from '../../../Redux/slice/searchSlice';
-import './HomeMobile.css'
-
-// Import Swiper styles
-import "swiper/css";
+import { useDispatch, useSelector } from 'react-redux';
+import { searchActions, selectSearch } from '../../../Redux/slice/searchSlice';
 import { DataNotFound, CardProduct } from '../../../Components';
+import './HomeMobile.css'
+import "swiper/css";
 
 const HomeMobile = (props) => {
   const { data, role, category } = props;
   const dispatch =  useDispatch();
-  // const [filter, setFilter] = useState('');
-
+  const search = useSelector(selectSearch);
   const handleCategories = (id) =>{
     let result;
     if (id === 1) { result = "Pencil 2B"}
@@ -29,14 +26,6 @@ const HomeMobile = (props) => {
     return result;
   }
 
-  // let dataView;
-  // if(filter === ''){
-  //   dataView = data
-  // }else{
-  //   dataView = data.filter((value) => 
-  //     value.categories.includes(filter?.toUpperCase())
-  //   )
-  // }
   const handleSearchCategory = (value) =>{
     dispatch(searchActions.setSearch(value));
   }
@@ -69,8 +58,7 @@ const HomeMobile = (props) => {
       <p><b>Telusuri Kategori</b></p>
       <div className='content-filter-mobile'>
         <button 
-          className="btn-filter-mobile"
-          // onClick={() => setFilter('')}
+          className={`btn-filter-mobile ${search === '' ? 'active' : ''}`}
           onClick={() => handleSearchCategory('')}
          >
             <Icon.Search className='icon-mobile'/> Semua
@@ -79,8 +67,7 @@ const HomeMobile = (props) => {
               return(
                 <button 
                   key={value.id}
-                  className="btn-filter-mobile"
-                  // onClick={() => setFilter(value.categories)}
+                  className={`btn-filter-mobile ${value.categories === search ? 'active' : ''}`}
                   onClick={() => handleSearchCategory(value.categories)}
                 >
                     <Icon.Search/> 
@@ -92,14 +79,6 @@ const HomeMobile = (props) => {
       </div>
       <div>
         <Row>
-          {/* {dataView.length < 1 && (<DataNotFound />)}
-          {dataView.length > 1 && dataView.map((item, idx) => {
-            return (
-              <Col className='p-3' lg={3} md={3} xs={6} key={idx}>
-                <CardProduct data={item}/>
-              </Col>
-              )
-          })} */}
           {data.length < 1 && (<DataNotFound />)}
           {data.length > 1 && data.map((item, idx) => {
             return (

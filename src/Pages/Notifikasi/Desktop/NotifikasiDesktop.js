@@ -38,7 +38,7 @@ const NotifikasiDesktop = () => {
                       <span>Ditawar Rp. 200.000</span>    
                       <div className='dn-content-button'>
                         <button
-                          className='btn-outline-primary'
+                          className='btn-tawaran'
                           onClick={handlePenawar.bind(null, value)}
                         >
                           Lihat tawaran

@@ -22,6 +22,9 @@
 background: #7126B5;
 color: white;
 }
+.active{
+  background: #7126B5 !important;
+}
 
 .btn-plus{
 background: #7126B5;
