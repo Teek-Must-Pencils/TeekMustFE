@@ -68,7 +68,7 @@ const HomeDekstop = (props) => {
       <h5><b>Telusuri Kategori</b></h5>
       <div className='content-filter'>
         <button 
-          className={`btn-filter ${search === '' ? 'active' : ''}`}
+          className={`btn-filter ${search === '' ? 'active-home' : ''}`}
           onClick={() => handleSearchCategory('')}
         >
             <Icon.Search/> <span>Semua</span>
@@ -78,7 +78,7 @@ const HomeDekstop = (props) => {
               return(
                 <button 
                   key={value.id}
-                  className={`btn-filter ${value.categories === search ? 'active' : ''}`}
+                  className={`btn-filter ${value.categories === search ? 'active-home' : ''}`}
                   onClick={() => handleSearchCategory(value.categories)}
                 >
                     <Icon.Search/> 
