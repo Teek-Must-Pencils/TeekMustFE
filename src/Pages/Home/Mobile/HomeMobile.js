@@ -58,7 +58,7 @@ const HomeMobile = (props) => {
       <p><b>Telusuri Kategori</b></p>
       <div className='content-filter-mobile'>
         <button 
-          className={`btn-filter-mobile ${search === '' ? 'active' : ''}`}
+          className={`btn-filter-mobile ${search === '' ? 'active-home' : ''}`}
           onClick={() => handleSearchCategory('')}
          >
             <Icon.Search className='icon-mobile'/> Semua
@@ -67,7 +67,7 @@ const HomeMobile = (props) => {
               return(
                 <button 
                   key={value.id}
-                  className={`btn-filter-mobile ${value.categories === search ? 'active' : ''}`}
+                  className={`btn-filter-mobile ${value.categories === search ? 'active-home' : ''}`}
                   onClick={() => handleSearchCategory(value.categories)}
                 >
                     <Icon.Search/> 

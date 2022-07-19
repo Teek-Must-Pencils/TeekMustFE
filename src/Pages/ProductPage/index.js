@@ -55,7 +55,7 @@ const ProductPage = () => {
           description: data.description,
           imageFile: data.imageFile,
           seller: data.seller,
-          city: data.address
+          address: data.address
       }
       serviceProduct.AddNewData(dataSend).then(
         (res) => {
@@ -107,14 +107,33 @@ const ProductPage = () => {
         category: data.category,
         description: data.description,
         imageFile: data.imageFile,
-        // image: data.image,
         seller: data.seller,
-        city: data.address
+        address: data.address
     }
-    // serviceProduct.AddNewData(dataSend).then(
-    //   (res) => console.log('res',res)
-    // )
-    console.log('MobileSeller',dataSend)
+    serviceProduct.AddNewData(dataSend).then(
+      (res) => {
+        if(res.status === 201){
+          setNotifMessage(res.data)
+          setIsLoading(false)
+          setShowNotif(true)
+          setTimeout(() => {
+            setShowNotif(false);
+            setNotifMessage('') 
+            preview.resetPreview();
+            navigate('/')
+          }, 1000);
+        }else{
+          setNotifMessage("Gagal Input")
+          setIsLoading(false)
+          setShowNotif(true)
+          setTimeout(() => {
+            setShowNotif(false);
+            setShowNotif('')
+          }, 1000);
+        }
+      }
+    )
+    // console.log('MobileSeller',dataSend)
     }
 
     useEffect(() => {
