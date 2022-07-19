@@ -6,8 +6,11 @@ import { useNavigate } from 'react-router-dom';
 
 const InfoProductMobile = (props) => {
   const {
+    id,
+    product,
+    user,    
     onSubmitMobileInput,
-    // handlePreview
+    onSubmitMobileEdit,
     category
 } = props;
   const navigate = useNavigate();
@@ -15,10 +18,22 @@ const InfoProductMobile = (props) => {
   const [image, setImage] = useState();
   const { register, handleSubmit, control, setValue } = useForm();
 
-  if(dataPreview.image){
-    setValue("imageFile",  dataPreview.imageFile);
+  if (dataPreview.image) {
+    setValue("imageFile", dataPreview.imageFile);
     setValue("image", dataPreview.image)
-  }
+    setValue('seller', user?.username)
+    setValue('address', user?.address)
+}else if(product){
+    setValue("name", product?.name);
+    setValue("category", product?.categories?.at(0).toLowerCase())
+    setValue("imageFile", product?.imgB);
+    setValue("image", `data:image/png;base64,${product?.imgB}`)
+    setValue("description", product?.description)
+    setValue("price", product?.price)
+}else{
+    setValue('seller', user?.username)
+    setValue('address', user?.address)
+}
 
   const handleInputImage = (e) =>{
     setValue("imageFile",  e.target.files[0])
@@ -67,15 +82,18 @@ const InfoProductMobile = (props) => {
         <div>
           <form 
             className="ipm-body"
-            onSubmit={handleSubmit(onSubmitMobileInput)}
+            onSubmit={handleSubmit(id ? onSubmitMobileEdit : onSubmitMobileInput)}
           >
+          <input type="hidden" {...register('seller')} />
+          <input type="hidden" {...register('address')} />
+
             <div className='ipm-body-input'>
               <label>Nama Produk</label>
               <input
                 type="text"
                 placeholder="Nama Produk"
                 defaultValue={dataPreview.name||undefined}
-                {...register("nama")}
+                {...register("name")}
               />
             </div>
             <div className='ipm-body-input'>
@@ -84,13 +102,13 @@ const InfoProductMobile = (props) => {
                 type="text"
                 placeholder="Rp. 0,00"
                 defaultValue={dataPreview.price||undefined}
-                {...register("harga")}
+                {...register("price")}
               />
             </div>
             <div className='ipm-body-input'>
               <label>Kategori</label>
               <Controller
-                  name="kategori"
+                  name="category"
                   control={control}
                   defaultValue={dataPreview.category||""}
                   render={({ field }) =>  
@@ -119,7 +137,7 @@ const InfoProductMobile = (props) => {
                   placeholder='Deskripsi'
                   rows={4}
                   defaultValue={dataPreview.description||undefined}
-                  {...register("deskripsi")}
+                  {...register("description")}
                   // required
               />
             </div>
@@ -133,12 +151,13 @@ const InfoProductMobile = (props) => {
                     // required={dataPreview.image ? false: true}
                 />
                 <img 
-                  src={image || dataPreview.image}
+                  src={image || dataPreview.image || `data:image/png;base64,${product?.imgB}`}
                   alt=""
                 />
               </div>
             </div>
             <div className='ipm-body-buttonAction'>
+            {!product &&
               <button
                 type='submit'
                 className='ip-button-preview'
@@ -149,6 +168,7 @@ const InfoProductMobile = (props) => {
               >
                 Preview
               </button>
+            }
               <button
                 type='submit'
                 className='ip-button-send'

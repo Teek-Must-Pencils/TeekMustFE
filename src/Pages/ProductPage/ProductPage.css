@@ -6,7 +6,7 @@
 /* ----------- Desktop -----------*/
 .img-product{
     border-radius: 10px;
-    max-width: 70%;
+    width: 70%;
     text-align: center;
 }
 .text-desc{
@@ -63,6 +63,8 @@
 .mobile-img{
     width: 100%;
     height: 310px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
 }
 .mobile-box-description{
     position: relative;

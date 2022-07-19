@@ -51,7 +51,7 @@ function App() {
         path='/' 
         element={<LayoutsAuth><Home/></LayoutsAuth>}
       />
-       {/* productPage */}
+       {/* 1*/}
       <Route 
         path='/productPage' 
         element={<LayoutsAuth><ProductPage /></LayoutsAuth>}
@@ -60,7 +60,7 @@ function App() {
         path='/productPage/:id' 
         element={<LayoutsAuth><ProductPage /></LayoutsAuth>}
       />
-      {/* infoProduct */}
+      {/* 2 */}
       <Route 
         path='/infoProduct' 
         element={<LayoutsAuth><InfoProduct /></LayoutsAuth>}
@@ -69,25 +69,31 @@ function App() {
         path='/infoProduct/:id' 
         element={<LayoutsAuth><InfoProduct /></LayoutsAuth>}
       />
+      {/* 3 */}
       <Route
         path='/infoProfile'
         element={<LayoutsAuth><InfoProfile/></LayoutsAuth>} />
+      {/* 4 */}
       <Route 
         path='/DaftarJual' 
         element={<LayoutsAuth><DaftarJual/> </LayoutsAuth>}
       />
+      {/* 5 */}
       <Route 
         path='/DaftarTawar' 
         element={<LayoutsAuth><DaftarTawar/> </LayoutsAuth>}
       />
+      {/* 6 */}
       <Route 
         path='/infoPenawar' 
         element={<LayoutsAuth><InfoPenawar/> </LayoutsAuth>}
       />
+      {/* 7 */}
       <Route 
         path='/notifikasi' 
         element={<LayoutsAuth><Notifikasi/> </LayoutsAuth>}
       />
+      {/* 8------ */}
       <Route 
         path='/akunSaya' 
         element={<LayoutsAuth><MyAccount/> </LayoutsAuth>}
