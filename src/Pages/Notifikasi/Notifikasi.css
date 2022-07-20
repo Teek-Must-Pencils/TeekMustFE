@@ -37,6 +37,20 @@
     display: flex;
     justify-content: center;
 }
+.dn-acc{
+    background-color: green;
+    width: fit-content;
+    color: white;
+    border-radius: 16px;
+    padding: 0.5% 2%;
+}
+.dn-reject{
+    background-color: red;
+    width: fit-content;
+    color: white;
+    border-radius: 16px;
+    padding: 0.5% 2%;
+}
 /* mobile */
 .mn-card{
     background-color: #FFFFF2;
@@ -77,8 +91,8 @@
     font-size: xx-small;
 }
 .btn-tawaran{
-    width: 15%;
-    height: 32px;
+    width: 30%;
+    height: 20px;
     background-color: #7126B5;
     border-radius: 8px;
     color: white;

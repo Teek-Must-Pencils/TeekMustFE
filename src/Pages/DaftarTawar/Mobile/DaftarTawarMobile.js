@@ -3,22 +3,15 @@ import dummyProfile from '../../../Assets/Img/profile.png'
 import * as Icon from 'react-feather';
 import './DaftarTawarMobile.css'
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../../Redux/slice/authSlice';
 import { CardProduct, DataNotFound } from '../../../Components';
 import { Nav, Tab } from 'react-bootstrap';
 
 const DaftarTawarMobile = (props) => {
-    const { data } = props;
+    const { data, user } = props;
     let navigate = useNavigate();
-    const user = useSelector(selectUser);
 
     const handleEditProfile =  () => {
         return navigate('/infoProfile');
-    }
-
-    const handleAddProduct = () =>{
-        return navigate('/infoProduct')
     }
 
   return (
@@ -30,9 +23,9 @@ const DaftarTawarMobile = (props) => {
                     <div className='d-flex flex-row gap-2'>
                         <img src={dummyProfile} alt="" />
                         <div className='d-flex flex-column'>
-                            <span><b>{user}</b></span>
+                            <span><b>{user?.username}</b></span>
                             <span className="text-profile">
-                                kota
+                                {user?.address}
                             </span>
                         </div>
                     </div>
@@ -73,13 +66,6 @@ const DaftarTawarMobile = (props) => {
                             {data?.length < 1  && <DataNotFound />}
                             {data?.length > 1 && (
                                 <>
-                                    <div className="col-4 col-sm-4 my-2">
-                                        <button type="button" className="box h-100"
-                                            onClick={handleAddProduct}
-                                        >
-                                            <Icon.Plus/> Tambah
-                                        </button>
-                                    </div>
                                     {data.map((value, i)=>{
                                         return(
                                             <div key={i} className='col-4 col-sm-4 my-2'>

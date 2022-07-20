@@ -82,6 +82,7 @@ const ProductPageDesktop = (props) => {
         //   success={}
         />
         <ModalBuyer 
+            product={product}
             show={showModal} 
             close={handleModalBuyer} 
             onSubmitBuyerModalDesktop={onSubmitBuyerModalDesktop}
@@ -107,11 +108,11 @@ const ProductPageDesktop = (props) => {
                 </div>
                 <div className="col-4 px-0">
                     <div className='box-action'>
-                        <h6>{product?.name || dataPreview.name}</h6>
+                        <h6><b>{product?.name || dataPreview.name}</b></h6>
                         <p className="text-category">
                             {product?.categories || dataPreview.category}
                         </p>
-                        <h6>{product?.price || dataPreview.price}</h6>
+                        <p className='text-price'>Rp. {product?.price || dataPreview.price}</p>
                         {buttonBox}
                     </div>
                     <div className="box-action my-5">

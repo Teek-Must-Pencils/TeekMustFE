@@ -3,15 +3,12 @@ import dummyProfile from '../../../Assets/Img/profile.png'
 import * as Icon from 'react-feather';
 import './DaftarJualMobile.css'
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../../Redux/slice/authSlice';
 import { CardProduct, DataNotFound } from '../../../Components';
 import { Nav, Tab } from 'react-bootstrap';
 
 const DaftarJualMobile = (props) => {
-    const { data } = props;
+    const { data, user } = props;
     let navigate = useNavigate();
-    const user = useSelector(selectUser);
 
     const handleEditProfile =  () => {
         return navigate('/infoProfile');
@@ -29,9 +26,9 @@ const DaftarJualMobile = (props) => {
                     <div className='d-flex flex-row gap-2'>
                         <img src={dummyProfile} alt="" />
                         <div className='d-flex flex-column'>
-                            <span><b>{user}</b></span>
+                            <span><b>{user?.username}</b></span>
                             <span className="text-profile">
-                                kota
+                                {user?.address}
                             </span>
                         </div>
                     </div>
