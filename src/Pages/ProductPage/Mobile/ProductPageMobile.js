@@ -11,7 +11,6 @@ import usePreview from '../../../Hooks/usePreview';
 const ProductPageMobile = (props) => {
   const {
     product,
-    user,
     role,
     onSubmitSellerMobile,
     onSubmitBuyerMobile,
@@ -56,6 +55,7 @@ const ProductPageMobile = (props) => {
         //   success={}
       />
       <ModalMobile 
+        product={product}
         show={showModal}
         close={handleModalBuyer}
         onSubmitBuyerMobile={onSubmitBuyerMobile}
@@ -80,15 +80,15 @@ const ProductPageMobile = (props) => {
               <div className='text-category'>
                 {product?.categories || dataPreview.category}
               </div>
-              <div><b>{product?.price || dataPreview.price}</b></div>
+              <div><b>Rp. {product?.price || dataPreview.price}</b></div>
             </div>
             <div className='mobile-box-user'>
               <img src={Profile} alt='' />
               <div className='account'>
-                  <p><b>{user?.username}</b></p>
-                  <p className="text-profile">
-                    {user?.address}
-                  </p>
+                  <div><b>{product?.username || dataPreview.seller || "Unknow" }</b></div>
+                  <div className="text-profile">
+                    {product?.city}
+                  </div>
               </div>
             </div>
             <div className='mobile-box-desc'>

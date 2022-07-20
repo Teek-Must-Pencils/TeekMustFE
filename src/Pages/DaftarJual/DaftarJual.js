@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DaftarJualDesktop from './Desktop/DaftarJualDesktop';
 import DaftarJualMobile from './Mobile/DaftarJualMobile';
 import { useMediaQuery } from 'react-responsive';
-import { NavbarMobile } from '../../Components';
+import { Loading, NavbarMobile } from '../../Components';
+import ServiceProfile from '../../Services/ServiecProfile'
 
 const data = [
   {name:"dummy1", categories:["Pencil_2B"], price:2001,  wishlist: true, sell:false},
@@ -15,13 +16,40 @@ const data = [
 const Home = () => {
   const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'});
   const isMobile = useMediaQuery({query: '(max-width: 426px)'});
+  const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState();
 
+  useEffect(() => {
+    const user = sessionStorage.getItem('user');
+    const username =JSON.parse(user).username;
+    setIsLoading(true);
+    Promise.allSettled([
+      ServiceProfile.getUserByUsername(username)
+    ]).then(([user]) =>{
+      setUser(user.value.data)
+      setIsLoading(false)
+    })
+  
+    // return () => {
+    //   second
+    // }
+  }, [])
+  
   return (
     <>
-      {isDesktopOrLaptop && (<DaftarJualDesktop data={data} />)}
+      <Loading show={isLoading} />
+      {isDesktopOrLaptop && (
+          <DaftarJualDesktop 
+            data={data} 
+            user={user}
+          />
+      )}
       {isMobile && (<>
         <NavbarMobile isSearch={false} location="Daftar Jual Saya" />
-        <DaftarJualMobile data={data} />
+        <DaftarJualMobile 
+          data={data} 
+          user={user}
+        />
       </>)}
     </>
   )

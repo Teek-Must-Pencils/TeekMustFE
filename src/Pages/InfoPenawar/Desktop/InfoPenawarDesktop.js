@@ -86,32 +86,39 @@ function MyVerticallyCenteredModal(props) {
     );
 }
 
-const InfoPenawarDesktop = () => {
+const InfoPenawarDesktop = (props) => {
+    const { 
+        OnSubmitAccepted, OnSubmitReject, isAccepted,
+        modalShow, handleModalClosed,
+        modalStatusShow, handleModalShowClosed,
+        handleModalStatusOpen, handleModalOpen
+    }= props;
     const navigate = useNavigate();
-    const [isAccepted, setIsAccepted] = React.useState(true)
-    const [modalShow, setModalShow] = React.useState(false);
-    const [modalStatusShow, setModalStatusShow] = React.useState(false);
+    // const [isAccepted, setIsAccepted] = React.useState(true)
+    // const [modalShow, setModalShow] = React.useState(false);
+    // const [modalStatusShow, setModalStatusShow] = React.useState(false);
 
-    const handleModalOpen = () => {
-        setModalShow(true)
-        handleIsAccepted()
-    }
+    // const handleModalOpen = () => {
+    //     setModalShow(true)
+    //     handleIsAccepted()
+    // }
 
-    const handleModalStatusOpen = () => {
-        setModalStatusShow(true)
-        handleIsAccepted()
-    }
+    // const handleModalStatusOpen = () => {
+    //     setModalStatusShow(true)
+    //     handleIsAccepted()
+    // }
 
-    const handleModalClosed = () => {
-        setModalShow(false)
-    }
-    const handleModalShowClosed = () => {
-        setModalStatusShow(false)
-    }
+    // const handleModalClosed = () => {
+    //     setModalShow(false)
+    // }
+    // const handleModalShowClosed = () => {
+    //     setModalStatusShow(false)
+    // }
 
-    const handleIsAccepted = () => {
-        setIsAccepted(false)//ganti button
-    }
+    // const handleIsAccepted = () => {
+    //     accepted();
+    //     setIsAccepted(false)//ganti button
+    // }
 
     const handleBack = () =>{
         navigate(-1)
@@ -123,10 +130,12 @@ const InfoPenawarDesktop = () => {
     if (isAccepted) {
         buttonBox = (
             <>
-                <button className='tombol-tolak me-2' onClick={handleIsAccepted}>
+                {/* <button className='tombol-tolak me-2' onClick={handleIsAccepted}> */}
+                <button className='tombol-tolak me-2' onClick={OnSubmitReject}>
                     Tolak
                 </button>
-                <button type='button' className='tombol-terima ms-2 ' onClick={handleModalOpen} >
+                {/* <button type='button' className='tombol-terima ms-2 ' onClick={handleModalOpen} > */}
+                <button type='button' className='tombol-terima ms-2 ' onClick={OnSubmitAccepted} >
                     Terima
                 </button>
             </>

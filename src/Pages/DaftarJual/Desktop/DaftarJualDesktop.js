@@ -1,18 +1,15 @@
 import React from 'react'
 import dummyProfile from '../../../Assets/Img/profile.png'
 import * as Icon from 'react-feather';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { selectUser } from '../../../Redux/slice/authSlice'
 import './DaftarJualDesktop.css'
 import { CardProduct, DataNotFound } from '../../../Components';
 import { Tab, Nav, Row, Col } from 'react-bootstrap';
 
 
 const DaftarJualDesktop = (props) => {
-    const { data } = props;
+    const { data, user } = props;
     let navigate =  useNavigate();
-    const user = useSelector(selectUser);
 
     const handleEditProfile =  () => {
         return navigate('/infoProfile')
@@ -31,9 +28,9 @@ const DaftarJualDesktop = (props) => {
                     <div className='d-flex flex-row gap-2'>
                         <img src={dummyProfile} alt="" />
                         <div className='d-flex flex-column'>
-                            <span><b>{user}</b></span>
+                            <span><b>{user?.username}</b></span>
                             <span className="text-profile">
-                                kota
+                                {user?.address}
                             </span>
                         </div>
                     </div>
@@ -44,6 +41,7 @@ const DaftarJualDesktop = (props) => {
                 </div>
             </div>
             <Tab.Container 
+                className="d-flex flex-col color-content" 
                 id="left-tabs-example" 
                 defaultActiveKey="1"
             >
