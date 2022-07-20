@@ -10,9 +10,9 @@ import ServiceProfile from "../../../Services/ServiecProfile";
 
 
 const InfoProfileMobile = (props) => {
-    const { userData }= props;   
+    const { userData }= props; 
     const navigate = useNavigate();
-    const [image, setImage] = useState(userData.img);
+    const [image, setImage] = useState(userData?.img);
     const { register, handleSubmit, setValue } = useForm();
     
     const onSubmit = data => {
@@ -36,6 +36,7 @@ const InfoProfileMobile = (props) => {
     const handleBack = () =>{
         navigate(-1)
     }
+    
 
 
     return (
@@ -68,7 +69,7 @@ const InfoProfileMobile = (props) => {
                                     size="sm"
                                     type="text"
                                     placeholder="Nama" 
-                                    defaultValue={userData.name}
+                                    defaultValue={userData?.username}
                                 />
                             </Form.Group>
 
@@ -80,7 +81,6 @@ const InfoProfileMobile = (props) => {
                                     <option>Bali</option>
                                     <option>Luar Jawa</option>
                                 </Form.Select>
-
                             </Form.Group> */}
 
                             <Form.Group className="mb-3" controlId="">
@@ -91,7 +91,7 @@ const InfoProfileMobile = (props) => {
                                     size="sm"
                                     type="text"
                                     placeholder="Alamat" 
-                                    defaultValue={userData.address}
+                                    defaultValue={userData?.address}
                                 />
                             </Form.Group>
 
@@ -101,7 +101,7 @@ const InfoProfileMobile = (props) => {
                                     size="sm"
                                     type="number"
                                     placeholder="contoh: 08123456789" 
-                                    defaultValue={userData.number}
+                                    defaultValue={userData?.number}
                                 />
                             </Form.Group>
 
