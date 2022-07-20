@@ -28,6 +28,7 @@ const InfoProduct = () => {
     const onSubmitSellerInput = (value) =>{
       if(value.button === 'submit'){  
         setIsLoading(true);
+        console.log(value)
         serviceProduct.AddNewData(value).then(
           (res) => {
             // console.log('res', res)
@@ -52,7 +53,7 @@ const InfoProduct = () => {
           }
             // console.log("res", res)
           }
-        )
+        ).catch((err) => console.log(err))
       }else{
         preview.setPreview(value);
         return navigate('/productPage')

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import { useForm } from "react-hook-form";
 import dummyProduct from '../../../Assets/Img/dummyProduct.png'
@@ -7,9 +7,19 @@ import '../Modal.css'
 const ModalMobile = (props) => {
     const {
         show, close,
-        onSubmitBuyerMobile
+        onSubmitBuyerMobile,
+        product
     } = props;
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
+
+    useEffect(() => {
+    
+        return () => {
+          reset()
+        }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [show])
+
   return (
     <>
          <Modal 
@@ -38,10 +48,14 @@ const ModalMobile = (props) => {
                         jika penjual cocok kamu akan segera dihubungi penjual. 
                     </div>
                     <div className="modal-box-product">
-                        <img className='modal-bp-image' src={dummyProduct} alt="" />
+                        <img 
+                            className='modal-bp-image' 
+                            src={product?.imgB ? `data:image/png;base64,${product?.imgB}` : dummyProduct} 
+                            alt="" 
+                        />
                         <div className='modal-bp-info-mobile'>
-                            <span>Jam Tangan Casio</span>
-                            <span>Rp 250.000</span>
+                            <span>{product?.name}</span>
+                            <span>Rp. {product?.price}</span>
                         </div>
                     </div>
                 </div>
@@ -49,7 +63,7 @@ const ModalMobile = (props) => {
                     <form onSubmit={handleSubmit(onSubmitBuyerMobile)}>
                         <label>Harga Penawaran</label>
                         <input 
-                            type="text" 
+                            type="number" 
                             name="PriceOffer"
                             placeholder="Rp. 0,00" 
                             {...register("PriceOffer")}

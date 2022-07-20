@@ -41,7 +41,8 @@
     border-radius: 10px;
 }
 .modal-bp-image{
-    width:25%;
+    width: 5em;
+    height: 5em;
     border-radius: 10px;
 }
 .modal-bp-info span{

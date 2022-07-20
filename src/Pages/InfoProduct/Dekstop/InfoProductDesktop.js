@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row } from 'react-bootstrap';
 import { ArrowLeft } from 'react-feather';
 import { useForm, Controller } from 'react-hook-form';
@@ -19,7 +19,7 @@ const InfoProductDesktop = (props) => {
     let navigate = useNavigate();
     const dataPreview = usePreview();
     const [image, setImage] = useState();
-    const { register, handleSubmit, control, setValue } = useForm();
+    const { register, handleSubmit, control, setValue, formState:{ errors } } = useForm();
 
     if (dataPreview.image) {
         setValue("imageFile", dataPreview.imageFile);
@@ -65,6 +65,34 @@ const InfoProductDesktop = (props) => {
         else if (id === 4) { result = "Color Pencil 8" }
         return result;
     }
+
+    // useEffect(() => {
+    //     if (dataPreview.image) {
+    //         setValue("imageFile", dataPreview.imageFile);
+    //         setValue("image", dataPreview.image)
+    //         setValue('seller', user?.username)
+    //         setValue('address', user?.address)
+    //     }else if(product){
+    //         setValue('id', product?.id)
+    //         setValue("name", product?.name);
+    //         setValue("category", product?.categories?.at(0).toLowerCase())
+    //         setValue("imageFile", product?.imgB);
+    //         setValue("image", `data:image/png;base64,${product?.imgB}`)
+    //         setValue("description", product?.description)
+    //         setValue("price", product?.price)
+    //         setValue("seller", product?.seller)
+    //         setValue("address", product?.city)
+    //     }else{
+    //         setValue('seller', user?.username)
+    //         setValue('address', user?.address)
+    //     }
+    
+    // //   return () => {
+    // //     second
+    // //   }
+    // // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [dataPreview, product])
+    
     
     return (
         <>
@@ -91,30 +119,38 @@ const InfoProductDesktop = (props) => {
                             <input type="hidden" {...register('address')} />
 
                                 <div className='ip-box-input'>
-                                    <label>Nama Produk</label>
+                                    <label>Nama Produk{' '}
+                                        {errors.name && errors.name.type === "required" && 
+                                            <span className='error-product'>Nama is Required</span>}
+                                    </label>
                                     <input
                                         className='bg-white'
                                         type="text"
                                         placeholder="Nama Produk"
                                         name="nama"
                                         defaultValue={dataPreview.name || undefined}
-                                        {...register("name")}
-                                    // required
+                                        {...register("name", { required : true })}
                                     />
                                 </div>
                                 <div className='ip-box-input'>
-                                    <label>Harga Produk</label>
+                                    <label>Harga Produk{' '}
+                                    {errors.price && errors.price.type === "required" && 
+                                            <span className='error-product'>Harga is Required</span>}
+                                    </label>
                                     <input
                                         className='bg-white'
                                         type="text"
                                         placeholder="Rp. 0,00"
                                         defaultValue={dataPreview.price || undefined}
-                                        {...register("price")}
-                                    // required
+                                        {...register("price", {required:true})}
+                                        // required
                                     />
                                 </div>
                                 <div className='ip-box-input'>
-                                    <label>Kategori</label>
+                                    <label>Kategori{' '}
+                                        {errors.category && errors.category.type === "required" && 
+                                            <span className='error-product'>Category is Required</span>}
+                                    </label>
                                     <Controller
                                         name="category"
                                         control={control}
@@ -123,7 +159,6 @@ const InfoProductDesktop = (props) => {
                                             <select
                                                 // defaultValue=""
                                                 {...field}
-                                            // required
                                             >
                                                 <option value="" disabled>Pilih Kategori</option>
                                                 {category?.map((value, i) => {
@@ -139,16 +174,19 @@ const InfoProductDesktop = (props) => {
                                                 })
                                                 }
                                             </select>}
+                                            rules={{ required: true }}
                                     />
                                 </div>
                                 <div className='ip-box-input'>
-                                    <label>Deskripsi</label>
+                                    <label>Deskripsi{' '}
+                                        {errors.description && errors.description.type === "required" && 
+                                            <span className='error-product'>Description is Required</span>}
+                                    </label>
                                     <textarea
                                         placeholder='Deskripsi'
                                         rows={5}
                                         defaultValue={dataPreview.description || undefined}
-                                        {...register("description")}
-                                    // required
+                                        {...register("description", {required:true})}
                                     />
                                 </div>
                                 <div className='ip-box-input'>
@@ -158,7 +196,7 @@ const InfoProductDesktop = (props) => {
                                             type="file"
                                             accept="image/png"
                                             onChange={(e) => handleInputImage(e)}
-                                        // required={dataPreview.image ? false: true}
+                                            required={(dataPreview.image || product?.imgB) ? false: true}
                                         />
                                         <img
                                             src={ image || dataPreview.image || `data:image/png;base64,${product?.imgB}`}

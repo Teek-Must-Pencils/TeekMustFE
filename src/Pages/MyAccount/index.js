@@ -14,6 +14,7 @@ const MyAccount = () => {
     useEffect(() => {
       const user = sessionStorage.getItem('user');
       const username =JSON.parse(user).username;
+      console.log(user)
       setIsLoading(true);
       ServiecProfile.getUserByUsername(username)
       .then((res)=>{
