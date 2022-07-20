@@ -38,22 +38,20 @@ const ProductPage = () => {
         setShowModalDesktop((prev) => !prev)
     }
     const onSubmitBuyerModalDesktop = (value) =>{
-      console.log("DesktopBuyer", value)
       const dataSend ={
         userId : user?.id,
         productId: product?.id,
         priceNegotiated: value.PriceOffer, 
-        createdAt: "2022-07-20T05:49:10.767Z",
         status : [
-          "WAITING"
+          "waiting"
         ]      
       }
-      // console.log(dataSend)
       setIsLoading(true);
       ServiceOffer.AddOffer(dataSend)
       .then((res) => {
-        if (res.data === 200) {
-          setNotifMessage("success");
+        if (res.status === 201) {
+          setIsLoading(false);
+          setNotifMessage(res.data);
           toogleNotif();
           handleModalBuyerDesktop();
           setTimeout(() => {
@@ -61,7 +59,6 @@ const ProductPage = () => {
             setNotifMessage()
           }, 2000);
         } else {
-          console.log(res)
           setIsLoading(false)
           setNotifMessage("false");
           toogleNotif();
@@ -128,24 +125,22 @@ const ProductPage = () => {
     }  
     // buyer
     const onSubmitBuyerMobile = (value) =>{
-      console.log("MobileBuyer", value)
       const dataSend ={
         userId : user?.id,
         productId: product?.id,
         priceNegotiated: value.PriceOffer, 
-        createdAt: "2022-07-20T05:49:10.767Z",
         status : [
-          "WAITING"
+          "waiting"
         ]      
       }
-      // console.log(dataSend)
       setIsLoading(true);
       ServiceOffer.AddOffer(dataSend)
       .then((res) => {
-        if (res.data === 200) {
+        if (res.status === 201) {
+          setIsLoading(false);
           setNotifMessage("success");
           toogleNotif();
-          handleModalBuyerDesktop();
+          handleModalBuyerMobile();
           setTimeout(() => {
             toogleNotif()
             setNotifMessage()
@@ -166,7 +161,7 @@ const ProductPage = () => {
         setIsLoading(false)
         setNotifMessage("Failed Error");
           toogleNotif();
-          handleModalBuyerDesktop();
+          handleModalBuyerMobile();
           setTimeout(() => {
             toogleNotif()
             setNotifMessage()

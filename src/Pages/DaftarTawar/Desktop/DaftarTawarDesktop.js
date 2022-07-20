@@ -8,13 +8,14 @@ import './DaftarTawarDesktop.css';
 
 
 const DaftarTawarDesktop = (props) => {
-    const { data, user } = props;
+    const { data, user, offer } = props;
     let navigate =  useNavigate();
 
     const handleEditProfile =  () => {
         return navigate('/infoProfile')
     }
 
+    console.log(offer?.filter((value) => value.userId === user?.id))
   return (
     <>
         <div className="container-sm">
@@ -37,19 +38,20 @@ const DaftarTawarDesktop = (props) => {
             </div>
             <Tab.Container 
                 id="left-tabs-example" 
-                defaultActiveKey="1"
+                // defaultActiveKey="1"
+                defaultActiveKey="2"
             >
              <Row>
                 <Col sm={3}>
                     <div className='box-action-df mb-3'>
                         <p><b>Kategori</b></p>
                         <Nav variant="pills" className="flex-column">
-                            <Nav.Link eventKey="1" >
+                            {/* <Nav.Link eventKey="1" >
                                 <div className='btn-dt-d'>
                                     <Icon.Box /> <span>Product</span>
                                 </div>
                             </Nav.Link>
-                            <hr/>
+                            <hr/> */}
                             <Nav.Link eventKey="2" >
                                 <div className='btn-dt-d'>
                                     <Icon.Heart /> <span>Ditawar</span>
@@ -67,7 +69,7 @@ const DaftarTawarDesktop = (props) => {
                             
                <Col sm={9}>
                 <Tab.Content className=''>
-                    <Tab.Pane eventKey="1">
+                    {/* <Tab.Pane eventKey="1">
                         <div className="row">
                             {data?.length < 1  && <DataNotFound />}
                             {data?.length > 1 && (
@@ -82,7 +84,7 @@ const DaftarTawarDesktop = (props) => {
                                 </>
                             )} 
                         </div>
-                    </Tab.Pane>
+                    </Tab.Pane> */}
                     <Tab.Pane eventKey="2">
                         <div className="row">
                             {(data?.length < 1 || data?.filter((value) => value?.wishlist === true).length < 1)  && 
