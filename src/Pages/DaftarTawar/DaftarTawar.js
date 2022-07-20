@@ -4,6 +4,7 @@ import DaftarTawarMobile from './Mobile/DaftarTawarMobile';
 import { useMediaQuery } from 'react-responsive';
 import ServiceProfile from '../../Services/ServiecProfile'
 import { Loading, NavbarMobile } from '../../Components';
+import ServiceOffer from '../../Services/ServiceOffer';
 
 const data = [
   {name:"dummy1", categories:["Pencil_2B"], price:2001,  wishlist: true, sell:false},
@@ -18,15 +19,18 @@ const DaftarTawar = () => {
   const isMobile = useMediaQuery({query: '(max-width: 426px)'});
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState();
+  const [offer, setOffer] = useState([]);
 
   useEffect(() => {
     const user = sessionStorage.getItem('user');
     const username =JSON.parse(user).username;
     setIsLoading(true);
     Promise.allSettled([
-      ServiceProfile.getUserByUsername(username)
-    ]).then(([user]) =>{
-      setUser(user.value.data)
+      ServiceProfile.getUserByUsername(username),
+      ServiceOffer.GetOffer()
+    ]).then(([user, offer]) =>{
+      setUser(user.value.data);
+      setOffer(offer.value.data);
       setIsLoading(false)
     })
   
@@ -41,6 +45,7 @@ const DaftarTawar = () => {
       {isDesktopOrLaptop && (
         <DaftarTawarDesktop 
           data={data} 
+          offer={offer}
           user={user}
         />
       )}
@@ -48,10 +53,10 @@ const DaftarTawar = () => {
         <>
           <NavbarMobile isSearch={false} location="Daftar Jual Saya" />
           <DaftarTawarMobile 
-            data={data} 
+            data={data}
+            offer={offer} 
             user={user}
           />
-
         </>
       )}
     </>

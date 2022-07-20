@@ -37,16 +37,17 @@ const DaftarTawarMobile = (props) => {
             <Tab.Container 
                 className="d-flex flex-col" 
                 id="left-tabs-example" 
-                defaultActiveKey="1"
+                // defaultActiveKey="1"
+                defaultActiveKey="2"
             >
                 <div className='box-action mb-3'>
                     <p><b>Kategori</b></p>
                     <div className='d-flex flex-row justify-content-around'>
-                         <Nav.Link eventKey="1" >
+                         {/* <Nav.Link eventKey="1" >
                             <div className='btn-filter btn-dt'>
                                 <Icon.Box /> <span>Product</span>
                             </div>
-                        </Nav.Link>
+                        </Nav.Link> */}
                         <Nav.Link eventKey="2" >
                             <div className='btn-filter btn-dt'>
                                 <Icon.Heart /> <span>Ditawar</span>
@@ -61,7 +62,7 @@ const DaftarTawarMobile = (props) => {
                 </div>
                
                 <Tab.Content className=''>
-                    <Tab.Pane eventKey="1">
+                    {/* <Tab.Pane eventKey="1">
                         <div className="row">
                             {data?.length < 1  && <DataNotFound />}
                             {data?.length > 1 && (
@@ -76,7 +77,7 @@ const DaftarTawarMobile = (props) => {
                                 </>
                             )}
                         </div>
-                    </Tab.Pane>
+                    </Tab.Pane> */}
                     <Tab.Pane eventKey="2">
                         <div className="row">
                             {(data?.length < 1 || data?.filter((value) => value?.wishlist === true).length < 1)  && 
