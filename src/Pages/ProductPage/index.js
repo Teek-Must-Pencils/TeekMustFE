@@ -57,6 +57,7 @@ const ProductPage = () => {
           setTimeout(() => {
             toogleNotif()
             setNotifMessage()
+            navigate('/DaftarTawar')
           }, 2000);
         } else {
           setIsLoading(false)
@@ -144,6 +145,7 @@ const ProductPage = () => {
           setTimeout(() => {
             toogleNotif()
             setNotifMessage()
+            navigate('/DaftarTawar')
           }, 2000);
         } else {
           console.log(res)
