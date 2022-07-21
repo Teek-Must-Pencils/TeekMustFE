@@ -142,3 +142,13 @@
 .button-float-send:hover{
     background-color: lightblue;
 }
+
+.button-back-product button{
+    background-color:transparent;
+    border: none;
+}
+
+.button-back-product button:hover{
+    background-color: lightgray;
+    color: blue;
+}

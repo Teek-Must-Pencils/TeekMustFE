@@ -8,7 +8,12 @@
     margin: 2% 0%;
     border-radius:8px;
     box-shadow: 1px 1px 5px 1px rgba(124, 104, 104, 0.25);
+    transition: transform .5s;
 }
+.dn-card:hover {
+    transform:scale(97%);
+}
+
 .dn-content-image{
     width: 20%;
     display: flex;
@@ -60,7 +65,12 @@
     padding: 1%;
     margin: 2% 0%;
     box-shadow: 1px 1px 5px 1px rgba(124, 104, 104, 0.25);
+    transition: transform .5s;
 }
+.mn-card:hover {
+    transform: scale(97%);
+}
+
 .mn-content-image{
     width: 30%;
     display: flex;

@@ -8,6 +8,7 @@ import { ModalNotification } from '../../../Components';
 import dummyProfile from '../../../Assets/Img/profile.png'
 import '../ProductPage.css'
 import usePreview from '../../../Hooks/usePreview';
+import { ArrowLeft } from 'react-feather';
 
 
 const ProductPageDesktop = (props) => {
@@ -72,6 +73,11 @@ const ProductPageDesktop = (props) => {
     }
 
     // console.log(dataPreview.image)
+    const handleBack = () => {
+        navigate('/')
+    }
+
+
         
   return (
     <>
@@ -88,6 +94,14 @@ const ProductPageDesktop = (props) => {
             onSubmitBuyerModalDesktop={onSubmitBuyerModalDesktop}
         />
         <div className="container container-content">
+        <div className="button-back-product">
+                <button
+                    className=''
+                    onClick={() => handleBack()}
+                >
+                    <ArrowLeft size='20px' />
+                </button>
+            </div>
             <div className="row">
                 <div className="col-8">
                     <div className="d-flex flex-column">
