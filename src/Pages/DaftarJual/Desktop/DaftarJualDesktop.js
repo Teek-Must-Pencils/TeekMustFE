@@ -1,18 +1,16 @@
 import React from 'react'
 import dummyProfile from '../../../Assets/Img/profile.png'
 import * as Icon from 'react-feather';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { selectUser } from '../../../Redux/slice/authSlice'
 import './DaftarJualDesktop.css'
 import { CardProduct, DataNotFound } from '../../../Components';
+import CardJual from '../CardJual';
 import { Tab, Nav, Row, Col } from 'react-bootstrap';
 
 
 const DaftarJualDesktop = (props) => {
-    const { data } = props;
+    const { data, user, offer } = props;
     let navigate =  useNavigate();
-    const user = useSelector(selectUser);
 
     const handleEditProfile =  () => {
         return navigate('/infoProfile')
@@ -20,6 +18,36 @@ const DaftarJualDesktop = (props) => {
 
     const handleAddProduct = () =>{
         return navigate('/infoProduct')
+    }
+    
+    const MyDiminati = (props) => {
+        const { data, user, offer  } = props
+
+        const dataRaw = data.filter((value) => value.seller === user.username)
+        const dataSet = offer?.map((value) => {
+            const result = dataRaw.find((item) => item.id === value.productId)
+            return result
+        }).filter((v) => typeof v === 'object')
+        const myData = [...new Set(dataSet)];
+
+        return(
+            <>
+                {myData?.length < 1  && <DataNotFound />}
+                {myData?.length >= 1 && (
+                    <>
+                        {myData?.map((value, i)=>{
+                            return(
+                                <div key={i} className='col-4 col-sm-4 my-2'>
+                                    <CardJual data={value} offer={offer}/>
+                                </div>
+                            )})
+                        }
+                    </>
+                )}
+            </>
+           
+        )
+        
     }
 
   return (
@@ -31,9 +59,9 @@ const DaftarJualDesktop = (props) => {
                     <div className='d-flex flex-row gap-2'>
                         <img src={dummyProfile} alt="" />
                         <div className='d-flex flex-column'>
-                            <span><b>{user}</b></span>
+                            <span><b>{user?.username}</b></span>
                             <span className="text-profile">
-                                kota
+                                {user?.address}
                             </span>
                         </div>
                     </div>
@@ -44,6 +72,7 @@ const DaftarJualDesktop = (props) => {
                 </div>
             </div>
             <Tab.Container 
+                className="d-flex flex-col color-content" 
                 id="left-tabs-example" 
                 defaultActiveKey="1"
             >
@@ -78,7 +107,7 @@ const DaftarJualDesktop = (props) => {
                     <Tab.Pane eventKey="1">
                         <div className="row">
                             {data?.length < 1  && <DataNotFound />}
-                            {data?.length > 1 && (
+                            {data?.length > 1 && data.filter((value) => value.seller === user.username).length > 1 && (
                                 <>
                                     <div className="col-4 col-sm-4 my-2">
                                         <button type="button" className="box h-100"
@@ -87,7 +116,7 @@ const DaftarJualDesktop = (props) => {
                                             <Icon.Plus/> Tambah
                                         </button>
                                     </div>
-                                    {data?.map((value, i)=>{
+                                    {data.filter((value) => value.seller === user.username)?.map((value, i)=>{
                                         return(
                                             <div key={i} className='col-4 col-sm-4 my-2'>
                                                 <CardProduct data={value}/>
@@ -100,16 +129,7 @@ const DaftarJualDesktop = (props) => {
                     </Tab.Pane>
                     <Tab.Pane eventKey="2">
                         <div className="row">
-                            {(data?.length < 1 || data?.filter((value) => value?.wishlist === true).length < 1) && 
-                                <DataNotFound marker={'dfj1'} />
-                            }
-                            {data?.length > 1 && data?.filter((value) => value?.wishlist === true).map((value, i)=>{
-                                return(
-                                    <div key={i} className='col-4 col-sm-4 my-2'>
-                                        <CardProduct data={value}/>
-                                    </div>
-                                )})
-                            }
+                            <MyDiminati data={data} user={user} offer={offer} />
                         </div>
                     </Tab.Pane>
                     <Tab.Pane eventKey="3">

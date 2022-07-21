@@ -6,8 +6,8 @@ import { authActions } from '../../../Redux/slice/authSlice';
 import dummy from '../../../Assets/Img/Group 1.png'
 import '../MyAccount.css'
 
-const MyAccountDesktop = () => {
-
+const MyAccountDesktop = (props) => {
+  const { user } = props;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -18,26 +18,38 @@ const MyAccountDesktop = () => {
   const handleLogOut= () =>{
       dispatch(authActions.logout())
   }
+
   return (
     <div className='mma-container'>
         <div className='mma-image-content'>
-            <img className='mma-img-user' src={dummy} alt="" />
+            <img 
+                className='mma-img-user' 
+                src={user.imgB ? `data:image/png;base64,${user.imgB}`: dummy} 
+                alt=""
+            />
+            <div>{user?.username}</div>
         </div>
         <div className='mma-content-button'>
-            <div 
-                className='mma-button'
-                onClick={handleProfile}
-            >
-                <Edit /> <span>Ubah Akun</span>
+            <div className='dn-card'>
+                <div 
+                    className='mma-button'
+                    onClick={handleProfile}
+                >
+                    <Edit /> <span>Ubah Akun</span>
+                </div>
             </div>
-            <div className='mma-button'>
-                <Settings /> <span>Pengaturan</span>
+            <div className='dn-card'>
+                <div className='mma-button'>
+                    <Settings /> <span>Pengaturan</span>
+                </div>
             </div>
-            <div 
-                className='mma-button'
-                onClick={handleLogOut}
-            >
-                <LogOut /> <span>Keluar</span>
+            <div className='dn-card'>
+                <div 
+                    className='mma-button'
+                    onClick={handleLogOut}
+                >
+                    <LogOut /> <span>Keluar</span>
+                </div>
             </div>
         </div>
     </div> 

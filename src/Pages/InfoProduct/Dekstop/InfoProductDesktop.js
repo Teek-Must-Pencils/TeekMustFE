@@ -1,26 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row } from 'react-bootstrap';
 import { ArrowLeft } from 'react-feather';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom'
 import usePreview from '../../../Hooks/usePreview';
-import second from '../../../Assets/Img/Group 1.png';
+// import second from '../../../Assets/Img/Group 1.png';
 import '../InfoProduct.css';
 
 const InfoProductDesktop = (props) => {
     const {
+        id,
+        product,
+        user,
         onSubmitSellerInput,
-        // handlePreview
+        onSubmitSellerEdit,
         category
     } = props;
     let navigate = useNavigate();
     const dataPreview = usePreview();
     const [image, setImage] = useState();
-    const { register, handleSubmit, control, setValue } = useForm();
+    const { register, handleSubmit, control, setValue, formState:{ errors } } = useForm();
 
     if (dataPreview.image) {
         setValue("imageFile", dataPreview.imageFile);
         setValue("image", dataPreview.image)
+        setValue('seller', user?.username)
+        setValue('address', user?.address)
+    }else if(product){
+        setValue('id', product?.id)
+        setValue("name", product?.name);
+        setValue("category", product?.categories?.at(0).toLowerCase())
+        setValue("imageFile", product?.imgB);
+        setValue("image", `data:image/png;base64,${product?.imgB}`)
+        setValue("description", product?.description)
+        setValue("price", product?.price)
+        setValue("seller", product?.seller)
+        setValue("address", product?.city)
+    }else{
+        setValue('seller', user?.username)
+        setValue('address', user?.address)
     }
 
     const handleInputImage = (e) => {
@@ -48,6 +66,34 @@ const InfoProductDesktop = (props) => {
         return result;
     }
 
+    // useEffect(() => {
+    //     if (dataPreview.image) {
+    //         setValue("imageFile", dataPreview.imageFile);
+    //         setValue("image", dataPreview.image)
+    //         setValue('seller', user?.username)
+    //         setValue('address', user?.address)
+    //     }else if(product){
+    //         setValue('id', product?.id)
+    //         setValue("name", product?.name);
+    //         setValue("category", product?.categories?.at(0).toLowerCase())
+    //         setValue("imageFile", product?.imgB);
+    //         setValue("image", `data:image/png;base64,${product?.imgB}`)
+    //         setValue("description", product?.description)
+    //         setValue("price", product?.price)
+    //         setValue("seller", product?.seller)
+    //         setValue("address", product?.city)
+    //     }else{
+    //         setValue('seller', user?.username)
+    //         setValue('address', user?.address)
+    //     }
+    
+    // //   return () => {
+    // //     second
+    // //   }
+    // // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [dataPreview, product])
+    
+    
     return (
         <>
             <div className="container-content">
@@ -67,45 +113,52 @@ const InfoProductDesktop = (props) => {
                         <div className="col-6">
                             <form
                                 className="ip-content-form"
-                                onSubmit={handleSubmit(onSubmitSellerInput)}
+                                onSubmit={handleSubmit(id ? onSubmitSellerEdit : onSubmitSellerInput)}
                             >
-
-
+                            <input type="hidden" {...register('seller')} />
+                            <input type="hidden" {...register('address')} />
 
                                 <div className='ip-box-input'>
-                                    <label>Nama Produk</label>
+                                    <label>Nama Produk{' '}
+                                        {errors.name && errors.name.type === "required" && 
+                                            <span className='error-product'>Nama is Required</span>}
+                                    </label>
                                     <input
                                         className='bg-white'
                                         type="text"
                                         placeholder="Nama Produk"
                                         name="nama"
                                         defaultValue={dataPreview.name || undefined}
-                                        {...register("nama")}
-                                    // required
+                                        {...register("name", { required : true })}
                                     />
                                 </div>
                                 <div className='ip-box-input'>
-                                    <label>Harga Produk</label>
+                                    <label>Harga Produk{' '}
+                                    {errors.price && errors.price.type === "required" && 
+                                            <span className='error-product'>Harga is Required</span>}
+                                    </label>
                                     <input
                                         className='bg-white'
                                         type="text"
                                         placeholder="Rp. 0,00"
                                         defaultValue={dataPreview.price || undefined}
-                                        {...register("harga")}
-                                    // required
+                                        {...register("price", {required:true})}
+                                        // required
                                     />
                                 </div>
                                 <div className='ip-box-input'>
-                                    <label>Kategori</label>
+                                    <label>Kategori{' '}
+                                        {errors.category && errors.category.type === "required" && 
+                                            <span className='error-product'>Category is Required</span>}
+                                    </label>
                                     <Controller
-                                        name="kategori"
+                                        name="category"
                                         control={control}
-                                        defaultValue={dataPreview.category || ""}
+                                        defaultValue={ dataPreview.category  || ""}
                                         render={({ field }) =>
                                             <select
                                                 // defaultValue=""
                                                 {...field}
-                                            // required
                                             >
                                                 <option value="" disabled>Pilih Kategori</option>
                                                 {category?.map((value, i) => {
@@ -121,16 +174,19 @@ const InfoProductDesktop = (props) => {
                                                 })
                                                 }
                                             </select>}
+                                            rules={{ required: true }}
                                     />
                                 </div>
                                 <div className='ip-box-input'>
-                                    <label>Deskripsi</label>
+                                    <label>Deskripsi{' '}
+                                        {errors.description && errors.description.type === "required" && 
+                                            <span className='error-product'>Description is Required</span>}
+                                    </label>
                                     <textarea
                                         placeholder='Deskripsi'
                                         rows={5}
                                         defaultValue={dataPreview.description || undefined}
-                                        {...register("deskripsi")}
-                                    // required
+                                        {...register("description", {required:true})}
                                     />
                                 </div>
                                 <div className='ip-box-input'>
@@ -140,15 +196,16 @@ const InfoProductDesktop = (props) => {
                                             type="file"
                                             accept="image/png"
                                             onChange={(e) => handleInputImage(e)}
-                                        // required={dataPreview.image ? false: true}
+                                            required={(dataPreview.image || product?.imgB) ? false: true}
                                         />
                                         <img
-                                            src={image || dataPreview.image || second}
+                                            src={ image || dataPreview.image || `data:image/png;base64,${product?.imgB}`}
                                             alt=""
                                         />
                                     </div>
                                 </div>
                                 <div className='ip-box-button'>
+                                {!product &&
                                     <button
                                         type='submit'
                                         className='ip-button-preview'
@@ -159,6 +216,7 @@ const InfoProductDesktop = (props) => {
                                     >
                                         Preview
                                     </button>
+                                }
                                     <button
                                         type='submit'
                                         className='ip-button-send'

@@ -6,19 +6,37 @@ import { useNavigate } from 'react-router-dom';
 
 const InfoProductMobile = (props) => {
   const {
+    id,
+    product,
+    user,    
     onSubmitMobileInput,
-    // handlePreview
+    onSubmitMobileEdit,
     category
 } = props;
   const navigate = useNavigate();
   const dataPreview = usePreview();
   const [image, setImage] = useState();
-  const { register, handleSubmit, control, setValue } = useForm();
+  const { register, handleSubmit, control, setValue, formState:{ errors } } = useForm();
 
-  if(dataPreview.image){
-    setValue("imageFile",  dataPreview.imageFile);
+  if (dataPreview.image) {
+    setValue("imageFile", dataPreview.imageFile);
     setValue("image", dataPreview.image)
-  }
+    setValue('seller', user?.username)
+    setValue('address', user?.address)
+}else if(product){
+    setValue('id', product?.id)
+    setValue("name", product?.name);
+    setValue("category", product?.categories?.at(0).toLowerCase())
+    setValue("imageFile", product?.imgB);
+    setValue("image", `data:image/png;base64,${product?.imgB}`)
+    setValue("description", product?.description)
+    setValue("price", product?.price)
+    setValue("seller", product?.seller)
+    setValue("address", product?.city)
+}else{
+    setValue('seller', user?.username)
+    setValue('address', user?.address)
+}
 
   const handleInputImage = (e) =>{
     setValue("imageFile",  e.target.files[0])
@@ -67,30 +85,42 @@ const InfoProductMobile = (props) => {
         <div>
           <form 
             className="ipm-body"
-            onSubmit={handleSubmit(onSubmitMobileInput)}
+            onSubmit={handleSubmit(id ? onSubmitMobileEdit : onSubmitMobileInput)}
           >
+          <input type="hidden" {...register('seller')} />
+          <input type="hidden" {...register('address')} />
+
             <div className='ipm-body-input'>
-              <label>Nama Produk</label>
+              <label>Nama Produk {' '}
+                  {errors.name && errors.name.type === "required" && 
+                  <span className='error-product'>Nama is Required</span>}
+              </label>
               <input
                 type="text"
                 placeholder="Nama Produk"
                 defaultValue={dataPreview.name||undefined}
-                {...register("nama")}
+                {...register("name", { required : true })}
               />
             </div>
             <div className='ipm-body-input'>
-              <label>Harga Produk</label>
+              <label>Harga Produk{' '}
+                {errors.price && errors.price.type === "required" && 
+                <span className='error-product'>Harga is Required</span>}
+              </label>
               <input
                 type="text"
                 placeholder="Rp. 0,00"
                 defaultValue={dataPreview.price||undefined}
-                {...register("harga")}
+                {...register("price", {required:true})}
               />
             </div>
             <div className='ipm-body-input'>
-              <label>Kategori</label>
+              <label>Kategori {' '}
+                {errors.category && errors.category.type === "required" && 
+                <span className='error-product'>Category is Required</span>}
+              </label>
               <Controller
-                  name="kategori"
+                  name="category"
                   control={control}
                   defaultValue={dataPreview.category||""}
                   render={({ field }) =>  
@@ -111,15 +141,19 @@ const InfoProductMobile = (props) => {
                           )})
                       }
                   </select>}
+                  rules={{ required: true }}
               />
             </div>
             <div className='ipm-body-input'>
-              <label>Deskripsi</label>
+              <label>Deskripsi {' '}
+                {errors.description && errors.description.type === "required" && 
+                <span className='error-product'>Description is Required</span>}
+              </label>
               <textarea 
                   placeholder='Deskripsi'
                   rows={4}
                   defaultValue={dataPreview.description||undefined}
-                  {...register("deskripsi")}
+                  {...register("description", {required:true})}
                   // required
               />
             </div>
@@ -133,12 +167,13 @@ const InfoProductMobile = (props) => {
                     // required={dataPreview.image ? false: true}
                 />
                 <img 
-                  src={image || dataPreview.image}
+                  src={image || dataPreview.image || `data:image/png;base64,${product?.imgB}`}
                   alt=""
                 />
               </div>
             </div>
             <div className='ipm-body-buttonAction'>
+            {!product &&
               <button
                 type='submit'
                 className='ip-button-preview'
@@ -149,6 +184,7 @@ const InfoProductMobile = (props) => {
               >
                 Preview
               </button>
+            }
               <button
                 type='submit'
                 className='ip-button-send'

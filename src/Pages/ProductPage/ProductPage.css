@@ -1,12 +1,24 @@
-.text-category, .text-profile{
+.text-category{
     color: gray;
     font-size: small;
+    background-color: lightpink;
+    padding: 1% 3%;
+    width: max-content;
+    border-radius: 16px;
+}
+.text-profile{
+    color: gray;
+    font-size: small;
+    
+}
+.text-price{
+    font-size: 1.2rem;
 }
 
 /* ----------- Desktop -----------*/
 .img-product{
     border-radius: 10px;
-    max-width: 70%;
+    width: 70%;
     text-align: center;
 }
 .text-desc{
@@ -18,7 +30,7 @@
     text-align: justify;
 }
 .box-action{
-    padding: 10px 20px;
+    padding: 3% 5%;
     background: #FFFFF2;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
     border-radius: 16px;
@@ -63,6 +75,8 @@
 .mobile-img{
     width: 100%;
     height: 310px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
 }
 .mobile-box-description{
     position: relative;
@@ -99,9 +113,10 @@
 }
 .mobile-box-user .account{
     width: 100%;
-    padding: 0% 5%;
+    padding: 3% 5%;
     display: flex;
     flex-direction: column;
+    gap: 8px;
 }
 .mobile-box-desc{
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
@@ -126,4 +141,14 @@
 }
 .button-float-send:hover{
     background-color: lightblue;
+}
+
+.button-back-product button{
+    background-color:transparent;
+    border: none;
+}
+
+.button-back-product button:hover{
+    background-color: lightgray;
+    color: blue;
 }

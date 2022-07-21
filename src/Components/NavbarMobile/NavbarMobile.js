@@ -4,6 +4,7 @@ import { Menu, Search, LogIn, Bell, List, User } from 'react-feather';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { authActions, selectAuth, selectRole } from '../../Redux/slice/authSlice';
+import { searchActions } from '../../Redux/slice/searchSlice';
 import './NavbarMobile.css' 
 
 const NavbarMobile = (props) => {
@@ -12,6 +13,7 @@ const NavbarMobile = (props) => {
     const auth = useSelector(selectAuth);
     const role = useSelector(selectRole);
     const [show, setShow] = useState(false);
+    const [search, setSearch] = useState();
 
     const handleShow = () =>{
         setShow(true)
@@ -22,6 +24,16 @@ const NavbarMobile = (props) => {
     const handleLogout = () =>{
         dispatch(authActions.logout());
     }
+
+    const handleSubmit = (value) => {
+        value.preventDefault()
+        dispatch(searchActions.setSearch(search))
+    }
+    
+    const handleSearch = (e) => {
+        setSearch(e.target.value);
+    }
+
   return (
     <>
         <div className='mobile-content-menu'>
@@ -33,11 +45,12 @@ const NavbarMobile = (props) => {
             </button>
             <div className='search-mobile'>
             {isSearch !== false && (
-                <form className="container-search-mobile">
+                <form className="container-search-mobile" onSubmit={handleSubmit}>
                     <input
                         type="text"
                         placeholder="Cari di sini..."
                         className="mobile-search-input"
+                        onChange={e => handleSearch(e)}
                     />
                     <button type='submit'>
                         <Search color='gray'/>

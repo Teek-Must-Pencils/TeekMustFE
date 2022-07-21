@@ -60,6 +60,9 @@
   background: #7126B5;
   color: white;
 }
+.active-home{
+  background: #7126B5 !important;
+}
 
 .btn-filter span{
   font-size: 0.9vw !important;

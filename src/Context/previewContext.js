@@ -6,8 +6,11 @@ const previewContext = React.createContext({
     category:'',
     description:'',
     imageFile:'',
-    image:'',
-    setPreview:()=>{}
+    image: undefined,
+    seller:'',
+    address:'',
+    setPreview:()=>{},
+    resetPreview:() => {}
 })
 
 export default previewContext

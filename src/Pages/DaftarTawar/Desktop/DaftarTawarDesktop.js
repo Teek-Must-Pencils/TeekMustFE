@@ -1,26 +1,27 @@
 import React from 'react';
 import dummyProfile from '../../../Assets/Img/profile.png';
 import * as Icon from 'react-feather';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { selectUser } from '../../../Redux/slice/authSlice';
-import { CardProduct, DataNotFound } from '../../../Components';
+import { DataNotFound } from '../../../Components';
+import CardProduct from '../CardTawar';
 import { Tab, Nav, Row, Col } from 'react-bootstrap';
 import './DaftarTawarDesktop.css';
 
 
 const DaftarTawarDesktop = (props) => {
-    const { data } = props;
+    const { data, user, offer } = props;
     let navigate =  useNavigate();
-    const user = useSelector(selectUser);
 
     const handleEditProfile =  () => {
         return navigate('/infoProfile')
     }
 
-    const handleAddProduct = () =>{
-        return navigate('/infoProduct')
-    }
+    const myOffer = offer?.filter((value) => value.userId === user?.id);
+    const myData = myOffer?.map((value) => {
+        const dt = data?.find((product) => product.id === value.productId)
+        const result = { ...dt, offer:{...value} }
+        return result
+    })
 
   return (
     <>
@@ -30,9 +31,9 @@ const DaftarTawarDesktop = (props) => {
                     <div className='d-flex flex-row gap-2'>
                         <img src={dummyProfile} alt="" />
                         <div className='d-flex flex-column'>
-                            <span><b>{user}</b></span>
+                            <span><b>{user?.username}</b></span>
                             <span className="text-profile">
-                                kota
+                                {user?.address}
                             </span>
                         </div>
                     </div>
@@ -53,13 +54,13 @@ const DaftarTawarDesktop = (props) => {
                         <Nav variant="pills" className="flex-column">
                             <Nav.Link eventKey="1" >
                                 <div className='btn-dt-d'>
-                                    <Icon.Box /> <span>Product</span>
+                                    <Icon.Box /> <span>Ditawar</span>
                                 </div>
                             </Nav.Link>
                             <hr/>
                             <Nav.Link eventKey="2" >
                                 <div className='btn-dt-d'>
-                                    <Icon.Heart /> <span>Ditawar</span>
+                                    <Icon.Heart /> <span>Diminati</span>
                                 </div>
                             </Nav.Link>
                             <hr/>
@@ -76,20 +77,13 @@ const DaftarTawarDesktop = (props) => {
                 <Tab.Content className=''>
                     <Tab.Pane eventKey="1">
                         <div className="row">
-                            {data?.length < 1  && <DataNotFound />}
-                            {data?.length > 1 && (
+                            {myData?.length < 1  && <DataNotFound />}
+                            {myData?.length > 1 && (
                                 <>
-                                    <div className="col-4 col-sm-4 my-2">
-                                        <button type="button" className="box color-content h-100"
-                                            onClick={handleAddProduct}
-                                        >
-                                            <Icon.Plus/> Tambah
-                                        </button>
-                                    </div>
-                                    {data.map((value, i)=>{
+                                    {myData.map((value, i)=>{
                                         return(
                                             <div key={i} className='col-4 col-sm-4 my-2'>
-                                                <CardProduct data={value}/>
+                                                <CardProduct data={value} />
                                             </div>
                                         )
                                     })}
@@ -111,7 +105,6 @@ const DaftarTawarDesktop = (props) => {
                             })
                             }
                         </div>
-                        
                     </Tab.Pane>
                     <Tab.Pane eventKey="3">
                         <div className="row">
