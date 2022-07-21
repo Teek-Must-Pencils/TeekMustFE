@@ -2,7 +2,8 @@ import React from 'react';
 import dummyProfile from '../../../Assets/Img/profile.png';
 import * as Icon from 'react-feather';
 import { useNavigate } from 'react-router-dom';
-import { CardProduct, DataNotFound } from '../../../Components';
+import { DataNotFound } from '../../../Components';
+import CardProduct from '../CardTawar';
 import { Tab, Nav, Row, Col } from 'react-bootstrap';
 import './DaftarTawarDesktop.css';
 
@@ -15,7 +16,13 @@ const DaftarTawarDesktop = (props) => {
         return navigate('/infoProfile')
     }
 
-    console.log(offer?.filter((value) => value.userId === user?.id))
+    const myOffer = offer?.filter((value) => value.userId === user?.id);
+    const myData = myOffer?.map((value) => {
+        const dt = data?.find((product) => product.id === value.productId)
+        const result = { ...dt, offer:{...value} }
+        return result
+    })
+
   return (
     <>
         <div className="container-sm">
@@ -38,23 +45,22 @@ const DaftarTawarDesktop = (props) => {
             </div>
             <Tab.Container 
                 id="left-tabs-example" 
-                // defaultActiveKey="1"
-                defaultActiveKey="2"
+                defaultActiveKey="1"
             >
              <Row>
                 <Col sm={3}>
                     <div className='box-action-df mb-3'>
                         <p><b>Kategori</b></p>
                         <Nav variant="pills" className="flex-column">
-                            {/* <Nav.Link eventKey="1" >
+                            <Nav.Link eventKey="1" >
                                 <div className='btn-dt-d'>
-                                    <Icon.Box /> <span>Product</span>
+                                    <Icon.Box /> <span>Ditawar</span>
                                 </div>
                             </Nav.Link>
-                            <hr/> */}
+                            <hr/>
                             <Nav.Link eventKey="2" >
                                 <div className='btn-dt-d'>
-                                    <Icon.Heart /> <span>Ditawar</span>
+                                    <Icon.Heart /> <span>Diminati</span>
                                 </div>
                             </Nav.Link>
                             <hr/>
@@ -69,22 +75,22 @@ const DaftarTawarDesktop = (props) => {
                             
                <Col sm={9}>
                 <Tab.Content className=''>
-                    {/* <Tab.Pane eventKey="1">
+                    <Tab.Pane eventKey="1">
                         <div className="row">
-                            {data?.length < 1  && <DataNotFound />}
-                            {data?.length > 1 && (
+                            {myData?.length < 1  && <DataNotFound />}
+                            {myData?.length > 1 && (
                                 <>
-                                    {data.map((value, i)=>{
+                                    {myData.map((value, i)=>{
                                         return(
                                             <div key={i} className='col-4 col-sm-4 my-2'>
-                                                <CardProduct data={value}/>
+                                                <CardProduct data={value} />
                                             </div>
                                         )
                                     })}
                                 </>
                             )} 
                         </div>
-                    </Tab.Pane> */}
+                    </Tab.Pane>
                     <Tab.Pane eventKey="2">
                         <div className="row">
                             {(data?.length < 1 || data?.filter((value) => value?.wishlist === true).length < 1)  && 
@@ -99,7 +105,6 @@ const DaftarTawarDesktop = (props) => {
                             })
                             }
                         </div>
-                        
                     </Tab.Pane>
                     <Tab.Pane eventKey="3">
                         <div className="row">

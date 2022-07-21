@@ -1,15 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import dummyJam from '../../Assets/Img/dummyProduct.png';
-import './CardProduct.css'
+import './CardTawar.css';
 
-const CardProduct = (props) => {
+const CardTawar = (props) => {
     const { data } = props;
     let navigate = useNavigate();
 
     const handleProduct = (id) =>{
         return navigate(`/productPage/${id}`)
-      }
+    }
+    
     const handleCategory = (item) =>{
         let result;
         if (item.toLowerCase() === 'pencil_2b') { result = "Pencil 2B"}
@@ -41,27 +42,35 @@ const CardProduct = (props) => {
     <>
         <div className='cardProduct-product'>
           <div>
-            {/* <img className='cardProduct-img' src={`data:image/png;base64,${data.imgB}` || dummyJam} alt="" /> */}
             <img className='cardProduct-img' 
               src={data.imgB ? `data:image/png;base64,${data.imgB}` : dummyJam} alt="" 
             />
           </div>
           <div className='cardProduct-product-info'>
             <span className='cardProduct-pi-title text-truncate'>{data.name || "-"}</span>
-            <span className='cardProduct-pi-category'>{categories(data.categories) || "-"}</span>
+            <span className='cardProduct-pi-category'>{categories(data.categories || "-")}</span>
             <span className='cardProduct-pi-price'>Rp. {data.price || "-"}</span>
+            <span className='cardProduct-pi-tawaran'>Tawaranmu : {data.offer.priceNegotiated}</span>
+            <span 
+                className={`cardProduct-pi-status 
+                    ${data.offer?.status?.includes('ACCEPTED') ? 'acc' 
+                        : data.offer?.status?.includes('REJECT') ? 'reject' : 'wait' }`
+                }>
+                {data.offer.status || '-'}
+            </span>
           </div>
           <div className='cardProduct-pi-button'>
             <button 
-              className='tbl-lihat'
+              className='tbl-lihat-tawar'
               onClick={handleProduct.bind(null, data.id)}
             >
-              Lihat
+              Buat Tawaran Baru
             </button>
+
           </div>
         </div>
     </>
   )
 }
 
-export default CardProduct
+export default CardTawar
