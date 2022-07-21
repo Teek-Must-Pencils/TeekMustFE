@@ -30,20 +30,26 @@ const MyAccountMobile = (props) => {
             <div>{user?.username}</div>
         </div>
         <div className='mma-content-button'>
-            <div 
-                className='mma-button'
-                onClick={handleProfile}
-            >
-                <Edit /> <span>Ubah Akun</span>
+            <div className='dn-card'>
+                <div 
+                    className='mma-button'
+                    onClick={handleProfile}
+                >
+                    <Edit /> <span>Ubah Akun</span>
+                </div>
             </div>
-            <div className='mma-button'>
-                <Settings /> <span>Pengaturan</span>
+            <div className='dn-card'>
+                <div className='mma-button'>
+                    <Settings /> <span>Pengaturan</span>
+                </div>
             </div>
-            <div 
-                className='mma-button'
-                onClick={handleLogOut}
-            >
-                <LogOut /> <span>Keluar</span>
+            <div className='dn-card'>
+                <div 
+                    className='mma-button'
+                    onClick={handleLogOut}
+                >
+                    <LogOut /> <span>Keluar</span>
+                </div>
             </div>
         </div>
     </div> 
