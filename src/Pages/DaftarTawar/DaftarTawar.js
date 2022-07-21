@@ -5,14 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import ServiceProfile from '../../Services/ServiecProfile'
 import { Loading, NavbarMobile } from '../../Components';
 import ServiceOffer from '../../Services/ServiceOffer';
-
-const data = [
-  {name:"dummy1", categories:["Pencil_2B"], price:2001,  wishlist: true, sell:false},
-  {name:"dummy2", categories:["Pencil_2B"], price:2002,  wishlist: false, sell:false},
-  {name:"dummy3", categories:["Pencil_2B"], price:2003, wishlist: false, sell:false},
-  {name:"dummy4", categories:["COLOR_PENCIL_8"], price:2004, wishlist: true, sell:false},
-  {name:"dummy5", categories:["COLOR_PENCIL_12"], price:2005,  wishlist: true, sell:false},
-]
+import ServiceProduct from '../../Services/ServiceProduct';
 
 const DaftarTawar = () => {
   const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'});
@@ -20,6 +13,7 @@ const DaftarTawar = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState();
   const [offer, setOffer] = useState([]);
+  const [product, setProduct] = useState([]);
 
   useEffect(() => {
     const user = sessionStorage.getItem('user');
@@ -27,10 +21,12 @@ const DaftarTawar = () => {
     setIsLoading(true);
     Promise.allSettled([
       ServiceProfile.getUserByUsername(username),
-      ServiceOffer.GetOffer()
-    ]).then(([user, offer]) =>{
+      ServiceOffer.GetOffer(),
+      ServiceProduct.GetAllProduct()
+    ]).then(([user, offer, product]) =>{
       setUser(user.value.data);
       setOffer(offer.value.data);
+      setProduct(product.value.data);
       setIsLoading(false)
     })
   
@@ -44,7 +40,7 @@ const DaftarTawar = () => {
       <Loading show={isLoading} />
       {isDesktopOrLaptop && (
         <DaftarTawarDesktop 
-          data={data} 
+          data={product} 
           offer={offer}
           user={user}
         />
@@ -53,7 +49,7 @@ const DaftarTawar = () => {
         <>
           <NavbarMobile isSearch={false} location="Daftar Jual Saya" />
           <DaftarTawarMobile 
-            data={data}
+            data={product}
             offer={offer} 
             user={user}
           />
