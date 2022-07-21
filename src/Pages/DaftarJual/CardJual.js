@@ -1,14 +1,13 @@
-import React from 'react';
+import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import dummyJam from '../../Assets/Img/dummyProduct.png';
-import './CardProduct.css'
+import dummyJam from '../../Assets/Img/dummyProduct.png'
 
-const CardProduct = (props) => {
+const CardJual = (props) => {
     const { data } = props;
     let navigate = useNavigate();
 
     const handleProduct = (id) =>{
-        return navigate(`/productPage/${id}`)
+        return navigate(`/infoPenawar/${id}`)
       }
     const handleCategory = (item) =>{
         let result;
@@ -41,27 +40,27 @@ const CardProduct = (props) => {
     <>
         <div className='cardProduct-product'>
           <div>
-            {/* <img className='cardProduct-img' src={`data:image/png;base64,${data.imgB}` || dummyJam} alt="" /> */}
             <img className='cardProduct-img' 
               src={data.imgB ? `data:image/png;base64,${data.imgB}` : dummyJam} alt="" 
             />
           </div>
           <div className='cardProduct-product-info'>
             <span className='cardProduct-pi-title text-truncate'>{data.name || "-"}</span>
-            <span className='cardProduct-pi-category'>{categories(data.categories) || "-"}</span>
+            <span className='cardProduct-pi-category'>{categories(data.categories || "-")}</span>
             <span className='cardProduct-pi-price'>Rp. {data.price || "-"}</span>
           </div>
           <div className='cardProduct-pi-button'>
             <button 
-              className='tbl-lihat'
+              className='tbl-lihat-tawar'
               onClick={handleProduct.bind(null, data.id)}
             >
-              Lihat
+              Lihat Tawaran
             </button>
+
           </div>
         </div>
     </>
   )
 }
 
-export default CardProduct
+export default CardJual

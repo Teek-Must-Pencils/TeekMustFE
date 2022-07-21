@@ -3,16 +3,24 @@ import dummyProfile from '../../../Assets/Img/profile.png'
 import * as Icon from 'react-feather';
 import './DaftarTawarMobile.css'
 import { useNavigate } from 'react-router-dom';
-import { CardProduct, DataNotFound } from '../../../Components';
+import { DataNotFound } from '../../../Components';
+import CardProduct from '../CardTawar';
 import { Nav, Tab } from 'react-bootstrap';
 
 const DaftarTawarMobile = (props) => {
-    const { data, user } = props;
+    const { data, user, offer } = props;
     let navigate = useNavigate();
 
     const handleEditProfile =  () => {
         return navigate('/infoProfile');
     }
+
+    const myOffer = offer?.filter((value) => value.userId === user?.id);
+    const myData = myOffer?.map((value) => {
+        const dt = data?.find((product) => product.id === value.productId)
+        const result = { ...dt, offer:{...value} }
+        return result
+    })
 
   return (
     <div>
@@ -37,20 +45,19 @@ const DaftarTawarMobile = (props) => {
             <Tab.Container 
                 className="d-flex flex-col" 
                 id="left-tabs-example" 
-                // defaultActiveKey="1"
-                defaultActiveKey="2"
+                defaultActiveKey="1"
             >
                 <div className='box-action mb-3'>
                     <p><b>Kategori</b></p>
                     <div className='d-flex flex-row justify-content-around'>
-                         {/* <Nav.Link eventKey="1" >
+                         <Nav.Link eventKey="1" >
                             <div className='btn-filter btn-dt'>
-                                <Icon.Box /> <span>Product</span>
+                                <Icon.Box /> <span>Ditawar</span>
                             </div>
-                        </Nav.Link> */}
+                        </Nav.Link>
                         <Nav.Link eventKey="2" >
                             <div className='btn-filter btn-dt'>
-                                <Icon.Heart /> <span>Ditawar</span>
+                                <Icon.Heart /> <span>Diminati</span>
                             </div>
                         </Nav.Link>
                         <Nav.Link eventKey="3" >
@@ -62,12 +69,12 @@ const DaftarTawarMobile = (props) => {
                 </div>
                
                 <Tab.Content className=''>
-                    {/* <Tab.Pane eventKey="1">
+                    <Tab.Pane eventKey="1">
                         <div className="row">
-                            {data?.length < 1  && <DataNotFound />}
-                            {data?.length > 1 && (
+                            {myData?.length < 1  && <DataNotFound />}
+                            {myData?.length > 1 && (
                                 <>
-                                    {data.map((value, i)=>{
+                                    {myData.map((value, i)=>{
                                         return(
                                             <div key={i} className='col-4 col-sm-4 my-2'>
                                                 <CardProduct data={value}/>
@@ -77,7 +84,7 @@ const DaftarTawarMobile = (props) => {
                                 </>
                             )}
                         </div>
-                    </Tab.Pane> */}
+                    </Tab.Pane>
                     <Tab.Pane eventKey="2">
                         <div className="row">
                             {(data?.length < 1 || data?.filter((value) => value?.wishlist === true).length < 1)  && 

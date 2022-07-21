@@ -88,6 +88,10 @@ function App() {
         path='/infoPenawar' 
         element={<LayoutsAuth><InfoPenawar/> </LayoutsAuth>}
       />
+      <Route 
+        path='/infoPenawar/:id' 
+        element={<LayoutsAuth><InfoPenawar/> </LayoutsAuth>}
+      />
       {/* 7 */}
       <Route 
         path='/notifikasi' 
