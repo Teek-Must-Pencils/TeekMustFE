@@ -53,7 +53,6 @@ const RegisterDesktop = () => {
         setLoading(true);
         ServiceRegister(data).then(
             (res) => {
-                console.log(res)
                 if (res.status === 201) {
                     setMessage(res.data);
                     setLoading(false);
@@ -63,7 +62,7 @@ const RegisterDesktop = () => {
                         setMessage('');
                     }, 1000);
                 } else {
-                    // setMessage(res.data);
+                    // setMessage(res.message);
                     setMessage('User is Failed');
                     setLoading(false);
                     setIsNotification(true);
@@ -121,16 +120,7 @@ const RegisterDesktop = () => {
                             <Col md={12}>
                                 <h1 className="mb-2"> <b>Daftar</b></h1>
                             </Col>
-                            {/* {alertStatus ? <Col md={12}>
-                                <Alert variant="danger">
-                                    <p className="mb-0">
-                                    Masukkan nama, email dan password yang benar. Perhatikan penggunaan huruf kapital.
-                                    </p>
-                                </Alert>
-                            </Col> : true} */}
-
                             <Col >
-
                                 <Form onSubmit={handleSubmit(onSubmit)} className={'form-input'} >
                                     <Form.Group className="mt-2" controlId="Name">
                                         <Form.Label className='w-100'>
@@ -227,9 +217,6 @@ const RegisterDesktop = () => {
                             </Col>
                         </Row>
                     </Col>
-
-
-
                 </Row>
             </Container>
         </div>
