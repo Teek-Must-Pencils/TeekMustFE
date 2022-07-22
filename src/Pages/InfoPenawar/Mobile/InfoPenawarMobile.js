@@ -90,45 +90,17 @@ const InfoPenawarMobile = (props) => {
         OnSubmitAccepted, OnSubmitReject, isAccepted,
         modalShow, handleModalClosed,
         modalStatusShow, handleModalShowClosed,
-        handleModalStatusOpen, handleModalOpen
+        handleModalStatusOpen, handleModalOpen,
+        user, offer, product
     }= props;
-
-    // const [isAccepted, setIsAccepted] = React.useState(true)
-
-    // const [modalShow, setModalShow] = React.useState(false);
-    // const [modalStatusShow, setModalStatusShow] = React.useState(false);
-
-    // const handleModalOpen = () => {
-    //     setModalShow(true)
-    //     handleIsAccepted()
-    // }
-
-    // const handleModalStatusOpen = () => {
-    //     setModalStatusShow(true)
-    //     handleIsAccepted()
-    // }
-
-    // const handleModalClosed = () => {
-    //     setModalShow(false)
-    // }
-
-    // const handleModalStatusClosed = () => {
-    //     setModalStatusShow(false)
-    // }
-
-    // const handleIsAccepted = () => {
-    //     setIsAccepted(false)//ganti button
-    // }
 
     let buttonBox;
     if (isAccepted) {
         buttonBox = (
             <>
-                {/* <button className='tombol-tolak me-2 ' onClick={handleIsAccepted}> */}
                 <button className='tombol-tolak me-2 ' onClick={OnSubmitReject}>
                     Tolak
                 </button>
-                {/* <button type='button' className='tombol-terima ms-2 ' onClick={handleModalOpen} > */}
                 <button type='button' className='tombol-terima ms-2 ' onClick={OnSubmitAccepted} >
                     Terima
                 </button>
@@ -147,6 +119,9 @@ const InfoPenawarMobile = (props) => {
         )
     }
 
+    const myData = product?.find((item) => item.id === offer?.userId)
+    const myUser = user?.find((item) => item.id === offer?.userId)
+
     return (
         <>
             <MyVerticallyCenteredModal
@@ -159,18 +134,19 @@ const InfoPenawarMobile = (props) => {
                 close={handleModalShowClosed}
             />
             <NavbarMoblile/>
-
-
             <Col md={{ span: 5, offset: 3 }}>
                 <Row className='align-content-center justify-content-center'>
                     <div className='col-11'>
-                        <div className="box-action mt-3 ms-4">
+                        <div className="box-action mt-3 ">
                             <div className="d-flex flex-row gap-2 ms">
-                                <img src={dummyProfile} alt="" />
+                                <img 
+                                    // src={user?.imgB ? `data:image/png;base64,${user?.imgB}` : dummyProduct} alt=""
+                                    src={dummyProfile} alt=""
+                                 />
                                 <div className='d-flex flex-column '>
-                                    <span><b>Nama Pembeli</b></span>
+                                    <span><b>{myUser?.username || '-'}</b></span>
                                     <span className="text-profile">
-                                        kota
+                                        {myUser?.address || '-'}
                                     </span>
                                 </div>
                             </div>
@@ -183,16 +159,20 @@ const InfoPenawarMobile = (props) => {
 
                         <div className='d-flex flex-column rounded rounded-xl p-3 color-content'>
                             <div className="d-flex flex-row gap-2 b mt-4 ms-4">
-                                <div className='me-2'>
-                                    <img src={dummyProduct} alt="" />
+                                <div className='me-2 w-25'>
+                                    <img className='w-100 h-100'
+                                        src={myData?.imgB ? `data:image/png;base64,${myData?.imgB}` : dummyProduct} alt="" 
+                                    />
                                 </div>
-                                <div className=' d-flex flex-column'>
+                                <div className='w-100 d-flex flex-column justify-content-center'>
                                     <span className="text-profile">
                                         Penawaran Produk
                                     </span>
-                                    <span>Jam Tangan Casio</span>
-                                    <span> Rp 250.000</span>
-                                    <span> Ditawar Rp 200.000</span>
+                                    <span><b>{myData?.name || '-'}</b></span>
+                                    <span>Rp. {myData?.price || '-'}</span>
+                                    <span className='text-tawaran'> 
+                                        Ditawar Rp.{offer?.priceNegotiated || '-'}
+                                    </span>
                                 </div>
                             </div>
                             <div className="d-flex justify-content-between mt-4 ms-4 ">

@@ -114,9 +114,9 @@ const ProductPageDesktop = (props) => {
                         </div>
                         <div className='text-desc'>
                             <p> <b>Deskripsi</b> </p>
-                            <p>
+                            <div className='text-warp'>
                                {product?.description || dataPreview.description}
-                            </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -132,7 +132,7 @@ const ProductPageDesktop = (props) => {
                     <div className="box-action my-5">
                         <div className="d-flex flex-row gap-2">
                             <img src={dummyProfile} alt="" />
-                            <div className='d-flex flex-column'>
+                            <div className='d-flex flex-column p-1'>
                                 <span><b>{product?.seller || 'Nama Penjual'}</b></span>
                                 <span className="text-profile">
                                     {product?.city || "Alamat"}

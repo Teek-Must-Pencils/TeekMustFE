@@ -16,6 +16,21 @@ const ServiceOffer = {
         return data
     },
 
+    async GetOfferById(id){
+        const sessionData = sessionStorage.getItem('user')
+        const dt = JSON.parse(sessionData);
+        const token = dt.accessToken
+        const data = await axios({
+            method: 'GET',
+            url: process.env.REACT_APP_BASE_URL+`api/offer/Offer/${id}`,
+            headers:{
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        return data
+    },
+
     async AddOffer(value){
         const sessionData = sessionStorage.getItem('user')
         const dt = JSON.parse(sessionData);
@@ -37,30 +52,21 @@ const ServiceOffer = {
         return data
     },
 
-    async AcceptOffer(value){
+    async UpdateOffer(value){
+        const dataSend = new FormData();
+        dataSend.append('id', value.id);
+        dataSend.append('userId', value.userId);
+        dataSend.append('productId', value.productId);
+        dataSend.append('priceNegotiated', value.priceNegotiated);
+        dataSend.append('priceNegotiated', value.priceNegotiated);
+        dataSend.append('status', value.status);
         const sessionData = sessionStorage.getItem('user')
         const dt = JSON.parse(sessionData);
         const token = dt.accessToken
         const data = await axios({
             method: 'PUT',
             url: process.env.REACT_APP_BASE_URL+'api/offer/update',
-            data: value,
-            headers:{
-                'Authorization': `Bearer ${token}`
-            }
-        })
-
-        return data
-    },
-
-    async RejectOffer(value){
-        const sessionData = sessionStorage.getItem('user')
-        const dt = JSON.parse(sessionData);
-        const token = dt.accessToken
-        const data = await axios({
-            method: 'PUT',
-            url: process.env.REACT_APP_BASE_URL+'api/offer/update',
-            data: value,
+            data: dataSend,
             headers:{
                 'Authorization': `Bearer ${token}`
             }

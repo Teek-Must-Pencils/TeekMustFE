@@ -68,7 +68,6 @@ const Home = () => {
     //   second
     // }
   }, [search])
-  
 
   return (
     <>

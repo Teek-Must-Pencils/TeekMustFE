@@ -52,7 +52,7 @@ const CardJual = (props) => {
           <div className='cardProduct-pi-button'>
             <button 
               className='tbl-lihat-tawar'
-              onClick={handleProduct.bind(null, data.id)}
+              onClick={handleProduct.bind(null, data.offer.id)}
             >
               Lihat Tawaran
             </button>

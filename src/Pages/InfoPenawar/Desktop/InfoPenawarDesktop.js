@@ -91,50 +91,23 @@ const InfoPenawarDesktop = (props) => {
         OnSubmitAccepted, OnSubmitReject, isAccepted,
         modalShow, handleModalClosed,
         modalStatusShow, handleModalShowClosed,
-        handleModalStatusOpen, handleModalOpen
+        handleModalStatusOpen, handleModalOpen,
+        user, offer, product
     }= props;
     const navigate = useNavigate();
-    // const [isAccepted, setIsAccepted] = React.useState(true)
-    // const [modalShow, setModalShow] = React.useState(false);
-    // const [modalStatusShow, setModalStatusShow] = React.useState(false);
-
-    // const handleModalOpen = () => {
-    //     setModalShow(true)
-    //     handleIsAccepted()
-    // }
-
-    // const handleModalStatusOpen = () => {
-    //     setModalStatusShow(true)
-    //     handleIsAccepted()
-    // }
-
-    // const handleModalClosed = () => {
-    //     setModalShow(false)
-    // }
-    // const handleModalShowClosed = () => {
-    //     setModalStatusShow(false)
-    // }
-
-    // const handleIsAccepted = () => {
-    //     accepted();
-    //     setIsAccepted(false)//ganti button
-    // }
+    const flag = offer?.status?.includes('WAITING')? true : false
 
     const handleBack = () =>{
         navigate(-1)
-    }
-
-    
+    }    
 
     let buttonBox;
-    if (isAccepted) {
+    if (flag) {
         buttonBox = (
             <>
-                {/* <button className='tombol-tolak me-2' onClick={handleIsAccepted}> */}
                 <button className='tombol-tolak me-2' onClick={OnSubmitReject}>
                     Tolak
                 </button>
-                {/* <button type='button' className='tombol-terima ms-2 ' onClick={handleModalOpen} > */}
                 <button type='button' className='tombol-terima ms-2 ' onClick={OnSubmitAccepted} >
                     Terima
                 </button>
@@ -152,6 +125,11 @@ const InfoPenawarDesktop = (props) => {
             </>
         )
     }
+    const myData = product?.find((item) => item.id === offer?.userId)
+    const myUser = user?.find((item) => item.id === offer?.userId)
+
+
+    console.log('flag', flag)
 
     return (
         <>
@@ -167,19 +145,22 @@ const InfoPenawarDesktop = (props) => {
             />
 
 
-            <Col md={{ span: 5, offset: 3 }}>
+            <Col md={{ span: 8, offset: 2 }}>
                 <Row className='align-content-center'>
                     <div className='col-1'>
                         <Image src={iconBack} onClick={()=> handleBack()} />
                     </div>
                     <div className='col-11'>
                         <div className="box-action color-content">
-                            <div className="d-flex flex-row gap-2 b">
-                                <img src={dummyProfile} alt="" />
+                            <div className="d-flex flex-row gap-2">
+                                <img 
+                                    // src={user?.imgB ? `data:image/png;base64,${user?.imgB}` : dummyProduct} alt=""
+                                    src={dummyProfile} alt=""
+                                />
                                 <div className='d-flex flex-column ms-1'>
-                                    <span><b>Nama Pembeli</b></span>
+                                    <span><b>{myUser?.username || '-'}</b></span>
                                     <span className="text-profile">
-                                        kota
+                                        {myUser?.address || '-'}
                                     </span>
                                 </div>
                             </div>
@@ -190,36 +171,29 @@ const InfoPenawarDesktop = (props) => {
                             <span className="text-profile"> 20 Apr, 14:04 </span>
                         </div>
                         <div className='color-content py-1 px-2 my-1 rounded shadow-lg'>
-                             <div className="d-flex flex-row gap-2 b mt-4">
-                                <div className='me-2'>
-                                    <img src={dummyProduct} alt="" />
+                             <div className="d-flex flex-row gap-2 mt-4">
+                                <div className='me-2 w-25'>
+                                    <img className='w-100 h-100'
+                                       src={myData?.imgB ? `data:image/png;base64,${myData?.imgB}` : dummyProduct} alt="" 
+                                    />
                                 </div>
-                                <div className=' d-flex flex-column'>
+                                <div className='w-100 d-flex flex-column justify-content-center'>
                                     <span className="text-profile">
                                         Penawaran Produk
                                     </span>
-                                    <span>Jam Tangan Casio</span>
-                                    <span> Rp 250.000</span>
-                                    <span> Ditawar Rp 200.000</span>
+                                    <span><b>{myData?.name || '-'}</b></span>
+                                    <span>Rp. {myData?.price || '-'}</span>
+                                    <span className='text-tawaran'> 
+                                        Ditawar Rp.{offer?.priceNegotiated || '-'}
+                                    </span>
                                 </div>
                             </div>
 
-                            <div className="d-flex justify-content-end my-2 ">
-
-                                {/* <button className='tombol-tolak me-2 '>
-                                    Tolak
-                                </button>
-                                <button type='button' className='tombol-terima ms-2 ' onClick={handleModalOpen} >
-                                    Terima
-                                </button> */}
+                            <div className="d-flex justify-content-center my-2 ">
                                 {buttonBox}
                             </div>
                         </div>
-                       
-
                     </div>
-
-
                 </Row>
             </Col>
           </div>
