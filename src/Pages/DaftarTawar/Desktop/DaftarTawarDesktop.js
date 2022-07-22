@@ -23,6 +23,31 @@ const DaftarTawarDesktop = (props) => {
         return result
     })
 
+    const MyTransaksi = (props) =>{
+        const { data, offer, user } = props;
+        const myOffer = offer?.filter((value) => value.userId === user?.id)
+        const dataSet = myOffer?.filter(value => value.status.includes('ACCEPTED'))?.map((value) => {
+            const productId = parseInt(value.productId)
+            const dt = data?.find((item) => item.id === productId)
+            const result = {...dt, offer:{...value}}
+            return result
+        }).filter((v) => typeof v === 'object')
+        // const myData = [...new Set(dataSet)];
+
+        return(
+            <>
+                {dataSet?.length < 1  && <DataNotFound marker={'dfj2'}/>}
+                {dataSet?.length >= 1 && dataSet?.map((value, i)=>{
+                    return(
+                        <div key={i} className='col-4 col-sm-4 my-2'>
+                            <CardProduct data={value}/>
+                        </div>
+                    )}) 
+                } 
+            </>
+        )
+    }
+
   return (
     <>
         <div className="container-sm">
@@ -78,7 +103,7 @@ const DaftarTawarDesktop = (props) => {
                     <Tab.Pane eventKey="1">
                         <div className="row">
                             {myData?.length < 1  && <DataNotFound />}
-                            {myData?.length > 1 && (
+                            {myData?.length >= 1 && (
                                 <>
                                     {myData.map((value, i)=>{
                                         return(
@@ -96,7 +121,7 @@ const DaftarTawarDesktop = (props) => {
                             {(data?.length < 1 || data?.filter((value) => value?.wishlist === true).length < 1)  && 
                                 <DataNotFound marker={'dft1'}/>
                             }
-                            {data?.length > 1 && data?.filter((value) => value?.wishlist === true).map((value, i)=>{
+                            {data?.length >= 1 && data?.filter((value) => value?.wishlist === true).map((value, i)=>{
                                 return(
                                     <div key={i} className='col-4 col-sm-4 my-2'>
                                         <CardProduct data={value}/>
@@ -108,17 +133,7 @@ const DaftarTawarDesktop = (props) => {
                     </Tab.Pane>
                     <Tab.Pane eventKey="3">
                         <div className="row">
-                            {(data?.length < 1 || data?.filter((value) => value?.sell === true).length < 1)  && 
-                                <DataNotFound marker={'dft2'}/>
-                            }
-                            {data?.length > 1 && data?.filter((value) => value?.sell === true).map((value, i)=>{
-                                return(
-                                    <div key={i} className='col-4 col-sm-4 my-2'>
-                                        <CardProduct data={value}/>
-                                    </div>
-                                )
-                            })
-                            }
+                            <MyTransaksi data={data} offer={offer} user={user}/>
                         </div>
                     </Tab.Pane>
                 </Tab.Content>

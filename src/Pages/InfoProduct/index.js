@@ -28,7 +28,6 @@ const InfoProduct = () => {
     const onSubmitSellerInput = (value) =>{
       if(value.button === 'submit'){  
         setIsLoading(true);
-        console.log(value)
         serviceProduct.AddNewData(value).then(
           (res) => {
             // console.log('res', res)

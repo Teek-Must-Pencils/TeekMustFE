@@ -60,12 +60,22 @@ const CardTawar = (props) => {
             </span>
           </div>
           <div className='cardProduct-pi-button'>
+          {data.offer.status.includes("ACCEPTED") ? (
+            <button 
+              className='tbl-lihat-tawar'
+              // onClick={handleProduct.bind(null, data.id)}
+            >
+              Hubungi Penjual
+            </button>
+          ): (
             <button 
               className='tbl-lihat-tawar'
               onClick={handleProduct.bind(null, data.id)}
             >
               Buat Tawaran Baru
             </button>
+          )}
+            
 
           </div>
         </div>
