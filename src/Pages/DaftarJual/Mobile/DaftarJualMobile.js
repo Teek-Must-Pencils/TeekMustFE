@@ -50,7 +50,7 @@ const DaftarJualMobile = (props) => {
     const MyTransaksi = (props) =>{
         const { data, offer, user } = props;
         const dataRaw = data.filter((value) => value.seller === user.username)
-        const dataSet = offer?.filter(value => value.status.includes('ACCEPTED'))?.map((value) => {
+        const dataSet = offer?.filter(value => value.status === 'accepted')?.map((value) => {
             const dt = dataRaw.find((item) => item.id === value.productId)
             const result = {...dt, offer:{...value}}
             return result
