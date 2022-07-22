@@ -8,7 +8,7 @@ const ServiceProfile = {
     const token = dt.accessToken
     const data = await axios({
         method: 'GET',
-        url: process.env.REACT_APP_BASE_URL+'api/user/users',
+        url: process.env.REACT_APP_BASE_URL+'api/user',
         headers:{
             "Authorization" : `Bearer ${token}`
         }
@@ -52,7 +52,7 @@ const ServiceProfile = {
     const token = dt.accessToken
     const data = await axios({
         method: 'GET',
-        url: process.env.REACT_APP_BASE_URL+`api/user/user/${username}`,
+        url: process.env.REACT_APP_BASE_URL+`api/user/username/${username}`,
         headers:{
             "Authorization" : `Bearer ${token}`
         }

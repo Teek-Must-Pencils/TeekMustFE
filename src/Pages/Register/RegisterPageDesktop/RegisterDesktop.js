@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 
 const RegisterDesktop = () => {
 
-
+    const navigate = useNavigate();
     const { register, handleSubmit, control, setValue, formState: { errors } } = useForm();
     const [image, setImage] = useState("");
     const [isLoading, setLoading] = useState(false);
@@ -60,6 +60,7 @@ const RegisterDesktop = () => {
                     setTimeout(() => {
                         setIsNotification(false);
                         setMessage('');
+                        navigate('/login')
                     }, 1000);
                 } else {
                     // setMessage(res.message);

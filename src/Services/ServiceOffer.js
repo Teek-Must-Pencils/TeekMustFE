@@ -22,7 +22,7 @@ const ServiceOffer = {
         const token = dt.accessToken
         const data = await axios({
             method: 'GET',
-            url: process.env.REACT_APP_BASE_URL+`api/offer/Offer/${id}`,
+            url: process.env.REACT_APP_BASE_URL+`api/offer/${id}`,
             headers:{
                 'Authorization': `Bearer ${token}`
             }
@@ -42,7 +42,7 @@ const ServiceOffer = {
         dataSend.append('status', value.status)
         const data = await axios({
             method: 'POST',
-            url: process.env.REACT_APP_BASE_URL+'api/offer/save',
+            url: process.env.REACT_APP_BASE_URL+'api/offer',
             data: dataSend,
             headers:{
                 'Authorization': `Bearer ${token}`
@@ -65,7 +65,7 @@ const ServiceOffer = {
         const token = dt.accessToken
         const data = await axios({
             method: 'PUT',
-            url: process.env.REACT_APP_BASE_URL+'api/offer/update',
+            url: process.env.REACT_APP_BASE_URL+'api/offer',
             data: dataSend,
             headers:{
                 'Authorization': `Bearer ${token}`
