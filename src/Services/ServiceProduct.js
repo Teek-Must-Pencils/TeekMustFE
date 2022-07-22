@@ -9,10 +9,9 @@ const serviceProduct = {
         const token = dt.accessToken
         const data = await axios({
             method: 'get',
-            url: process.env.REACT_APP_BASE_URL+'api/product/products',
+            url: process.env.REACT_APP_BASE_URL+'api/product',
             headers:{
                 "Authorization" : `Bearer ${token}`,
-                // 'Content-Type': 'application/json'
             }
           })
           .then((response) => response)
@@ -27,7 +26,7 @@ const serviceProduct = {
         const token = dt.accessToken
         const data = await axios({
             method: 'get',
-            url: process.env.REACT_APP_BASE_URL+`api/product/product/${id}`,
+            url: process.env.REACT_APP_BASE_URL+`api/product/${id}`,
             headers:{
                 "Authorization" : `Bearer ${token}`
             }
@@ -106,7 +105,7 @@ const serviceProduct = {
         const token = dt.accessToken
         const data = await axios({
             method: 'GET',
-            url: process.env.REACT_APP_BASE_URL+`api/product/productName/${name}`,
+            url: process.env.REACT_APP_BASE_URL+`api/product/name/${name}`,
             headers:{
                 "Authorization" : `Bearer ${token}`
             }
@@ -123,7 +122,7 @@ const serviceProduct = {
         const token = dt.accessToken
         const data = await axios({
             method: 'GET',
-            url: process.env.REACT_APP_BASE_URL+`api/product/${category}`,
+            url: process.env.REACT_APP_BASE_URL+`api/product/category/${category}`,
             headers:{
                 "Authorization" : `Bearer ${token}`
             }

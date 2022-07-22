@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 
 const RegisterDesktop = () => {
 
-
+    const navigate = useNavigate();
     const { register, handleSubmit, control, setValue, formState: { errors } } = useForm();
     const [image, setImage] = useState("");
     const [isLoading, setLoading] = useState(false);
@@ -61,6 +61,7 @@ const RegisterDesktop = () => {
                     setTimeout(() => {
                         setIsNotification(false);
                         setMessage('');
+                        navigate('/login')
                     }, 1000);
                 } else {
                     // setMessage(res.data);
@@ -145,7 +146,7 @@ const RegisterDesktop = () => {
                                             {errors.Number && errors.Number.type === "required" &&
                                                 <span className='errors-register ms-2'>Number is required*</span>}
                                         </Form.Label>
-                                        <Form.Control {...register("Number", { required: true })}
+                                        <Form.Control {...register("Numbers", { required: true })}
                                             size="sm"
                                             type="text"
                                             placeholder="Masukkan Number" />
