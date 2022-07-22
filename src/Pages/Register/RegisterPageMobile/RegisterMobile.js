@@ -154,7 +154,7 @@ const RegisterDesktop = () => {
                                             {errors.Number && errors.Number.type === "required" &&
                                                 <span className='errors-register ms-2'>Number is required*</span>}
                                         </Form.Label>
-                                        <Form.Control {...register("Number", { required: true })}
+                                        <Form.Control {...register("Numbers", { required: true })}
                                             size="sm"
                                             type="text"
                                             placeholder="Masukkan Number" />
