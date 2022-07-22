@@ -4,10 +4,11 @@ import * as Icon from 'react-feather';
 import './DaftarJualMobile.css'
 import { useNavigate } from 'react-router-dom';
 import { CardProduct, DataNotFound } from '../../../Components';
+import CardJual from '../CardJual';
 import { Nav, Tab } from 'react-bootstrap';
 
 const DaftarJualMobile = (props) => {
-    const { data, user } = props;
+    const { data, user, offer } = props;
     let navigate = useNavigate();
 
     const handleEditProfile =  () => {
@@ -16,6 +17,58 @@ const DaftarJualMobile = (props) => {
 
     const handleAddProduct = () =>{
         return navigate('/infoProduct')
+    }
+
+    const MyDiminati = (props) => {
+        const { data, user, offer  } = props
+
+        const dataRaw = data.filter((value) => value.seller === user.username)
+        const dataSet = offer?.map((value) => {
+            const dt = dataRaw.find((item) => item.id === value.productId)
+            const result = {...dt, offer:{...value}}
+            return result
+        }).filter((v) => typeof v === 'object')
+
+        return(
+            <>
+                {dataSet?.length < 1  && <DataNotFound />}
+                {dataSet?.length >= 1 && (
+                    <>
+                        {dataSet?.map((value, i)=>{
+                            return(
+                                <div key={i} className='col-4 col-sm-4 my-2'>
+                                    <CardJual data={value}/>
+                                </div>
+                            )})
+                        }
+                    </>
+                )}
+            </>
+        )
+    }
+
+    const MyTransaksi = () =>{
+        const dataRaw = data.filter((value) => value.seller === user.username)
+        const dataSet = offer?.filter(value => value.status.includes('ACCEPTED'))?.map((value) => {
+            const result = dataRaw.find((item) => item.id === value.productId)
+            return result
+        }).filter((v) => typeof v === 'object')
+        // const myData = [...new Set(dataSet)];
+
+        return(
+            <>
+                {dataSet?.length < 1  && 
+                    <DataNotFound marker={'dfj2'}/>
+                }
+                {dataSet?.length >= 1 && dataSet?.map((value, i)=>{
+                    return(
+                        <div key={i} className='col-4 col-sm-4 my-2'>
+                            <CardProduct data={value}/>
+                        </div>
+                    )}) 
+                } 
+            </>
+        )
     }
 
   return (
@@ -67,7 +120,7 @@ const DaftarJualMobile = (props) => {
                     <Tab.Pane eventKey="1">
                         <div className="row">
                             {data?.length < 1  && <DataNotFound />}
-                            {data?.length > 1 && (
+                            {data?.length >= 1 && (
                                 <>
                                     <div className="col-4 col-sm-4 my-2">
                                         <button type="button" className="box h-100"
@@ -76,7 +129,7 @@ const DaftarJualMobile = (props) => {
                                             <Icon.Plus/> Tambah
                                         </button>
                                     </div>
-                                    {data.map((value, i)=>{
+                                    {data?.filter((value) => value.seller === user.username)?.map((value, i)=>{
                                         return(
                                             <div key={i} className='col-4 col-sm-4 my-2'>
                                                 <CardProduct data={value}/>
@@ -89,32 +142,13 @@ const DaftarJualMobile = (props) => {
                     </Tab.Pane>
                     <Tab.Pane eventKey="2">
                         <div className="row">
-                            {(data.length < 1 || data?.filter((value) => value?.wishlist === true).length < 1) && 
-                                <DataNotFound marker={'dfj1'}/>
-                            }
-                            {data.length > 1 && data?.filter((value) => value?.wishlist === true).map((value, i)=>{
-                                return(
-                                    <div key={i} className='col-4 col-sm-4 my-2'>
-                                        <CardProduct data={value}/>
-                                    </div>
-                                )})
-                            }
+                            <MyDiminati data={data} user={user} offer={offer} />
                         </div>
                         
                     </Tab.Pane>
                     <Tab.Pane eventKey="3">
                         <div className="row">
-                            {(data.length < 1 || data?.filter((value) => value?.sell === true).length < 1)  && 
-                                <DataNotFound marker={'dfj2'}/>
-                            }
-                            {data.length > 1 && data?.filter((value) => value?.sell === true).map((value, i)=>{
-                                return(
-                                    <div key={i} className='col-4 col-sm-4 my-2'>
-                                        <CardProduct data={value}/>
-                                    </div>
-                                )
-                            })
-                            }
+                            <MyTransaksi data={data} user={user} offer={offer}/>
                         </div>
                     </Tab.Pane>
                 </Tab.Content>

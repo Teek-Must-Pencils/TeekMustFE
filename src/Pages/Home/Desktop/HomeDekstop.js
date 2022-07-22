@@ -92,7 +92,7 @@ const HomeDekstop = (props) => {
       <div>
         <Row>
         {data.length < 1 && (<DataNotFound />)}
-        {data.length > 1 && data.map((item, idx) => {
+        {data.length >= 1 && data.map((item, idx) => {
           return (
             <Col className='p-3' lg={3} md={3} xs={6} key={idx}>
               <CardProduct data={item}/>

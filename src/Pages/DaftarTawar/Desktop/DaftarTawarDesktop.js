@@ -78,7 +78,7 @@ const DaftarTawarDesktop = (props) => {
                     <Tab.Pane eventKey="1">
                         <div className="row">
                             {myData?.length < 1  && <DataNotFound />}
-                            {myData?.length > 1 && (
+                            {myData?.length >= 1 && (
                                 <>
                                     {myData.map((value, i)=>{
                                         return(
@@ -96,7 +96,7 @@ const DaftarTawarDesktop = (props) => {
                             {(data?.length < 1 || data?.filter((value) => value?.wishlist === true).length < 1)  && 
                                 <DataNotFound marker={'dft1'}/>
                             }
-                            {data?.length > 1 && data?.filter((value) => value?.wishlist === true).map((value, i)=>{
+                            {data?.length >= 1 && data?.filter((value) => value?.wishlist === true).map((value, i)=>{
                                 return(
                                     <div key={i} className='col-4 col-sm-4 my-2'>
                                         <CardProduct data={value}/>
@@ -111,7 +111,7 @@ const DaftarTawarDesktop = (props) => {
                             {(data?.length < 1 || data?.filter((value) => value?.sell === true).length < 1)  && 
                                 <DataNotFound marker={'dft2'}/>
                             }
-                            {data?.length > 1 && data?.filter((value) => value?.sell === true).map((value, i)=>{
+                            {data?.length >= 1 && data?.filter((value) => value?.sell === true).map((value, i)=>{
                                 return(
                                     <div key={i} className='col-4 col-sm-4 my-2'>
                                         <CardProduct data={value}/>

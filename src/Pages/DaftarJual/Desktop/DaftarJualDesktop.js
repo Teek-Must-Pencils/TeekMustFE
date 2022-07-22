@@ -25,29 +25,51 @@ const DaftarJualDesktop = (props) => {
 
         const dataRaw = data.filter((value) => value.seller === user.username)
         const dataSet = offer?.map((value) => {
-            const result = dataRaw.find((item) => item.id === value.productId)
+            const dt = dataRaw.find((item) => item.id === value.productId)
+            const result = {...dt, offer:{...value}}
             return result
         }).filter((v) => typeof v === 'object')
-        const myData = [...new Set(dataSet)];
 
         return(
             <>
-                {myData?.length < 1  && <DataNotFound />}
-                {myData?.length >= 1 && (
+                {dataSet?.length < 1  && <DataNotFound />}
+                {dataSet?.length >= 1 && (
                     <>
-                        {myData?.map((value, i)=>{
+                        {dataSet?.map((value, i)=>{
                             return(
                                 <div key={i} className='col-4 col-sm-4 my-2'>
-                                    <CardJual data={value} offer={offer}/>
+                                    <CardJual data={value}/>
                                 </div>
                             )})
                         }
                     </>
                 )}
             </>
-           
         )
-        
+    }
+
+    const MyTransaksi = () =>{
+        const dataRaw = data.filter((value) => value.seller === user.username)
+        const dataSet = offer?.filter(value => value.status.includes('ACCEPTED'))?.map((value) => {
+            const result = dataRaw.find((item) => item.id === value.productId)
+            return result
+        }).filter((v) => typeof v === 'object')
+        // const myData = [...new Set(dataSet)];
+
+        return(
+            <>
+                {dataSet?.length < 1  && 
+                    <DataNotFound marker={'dfj2'}/>
+                }
+                {dataSet?.length >= 1 && dataSet?.map((value, i)=>{
+                    return(
+                        <div key={i} className='col-4 col-sm-4 my-2'>
+                            <CardProduct data={value}/>
+                        </div>
+                    )}) 
+                } 
+            </>
+        )
     }
 
   return (
@@ -59,9 +81,9 @@ const DaftarJualDesktop = (props) => {
                     <div className='d-flex flex-row gap-2'>
                         <img src={dummyProfile} alt="" />
                         <div className='d-flex flex-column'>
-                            <span><b>{user?.username}</b></span>
+                            <span><b>{user?.username || '-'}</b></span>
                             <span className="text-profile">
-                                {user?.address}
+                                {user?.address || '-'}
                             </span>
                         </div>
                     </div>
@@ -107,7 +129,7 @@ const DaftarJualDesktop = (props) => {
                     <Tab.Pane eventKey="1">
                         <div className="row">
                             {data?.length < 1  && <DataNotFound />}
-                            {data?.length > 1 && data.filter((value) => value.seller === user.username).length > 1 && (
+                            {data?.length >= 1 && data?.filter((value) => value.seller === user.username).length >= 1 && (
                                 <>
                                     <div className="col-4 col-sm-4 my-2">
                                         <button type="button" className="box h-100"
@@ -134,16 +156,7 @@ const DaftarJualDesktop = (props) => {
                     </Tab.Pane>
                     <Tab.Pane eventKey="3">
                         <div className="row">
-                            {(data?.length < 1 || data?.filter((value) => value?.sell === true).length < 1)  && 
-                                <DataNotFound marker={'dfj2'}/>
-                            }
-                            {data?.length > 1 && data?.filter((value) => value?.sell === true).map((value, i)=>{
-                                return(
-                                    <div key={i} className='col-4 col-sm-4 my-2'>
-                                        <CardProduct data={value}/>
-                                    </div>
-                                )}) 
-                            }
+                           <MyTransaksi data={data} user={user} offer={offer}/>
                         </div>
                     </Tab.Pane>
                 </Tab.Content>
