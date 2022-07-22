@@ -48,23 +48,23 @@ const DaftarJualDesktop = (props) => {
         )
     }
 
-    const MyTransaksi = () =>{
+    const MyTransaksi = (props) =>{
+         const { data, offer, user } = props;
         const dataRaw = data.filter((value) => value.seller === user.username)
         const dataSet = offer?.filter(value => value.status.includes('ACCEPTED'))?.map((value) => {
-            const result = dataRaw.find((item) => item.id === value.productId)
+            const dt = dataRaw.find((item) => item.id === value.productId)
+            const result = {...dt, offer:{...value}}
             return result
         }).filter((v) => typeof v === 'object')
         // const myData = [...new Set(dataSet)];
 
         return(
             <>
-                {dataSet?.length < 1  && 
-                    <DataNotFound marker={'dfj2'}/>
-                }
+                {dataSet?.length < 1  && <DataNotFound marker={'dfj2'}/>}
                 {dataSet?.length >= 1 && dataSet?.map((value, i)=>{
                     return(
                         <div key={i} className='col-4 col-sm-4 my-2'>
-                            <CardProduct data={value}/>
+                            <CardJual data={value}/>
                         </div>
                     )}) 
                 } 

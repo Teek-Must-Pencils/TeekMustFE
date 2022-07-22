@@ -59,7 +59,6 @@ const ServiceOffer = {
         dataSend.append('productId', value.productId);
         dataSend.append('priceNegotiated', value.priceNegotiated);
         dataSend.append('priceNegotiated', value.priceNegotiated);
-        dataSend.append('createdAt', value.createdAt);
         dataSend.append('status', value.status);
         const sessionData = sessionStorage.getItem('user')
         const dt = JSON.parse(sessionData);

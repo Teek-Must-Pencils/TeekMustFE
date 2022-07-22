@@ -95,13 +95,14 @@ const InfoPenawarDesktop = (props) => {
         user, offer, product
     }= props;
     const navigate = useNavigate();
+    const flag = offer?.status?.includes('WAITING')? true : false
 
     const handleBack = () =>{
         navigate(-1)
     }    
 
     let buttonBox;
-    if (isAccepted) {
+    if (flag) {
         buttonBox = (
             <>
                 <button className='tombol-tolak me-2' onClick={OnSubmitReject}>
@@ -126,6 +127,9 @@ const InfoPenawarDesktop = (props) => {
     }
     const myData = product?.find((item) => item.id === offer?.userId)
     const myUser = user?.find((item) => item.id === offer?.userId)
+
+
+    console.log('flag', flag)
 
     return (
         <>

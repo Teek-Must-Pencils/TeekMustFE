@@ -50,14 +50,12 @@ const InfoPenawar = () => {
     }
 
   const onSumbitAccept= () =>{
-    const date = new Date().toISOString();
     setIsLoading(true);
     const dataSend ={
       id: offer?.id,
       userId: offer?.userId, 
       productId: offer?.productId,
       priceNegotiated: offer?.priceNegotiated,
-      createdAt: date,
       status: [
         "ACCEPTED"
       ]
@@ -65,12 +63,13 @@ const InfoPenawar = () => {
     ServiceOffer.UpdateOffer(dataSend)
     .then((res) =>{
       if (res.status === 200){
-        setMessage(res.data);
+        setMessage('Terima Tawaran Berhasil');
         setIsLoading(false);
         setIsNotification(true);
         setTimeout(() => {
           setIsNotification(false);
           setMessage('')
+          window.location.reload();
         }, 1000);
       }else{
         console.log(res.message)
@@ -95,14 +94,12 @@ const InfoPenawar = () => {
   }
 
   const onSumbitReject= () =>{
-    const date = new Date().toISOString();
     setIsLoading(true);
     const dataSend ={
       id: offer?.id,
       userId: offer?.userId, 
       productId: offer?.productId,
       priceNegotiated: offer?.priceNegotiated,
-      createdAt: date,
       status: [
         "REJECTED"
       ]
@@ -110,12 +107,13 @@ const InfoPenawar = () => {
     ServiceOffer.UpdateOffer(dataSend)
     .then((res) =>{
       if (res.status === 200){
-        setMessage(res.data);
+        setMessage('Tolak Tawaran Berhasil');
         setIsLoading(false);
         setIsNotification(true);
         setTimeout(() => {
           setIsNotification(false);
           setMessage('')
+          window.location.reload();
         }, 1000);
       }else{
         console.log(res.message)
@@ -182,7 +180,6 @@ const InfoPenawar = () => {
           user={user}
           offer={offer}
           product={product}
-
         />
       )}
       {isMobile && (
