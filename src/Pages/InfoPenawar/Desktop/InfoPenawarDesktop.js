@@ -95,7 +95,7 @@ const InfoPenawarDesktop = (props) => {
         user, offer, product
     }= props;
     const navigate = useNavigate();
-    const flag = offer?.status?.includes('WAITING')? true : false
+    const flag = offer?.status === 'waiting'? true : false
 
     const handleBack = () =>{
         navigate(-1)
@@ -125,11 +125,13 @@ const InfoPenawarDesktop = (props) => {
             </>
         )
     }
-    const myData = product?.find((item) => item.id === offer?.userId)
+    const myData = product?.find((item) => item.id === offer?.productId)
     const myUser = user?.find((item) => item.id === offer?.userId)
 
-
-    console.log('flag', flag)
+    console.log('myData',myData)
+    console.log('myData',myData)
+    console.log('offer',offer)
+    console.log('data',product)
 
     return (
         <>

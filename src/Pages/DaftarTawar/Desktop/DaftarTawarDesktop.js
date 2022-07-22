@@ -26,7 +26,7 @@ const DaftarTawarDesktop = (props) => {
     const MyTransaksi = (props) =>{
         const { data, offer, user } = props;
         const myOffer = offer?.filter((value) => value.userId === user?.id)
-        const dataSet = myOffer?.filter(value => value.status.includes('ACCEPTED'))?.map((value) => {
+        const dataSet = myOffer?.filter(value => value.status === 'accepted')?.map((value) => {
             const productId = parseInt(value.productId)
             const dt = data?.find((item) => item.id === productId)
             const result = {...dt, offer:{...value}}
@@ -34,13 +34,15 @@ const DaftarTawarDesktop = (props) => {
         }).filter((v) => typeof v === 'object')
         // const myData = [...new Set(dataSet)];
 
+        console.log(dataSet)
+
         return(
             <>
                 {dataSet?.length < 1  && <DataNotFound marker={'dfj2'}/>}
                 {dataSet?.length >= 1 && dataSet?.map((value, i)=>{
                     return(
                         <div key={i} className='col-4 col-sm-4 my-2'>
-                            <CardTawar data={value.product}/>
+                            <CardTawar data={value}/>
                         </div>
                     )}) 
                 } 

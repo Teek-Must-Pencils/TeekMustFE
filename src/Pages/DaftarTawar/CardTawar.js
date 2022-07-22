@@ -23,7 +23,8 @@ const CardTawar = (props) => {
       const categories = (item) =>{
         const res = (
           <div className='cardProduct-pi-box'>
-            {item.map((item, i)=>{
+          <span>item</span>
+            {item?.map((item, i)=>{
                   return(
                     <div key={i}
                       className="cardProduct-pi-box-category"
@@ -43,24 +44,24 @@ const CardTawar = (props) => {
         <div className='cardProduct-product'>
           <div>
             <img className='cardProduct-img' 
-              src={data.imgB ? `data:image/png;base64,${data.imgB}` : dummyJam} alt="" 
+              src={data?.img ? `data:image/png;base64,${data?.img}` : dummyJam} alt="" 
             />
           </div>
           <div className='cardProduct-product-info'>
-            <span className='cardProduct-pi-title text-truncate'>{data.name || "-"}</span>
-            <span className='cardProduct-pi-category'>{categories(data.categories || "-")}</span>
-            <span className='cardProduct-pi-price'>Rp. {data.price || "-"}</span>
-            <span className='cardProduct-pi-tawaran'>Tawaranmu : {data.offer.priceNegotiated}</span>
+            <span className='cardProduct-pi-title text-truncate'>{data?.name || "-"}</span>
+            <span className='cardProduct-pi-category'>{categories(data?.categories)|| '-'}</span>
+            <span className='cardProduct-pi-price'>Rp. {data?.price || "-"}</span>
+            <span className='cardProduct-pi-tawaran'>Tawaranmu : {data?.offer?.priceNegotiated}</span>
             <span 
                 className={`cardProduct-pi-status 
-                    ${data.offer?.status?.includes('ACCEPTED') ? 'acc' 
-                        : data.offer?.status?.includes('REJECT') ? 'reject' : 'wait' }`
+                    ${data?.offer?.status === 'accepted' ? 'acc' 
+                        : data?.offer?.status ==='reject' ? 'reject' : 'wait' }`
                 }>
-                {data.offer.status || '-'}
+                {data?.offer?.status || '-'}
             </span>
           </div>
           <div className='cardProduct-pi-button'>
-          {data.offer.status.includes("ACCEPTED") ? (
+          {data?.offer?.status === 'accepted' ? (
             <button 
               className='tbl-lihat-tawar'
               // onClick={handleProduct.bind(null, data.id)}
@@ -70,7 +71,7 @@ const CardTawar = (props) => {
           ): (
             <button 
               className='tbl-lihat-tawar'
-              onClick={handleProduct.bind(null, data.id)}
+              onClick={handleProduct.bind(null, data?.id)}
             >
               Buat Tawaran Baru
             </button>
