@@ -64,7 +64,7 @@ const ProductPageMobile = (props) => {
       <div className=''>
         <img 
           className='mobile-img' 
-          src={`data:image/png;base64,${product?.imgB}`||dataPreview.image} 
+          src={`data:image/png;base64,${product?.img}`||dataPreview.image} 
           alt="" 
         />
         <button 

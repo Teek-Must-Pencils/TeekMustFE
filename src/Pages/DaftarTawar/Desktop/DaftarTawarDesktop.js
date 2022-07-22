@@ -34,8 +34,6 @@ const DaftarTawarDesktop = (props) => {
         }).filter((v) => typeof v === 'object')
         // const myData = [...new Set(dataSet)];
 
-        console.log(dataSet)
-
         return(
             <>
                 {dataSet?.length < 1  && <DataNotFound marker={'dfj2'}/>}
@@ -71,6 +69,7 @@ const DaftarTawarDesktop = (props) => {
   return (
     <>
         <div className="container-sm">
+        <h5><b>Daftar Tawar Saya</b></h5>
             <div className="box-action-df my-5">
                 <div className="d-flex flex-row justify-content-between">
                     <div className='d-flex flex-row gap-2'>

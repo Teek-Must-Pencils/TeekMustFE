@@ -30,8 +30,8 @@ const InfoProductDesktop = (props) => {
         setValue('id', product?.id)
         setValue("name", product?.name);
         setValue("category", product?.categories?.at(0).toLowerCase())
-        setValue("imageFile", product?.imgB);
-        setValue("image", `data:image/png;base64,${product?.imgB}`)
+        setValue("imageFile", product?.img);
+        setValue("image", `data:image/png;base64,${product?.img}`)
         setValue("description", product?.description)
         setValue("price", product?.price)
         setValue("seller", product?.seller)
@@ -65,35 +65,7 @@ const InfoProductDesktop = (props) => {
         else if (id === 4) { result = "Color Pencil 8" }
         return result;
     }
-
-    // useEffect(() => {
-    //     if (dataPreview.image) {
-    //         setValue("imageFile", dataPreview.imageFile);
-    //         setValue("image", dataPreview.image)
-    //         setValue('seller', user?.username)
-    //         setValue('address', user?.address)
-    //     }else if(product){
-    //         setValue('id', product?.id)
-    //         setValue("name", product?.name);
-    //         setValue("category", product?.categories?.at(0).toLowerCase())
-    //         setValue("imageFile", product?.imgB);
-    //         setValue("image", `data:image/png;base64,${product?.imgB}`)
-    //         setValue("description", product?.description)
-    //         setValue("price", product?.price)
-    //         setValue("seller", product?.seller)
-    //         setValue("address", product?.city)
-    //     }else{
-    //         setValue('seller', user?.username)
-    //         setValue('address', user?.address)
-    //     }
-    
-    // //   return () => {
-    // //     second
-    // //   }
-    // // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [dataPreview, product])
-    
-    
+  
     return (
         <>
             <div className="container-content">
@@ -196,10 +168,10 @@ const InfoProductDesktop = (props) => {
                                             type="file"
                                             accept="image/png"
                                             onChange={(e) => handleInputImage(e)}
-                                            required={(dataPreview.image || product?.imgB) ? false: true}
+                                            required={(dataPreview.image || product?.img) ? false: true}
                                         />
                                         <img
-                                            src={ image || dataPreview.image || `data:image/png;base64,${product?.imgB}`}
+                                            src={ image || dataPreview.image || `data:image/png;base64,${product?.img}`}
                                             alt=""
                                         />
                                     </div>

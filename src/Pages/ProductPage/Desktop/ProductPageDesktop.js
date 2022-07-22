@@ -108,7 +108,7 @@ const ProductPageDesktop = (props) => {
                         <div className='d-flex flex-row justify-content-center'>
                             <img 
                                 className='img-product' 
-                                src={dataPreview.image || `data:image/png;base64,${product?.imgB}`} 
+                                src={dataPreview.image || `data:image/png;base64,${product?.img}`} 
                                 alt="" 
                             />
                         </div>
