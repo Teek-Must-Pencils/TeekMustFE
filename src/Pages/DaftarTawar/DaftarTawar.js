@@ -39,6 +39,10 @@ const DaftarTawar = () => {
     // }
   }, [])
   
+  // console.log('user',user)
+  // console.log('offer',offer)
+  // console.log('product',product)
+  // console.log('wishlist',wishlist)
   return (
     <>
       <Loading show={isLoading} />
