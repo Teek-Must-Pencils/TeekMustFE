@@ -3,7 +3,7 @@ import { useMediaQuery } from 'react-responsive';
 import NotifikasiDesktop from './Desktop/NotifikasiDesktop';
 import NotifikasiMobile from './Mobile/NotifikasiMobile';
 import { NavbarMobile } from '../../Components';
-import { Loading } from '../../Components';
+// import { Loading } from '../../Components';
 import serviceNotification from '../../Services/ServiceNotification';
 
 
