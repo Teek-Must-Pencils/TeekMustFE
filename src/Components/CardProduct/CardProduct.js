@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import dummyJam from '../../Assets/Img/dummyProduct.png';
 import './CardProduct.css'
+import * as Icon from 'react-feather';
 
 const CardProduct = (props) => {
     const { data } = props;
@@ -51,7 +52,9 @@ const CardProduct = (props) => {
             <span className='cardProduct-pi-category'>{categories(data.categories) || "-"}</span>
             <span className='cardProduct-pi-price'>Rp. {data.price || "-"}</span>
           </div>
+          
           <div className='cardProduct-pi-button'>
+          <div className='col-4 col-sm-4 my-2'><Icon.Heart /></div>
             <button 
               className='tbl-lihat'
               onClick={handleProduct.bind(null, data.id)}
