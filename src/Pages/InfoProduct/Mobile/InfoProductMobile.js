@@ -27,8 +27,8 @@ const InfoProductMobile = (props) => {
     setValue('id', product?.id)
     setValue("name", product?.name);
     setValue("category", product?.categories?.at(0).toLowerCase())
-    setValue("imageFile", product?.imgB);
-    setValue("image", `data:image/png;base64,${product?.imgB}`)
+    setValue("imageFile", product?.img);
+    setValue("image", `data:image/png;base64,${product?.img}`)
     setValue("description", product?.description)
     setValue("price", product?.price)
     setValue("seller", product?.seller)
@@ -167,7 +167,7 @@ const InfoProductMobile = (props) => {
                     // required={dataPreview.image ? false: true}
                 />
                 <img 
-                  src={image || dataPreview.image || `data:image/png;base64,${product?.imgB}`}
+                  src={image || dataPreview.image || `data:image/png;base64,${product?.img}`}
                   alt=""
                 />
               </div>

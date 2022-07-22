@@ -50,7 +50,7 @@ const ModalMobile = (props) => {
                     <div className="modal-box-product">
                         <img 
                             className='modal-bp-image' 
-                            src={product?.imgB ? `data:image/png;base64,${product?.imgB}` : dummyProduct} 
+                            src={product?.img ? `data:image/png;base64,${product?.img}` : dummyProduct} 
                             alt="" 
                         />
                         <div className='modal-bp-info-mobile'>
