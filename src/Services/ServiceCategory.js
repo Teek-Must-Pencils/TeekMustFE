@@ -10,7 +10,7 @@ const serviceCategory = {
 
         const data = await axios({
             method: "GET",
-            url: process.env.REACT_APP_BASE_URL+'api/category/products',
+            url: process.env.REACT_APP_BASE_URL+'api/category/',
             headers:{
                 "Authorization" : `Bearer ${token}`,
                 // 'Content-Type': 'application/json'

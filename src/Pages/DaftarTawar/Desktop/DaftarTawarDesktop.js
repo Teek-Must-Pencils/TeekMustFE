@@ -2,14 +2,14 @@ import React from 'react';
 import dummyProfile from '../../../Assets/Img/profile.png';
 import * as Icon from 'react-feather';
 import { useNavigate } from 'react-router-dom';
-import { DataNotFound } from '../../../Components';
-import CardProduct from '../CardTawar';
+import { DataNotFound, CardProduct } from '../../../Components';
+import CardTawar from '../CardTawar';
 import { Tab, Nav, Row, Col } from 'react-bootstrap';
 import './DaftarTawarDesktop.css';
 
 
 const DaftarTawarDesktop = (props) => {
-    const { data, user, offer } = props;
+    const { data, user, offer, wishlist } = props;
     let navigate =  useNavigate();
 
     const handleEditProfile =  () => {
@@ -38,6 +38,24 @@ const DaftarTawarDesktop = (props) => {
             <>
                 {dataSet?.length < 1  && <DataNotFound marker={'dfj2'}/>}
                 {dataSet?.length >= 1 && dataSet?.map((value, i)=>{
+                    return(
+                        <div key={i} className='col-4 col-sm-4 my-2'>
+                            <CardTawar data={value.product}/>
+                        </div>
+                    )}) 
+                } 
+            </>
+        )
+    }
+
+    const MyWishList = (props) =>{
+        const { data, user } = props;
+        const myWishList = data?.filter((value) => value.user.id === user?.id)
+
+        return(
+            <>
+                {myWishList?.length < 1  && <DataNotFound marker={'dfj2'}/>}
+                {myWishList?.length >= 1 && myWishList?.map((value, i)=>{
                     return(
                         <div key={i} className='col-4 col-sm-4 my-2'>
                             <CardProduct data={value}/>
@@ -108,7 +126,7 @@ const DaftarTawarDesktop = (props) => {
                                     {myData.map((value, i)=>{
                                         return(
                                             <div key={i} className='col-4 col-sm-4 my-2'>
-                                                <CardProduct data={value} />
+                                                <CardTawar data={value} />
                                             </div>
                                         )
                                     })}
@@ -118,17 +136,7 @@ const DaftarTawarDesktop = (props) => {
                     </Tab.Pane>
                     <Tab.Pane eventKey="2">
                         <div className="row">
-                            {(data?.length < 1 || data?.filter((value) => value?.wishlist === true).length < 1)  && 
-                                <DataNotFound marker={'dft1'}/>
-                            }
-                            {data?.length >= 1 && data?.filter((value) => value?.wishlist === true).map((value, i)=>{
-                                return(
-                                    <div key={i} className='col-4 col-sm-4 my-2'>
-                                        <CardProduct data={value}/>
-                                    </div>
-                                )
-                            })
-                            }
+                            <MyWishList data={wishlist} user={user}/>
                         </div>
                     </Tab.Pane>
                     <Tab.Pane eventKey="3">
