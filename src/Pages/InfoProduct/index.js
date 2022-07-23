@@ -49,10 +49,8 @@ const InfoProduct = () => {
                 setIsNotification(false);
                 setMessage('')
               }, 1000);
-          }
-            // console.log("res", res)
-          }
-        ).catch((err) => console.log(err))
+            }
+          }).catch((err) => console.log(err))
       }else{
         preview.setPreview(value);
         return navigate('/productPage')
@@ -61,32 +59,28 @@ const InfoProduct = () => {
      //edit
     const onSubmitSellerEdit = (value) =>{
       if(value.button === 'submit'){  
-        console.log('edit', value)
-        // setIsLoading(true);
-        // serviceProduct.AddNewData(value).then(
-        //   (res) => {
-        //     if(res.status === 201){
-        //       setMessage(res.data)
-        //       setIsLoading(false)
-        //       setIsNotification(true)
-        //       setTimeout(() => {
-        //         setIsNotification(false);
-        //         setMessage('')
-        //         navigate('/')
-        //       }, 1000);
-            
-        //     }else{
-        //       setMessage("Gagal Input")
-        //       setIsLoading(false)
-        //       setIsNotification(true)
-        //       setTimeout(() => {
-        //         setIsNotification(false);
-        //         setMessage('')
-        //       }, 1000);
-        //   }
-        //     // console.log("res", res)
-        //   }
-        // )
+        setIsLoading(true);
+        serviceProduct.EditProduct(value).then(
+          (res) => {
+            if(res.status === 200){
+              setMessage("Edit berhasil")
+              setIsLoading(false)
+              setIsNotification(true)
+              setTimeout(() => {
+                setIsNotification(false);
+                setMessage('')
+                navigate(`/productPage/${id}`)
+              }, 1000);
+            }else{
+              setMessage("Gagal Input")
+              setIsLoading(false)
+              setIsNotification(true)
+              setTimeout(() => {
+                setIsNotification(false);
+                setMessage('')
+              }, 1000);
+            }
+          })
       }else{}
     }
 
@@ -104,7 +98,7 @@ const InfoProduct = () => {
               setTimeout(() => {
                 setIsNotification(false);
                 setMessage('')  
-                navigate('/')
+                navigate(`/productPage/${id}`)
               }, 1000);
             
             }else{
@@ -115,10 +109,8 @@ const InfoProduct = () => {
                 setIsNotification(false);
                 setMessage('')
               }, 1000);
-          }
-            // console.log("res", res)
-          }
-        )
+            }
+          })
       }else{
         preview.setPreview(value);
         return navigate('/productPage')
@@ -126,32 +118,29 @@ const InfoProduct = () => {
     }
     const onSubmitMobileEdit = (value) =>{
       if(value.button === 'submit'){ 
-        console.log('edit', value) 
-        // setIsLoading(true);
-        // serviceProduct.AddNewData(value).then(
-        //   (res) => {
-        //     if(res.status === 201){
-        //       setMessage(res.data)
-        //       setIsLoading(false)
-        //       setIsNotification(true)
-        //       setTimeout(() => {
-        //         setIsNotification(false);
-        //         setMessage('')
-        //         navigate('/')
-        //       }, 1000);
+        setIsLoading(true);
+        serviceProduct.EditProduct(value).then(
+          (res) => {
+            if(res.status === 200){
+              setMessage("Edit berhasil")
+              setIsLoading(false)
+              setIsNotification(true)
+              setTimeout(() => {
+                setIsNotification(false);
+                setMessage('')
+                navigate('/')
+              }, 1000);
             
-        //     }else{
-        //       setMessage("Gagal Input")
-        //       setIsLoading(false)
-        //       setIsNotification(true)
-        //       setTimeout(() => {
-        //         setIsNotification(false);
-        //         setMessage('')
-        //       }, 1000);
-        //   }
-        //     // console.log("res", res)
-        //   }
-        // )
+            }else{
+              setMessage("Gagal Input")
+              setIsLoading(false)
+              setIsNotification(true)
+              setTimeout(() => {
+                setIsNotification(false);
+                setMessage('')
+              }, 1000);
+          }
+        })
       }else{}
     }
 
@@ -210,7 +199,7 @@ const InfoProduct = () => {
       { isMobile && (
           <InfoProductMobile
             onSubmitMobileInput={onSubmitMobileInput}
-            onSubmitSellerEdit={onSubmitMobileEdit}
+            onSubmitMobileEdit={onSubmitMobileEdit}
             category={category}
             product={product}
             user={user}

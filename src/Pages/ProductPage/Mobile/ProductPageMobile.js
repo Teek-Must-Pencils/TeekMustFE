@@ -10,6 +10,7 @@ import usePreview from '../../../Hooks/usePreview';
 
 const ProductPageMobile = (props) => {
   const {
+    user,
     product,
     role,
     onSubmitSellerMobile,
@@ -19,20 +20,61 @@ const ProductPageMobile = (props) => {
     showNotif,
     notifMessage,
     toogleNotif,
+    onSumbitSellerDelete
   } = props;
 
   let navigate = useNavigate();
   const dataPreview = usePreview();
+  
+  const handleSellerEdit= (ids) => {
+    if(ids){
+        return navigate(`/infoProduct/${ids}`)
+    }else{
+        return navigate('/infoProduct')
+    }
+  }
 
+  const handleSellerDelete= () => {
+    onSumbitSellerDelete();
+  }
+
+  console.log(dataPreview)
   let buttonAction;
   if(role.includes("seller")){
     buttonAction = (
-    <button 
-      className='button-float-send'
-      onClick={onSubmitSellerMobile}
-    >
-      Terbitkan
-    </button>)
+      <>
+        {dataPreview.seller &&(
+          <button 
+            className='button-float-send'
+            onClick={onSubmitSellerMobile}
+          >
+            Terbitkan
+          </button>
+        )}
+        {(user?.username === product?.seller || dataPreview?.seller) ? (
+          <>
+              <button 
+                className='button-float-send'
+                onClick={handleSellerEdit.bind(null, product?.id)}
+              >
+                Edit
+              </button>
+              { !dataPreview?.seller &&
+                  <button 
+                      className="button-float-delete"
+                      onClick={() => handleSellerDelete()}
+                  >
+                      Delete
+                  </button>
+              }
+           </>
+        ):(
+            <div className='button-float-delete text-danger color-content'>
+                Create by : {product.seller}
+            </div>
+        )}
+      </>
+    )  
   }else{
     buttonAction = (<button 
       className='button-float-send'
@@ -64,7 +106,7 @@ const ProductPageMobile = (props) => {
       <div className=''>
         <img 
           className='mobile-img' 
-          src={`data:image/png;base64,${product?.img}`||dataPreview.image} 
+          src={dataPreview.image || `data:image/png;base64,${product?.img}`} 
           alt="" 
         />
         <button 
@@ -83,19 +125,19 @@ const ProductPageMobile = (props) => {
               <div><b>Rp. {product?.price || dataPreview.price}</b></div>
             </div>
             <div className='mobile-box-user'>
-              <img src={Profile} alt='' />
+              <img className='pp-image-profile'
+                  src={dataPreview.image || `data:image/png;base64,${product?.img}`} alt="" 
+              />
               <div className='account'>
-                  <div><b>{product?.username || dataPreview.seller || "Unknow" }</b></div>
+                  <div><b>{product?.seller || dataPreview.seller || "Unknow" }</b></div>
                   <div className="text-profile">
-                    {product?.city}
+                    {product?.city || dataPreview?.address || "Alamat"}
                   </div>
               </div>
             </div>
             <div className='mobile-box-desc'>
                 <p> <b>Deskripsi</b> </p>
-                <p>
-                 {product?.description || dataPreview.description}
-                </p>
+                <p>{product?.description || dataPreview.description}</p>
             </div>
         </div>
         {buttonAction}

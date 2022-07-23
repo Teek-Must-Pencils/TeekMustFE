@@ -3,10 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import dummyJam from '../../Assets/Img/dummyProduct.png';
 import './CardProduct.css'
 import * as Icon from 'react-feather';
+import { useSelector } from 'react-redux';
+import ServiceWishlist from '../../Services/ServiceWishlist';
 
 const CardProduct = (props) => {
-    const { data } = props;
+    const { data, handleNotification, handleMessage } = props;
     let navigate = useNavigate();
+    const role = useSelector(state=>state.auth.role);
 
     const handleProduct = (id) =>{
         return navigate(`/productPage/${id}`)
@@ -18,6 +21,18 @@ const CardProduct = (props) => {
         else if(item.toLowerCase() === 'color_pencil_24'){ result = "Color Pencil 24"}
         else if(item.toLowerCase() === 'color_pencil_8'){ result = "Color Pencil 8"}
         return result;
+    }
+    
+    const handleWishlist = (value) => {
+      ServiceWishlist.AddWishlistLocal(value)
+      .then((res) => {
+        handleMessage(res);
+        handleNotification();
+        setTimeout(() => {
+          handleMessage('')
+          handleNotification()
+        }, 1000);
+      })
     }
     
       const categories = (item) =>{
@@ -53,9 +68,18 @@ const CardProduct = (props) => {
           </div>
           
           <div className='cardProduct-pi-button'>
-          <div className='col-4 col-sm-4 my-2'><Icon.Heart /></div>
+          {role.includes('buyer') &&
             <button 
-              className='tbl-lihat'
+              className='w-25 tbl-wishlist'
+              onClick={handleWishlist.bind(null, data.id)}
+            >
+              <Icon.ShoppingCart />
+              {/* <Icon.Heart className='icon-wishlist' /> */}
+            </button>
+          }
+          
+            <button 
+              className='w-75 tbl-lihat'
               onClick={handleProduct.bind(null, data.id)}
             >
               Lihat

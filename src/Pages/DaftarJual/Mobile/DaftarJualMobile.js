@@ -8,7 +8,7 @@ import CardJual from '../CardJual';
 import { Nav, Tab } from 'react-bootstrap';
 
 const DaftarJualMobile = (props) => {
-    const { data, user, offer } = props;
+    const { product, user, offer } = props;
     let navigate = useNavigate();
 
     const handleEditProfile =  () => {
@@ -20,12 +20,13 @@ const DaftarJualMobile = (props) => {
     }
 
     const MyDiminati = (props) => {
-        const { data, user, offer  } = props
+        const { datas, users, offers  } = props
 
-        const dataRaw = data.filter((value) => value.seller === user.username)
-        const dataSet = offer?.map((value) => {
-            const dt = dataRaw.find((item) => item.id === value.productId)
-            const result = {...dt, offer:{...value}}
+        const dataRaw = datas?.filter((value) => value.seller === users?.username)
+        const dataSet = offers?.map((value) => {
+            let result;
+            const dt = dataRaw?.find((item) => item.id === value.productId)
+            if(dt !== undefined){result = {...dt, offer:{...value}}}
             return result
         }).filter((v) => typeof v === 'object')
 
@@ -48,11 +49,12 @@ const DaftarJualMobile = (props) => {
     }
 
     const MyTransaksi = (props) =>{
-        const { data, offer, user } = props;
-        const dataRaw = data.filter((value) => value.seller === user.username)
-        const dataSet = offer?.filter(value => value.status === 'accepted')?.map((value) => {
-            const dt = dataRaw.find((item) => item.id === value.productId)
-            const result = {...dt, offer:{...value}}
+        const { datas, offers, users } = props;
+        const dataRaw = datas?.filter((value) => value.seller === users?.username)
+        const dataSet = offers?.filter(value => value.status === 'accepted')?.map((value) => {
+            let result;
+            const dt = dataRaw?.find((item) => item.id === value.productId)
+            if(dt !== undefined){result = {...dt, offer:{...value}}}
             return result
         }).filter((v) => typeof v === 'object')
         // const myData = [...new Set(dataSet)];
@@ -76,12 +78,14 @@ const DaftarJualMobile = (props) => {
         <div className="container-sm">
             <div className="box-action my-5">
                 <div className="d-flex flex-row justify-content-between">
-                    <div className='d-flex flex-row gap-2'>
-                        <img src={dummyProfile} alt="" />
-                        <div className='d-flex flex-column'>
-                            <span><b>{user?.username}</b></span>
+                    <div className='d-flex flex-row gap-3'>
+                        <img className='djm-img-profile'
+                            src={user?.imgB ? `data:image/png;base64,${user?.imgB}` : dummyProfile} alt="" 
+                        />
+                        <div className='d-flex flex-column justify-content-center'>
+                            <span><b>{user?.username || '-'}</b></span>
                             <span className="text-profile">
-                                {user?.address}
+                                {user?.address || '-'}
                             </span>
                         </div>
                     </div>
@@ -119,8 +123,21 @@ const DaftarJualMobile = (props) => {
                 <Tab.Content className=''>
                     <Tab.Pane eventKey="1">
                         <div className="row">
-                            {data?.length < 1  && <DataNotFound />}
-                            {data?.length >= 1 && (
+                            {(product?.length < 1 || product?.filter((value) => value.seller === user.username).length < 1)  && (
+                                    <div className="container">
+                                        <div className='row'>
+                                            <div className='col-4'>
+                                                <button type="button" className="box dj-NotFound"
+                                                    onClick={handleAddProduct}
+                                                >
+                                                    <Icon.Plus/> Tambah
+                                                </button>
+                                            </div>
+                                            <div className='col-8'><DataNotFound /></div>
+                                        </div>
+                                    </div>
+                            )}
+                            {product?.length >= 1 && product?.filter((value) => value.seller === user.username).length >= 1 && (
                                 <>
                                     <div className="col-4 col-sm-4 my-2">
                                         <button type="button" className="box h-100"
@@ -129,7 +146,7 @@ const DaftarJualMobile = (props) => {
                                             <Icon.Plus/> Tambah
                                         </button>
                                     </div>
-                                    {data?.filter((value) => value.seller === user.username)?.map((value, i)=>{
+                                    {product?.filter((value) => value.seller === user.username)?.map((value, i)=>{
                                         return(
                                             <div key={i} className='col-4 col-sm-4 my-2'>
                                                 <CardProduct data={value}/>
@@ -142,13 +159,13 @@ const DaftarJualMobile = (props) => {
                     </Tab.Pane>
                     <Tab.Pane eventKey="2">
                         <div className="row">
-                            <MyDiminati data={data} user={user} offer={offer} />
+                            <MyDiminati datas={product} users={user} offers={offer} />
                         </div>
                         
                     </Tab.Pane>
                     <Tab.Pane eventKey="3">
                         <div className="row">
-                            <MyTransaksi data={data} user={user} offer={offer}/>
+                            <MyTransaksi datas={product} users={user} offers={offer}/>
                         </div>
                     </Tab.Pane>
                 </Tab.Content>

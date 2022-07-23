@@ -32,23 +32,43 @@ const ProductPage = () => {
       setShowNotif((prev) => !prev)
     } 
 
-    // Desktop
-    //buyer
+    //DELETE PRODUCT
+    const onSumbitSellerDelete = () =>{
+      serviceProduct.DeleteProduct(id).then((res) => {
+        if(res.status === 200){
+          setNotifMessage("Berhasil Dihapus")
+          setIsLoading(false)
+          setShowNotif(true)
+          setTimeout(() => {
+            setShowNotif(false);
+            setNotifMessage('') 
+            preview.resetPreview();
+            navigate('/')
+          }, 1000);
+        }else{
+          setNotifMessage("Gagal Dihapus")
+          setIsLoading(false)
+          setShowNotif(true)
+          setTimeout(() => {
+            setShowNotif(false);
+            setShowNotif('')
+          }, 1000);}
+    })}
+
+    // DESKTOP BUYER
     const handleModalBuyerDesktop = () => {
         setShowModalDesktop((prev) => !prev)
     }
+    // DESKTOP BUYER ADD OFFER
     const onSubmitBuyerModalDesktop = (value) =>{
       const dataSend ={
         userId : user?.id,
         productId: product?.id,
         priceNegotiated: value.PriceOffer, 
-        status : [
-          "waiting"
-        ]      
+        status : ["waiting"]      
       }
       setIsLoading(true);
-      ServiceOffer.AddOffer(dataSend)
-      .then((res) => {
+      ServiceOffer.AddOffer(dataSend).then((res) => {
         if (res.status === 201) {
           setIsLoading(false);
           setNotifMessage(res.data);
@@ -66,9 +86,7 @@ const ProductPage = () => {
           setTimeout(() => {
             toogleNotif()
             setNotifMessage()
-          }, 2000);
-          // handleModalBuyerDesktop()
-        }
+          }, 2000);}
       }).catch((err) =>{
         console.log(err)
         setIsLoading(false)
@@ -81,7 +99,7 @@ const ProductPage = () => {
           }, 2000);
       })
     }
-    //seller
+    // DESKTOP SELLER ADD PRODUCT
     const onSubmitSellerModalDesktop = () =>{
       setIsLoading(true)
       const dataSend = {
@@ -93,8 +111,7 @@ const ProductPage = () => {
           seller: data.seller,
           address: data.address
       }
-      serviceProduct.AddNewData(dataSend).then(
-        (res) => {
+      serviceProduct.AddNewData(dataSend).then((res) => {
           if(res.status === 201){
             setNotifMessage(res.data)
             setIsLoading(false)
@@ -112,31 +129,24 @@ const ProductPage = () => {
             setTimeout(() => {
               setShowNotif(false);
               setShowNotif('')
-            }, 1000);
-          }
-        }
-      )
-      // console.log('DesktopSeller',dataSend)
-    }
+            }, 1000);}
+      })}
 
 
-    // mobile
+   // MOBILE
     const handleModalBuyerMobile = () => {
         setShowModalMobile((prev) => !prev)
     }  
-    // buyer
+  // DESKTOP BUYER ADD OFFER
     const onSubmitBuyerMobile = (value) =>{
       const dataSend ={
         userId : user?.id,
         productId: product?.id,
         priceNegotiated: value.PriceOffer, 
-        status : [
-          "waiting"
-        ]      
+        status : [ "waiting"]      
       }
       setIsLoading(true);
-      ServiceOffer.AddOffer(dataSend)
-      .then((res) => {
+      ServiceOffer.AddOffer(dataSend).then((res) => {
         if (res.status === 201) {
           setIsLoading(false);
           setNotifMessage("success");
@@ -155,9 +165,7 @@ const ProductPage = () => {
           setTimeout(() => {
             toogleNotif()
             setNotifMessage()
-          }, 2000);
-          // handleModalBuyerDesktop()
-        }
+          }, 2000); }
       }).catch((err) =>{
         console.log(err)
         setIsLoading(false)
@@ -168,9 +176,8 @@ const ProductPage = () => {
             toogleNotif()
             setNotifMessage()
           }, 2000);
-      })
-    }
-    //seller
+    })}
+    // DESKTOP SELLER ADD PRODUCT
     const onSubmitSellerMobile = (value) =>{
       const dataSend = {
         name: data.name,
@@ -181,8 +188,7 @@ const ProductPage = () => {
         seller: data.seller,
         address: data.address
     }
-    serviceProduct.AddNewData(dataSend).then(
-      (res) => {
+    serviceProduct.AddNewData(dataSend).then((res) => {
         if(res.status === 201){
           setNotifMessage(res.data)
           setIsLoading(false)
@@ -202,10 +208,7 @@ const ProductPage = () => {
             setShowNotif('')
           }, 1000);
         }
-      }
-    )
-    // console.log('MobileSeller',dataSend)
-    }
+    })}
 
     useEffect(() => {
       const user = sessionStorage.getItem('user');
@@ -223,9 +226,10 @@ const ProductPage = () => {
         setIsLoading(false)
       })
     
-      // return () => {
-      //   second
-      // }
+      return () => {
+        preview.resetPreview()
+      }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id])
     
 
@@ -233,7 +237,8 @@ const ProductPage = () => {
     <>
       <Loading show={isLoading} />
       { isDesktopOrLaptop &&  (
-        <ProductPageDesktop 
+        <ProductPageDesktop
+          user={user}
           product={product}
           role={role}
           showModal={showModalDesktop}
@@ -243,10 +248,12 @@ const ProductPage = () => {
           toogleNotif={toogleNotif}
           onSubmitBuyerModalDesktop={onSubmitBuyerModalDesktop}
           onSubmitSellerModalDesktop={onSubmitSellerModalDesktop}
+          onSumbitSellerDelete={onSumbitSellerDelete}
         />
       )}
       { isMobile && (
         <ProductPageMobile
+          user={user}
           product={product}
           role={role}
           showModal={showModalMobile}
@@ -256,6 +263,7 @@ const ProductPage = () => {
           toogleNotif={toogleNotif}
           onSubmitSellerMobile={onSubmitSellerMobile}
           onSubmitBuyerMobile={onSubmitBuyerMobile}
+          onSumbitSellerDelete={onSumbitSellerDelete}
         />
       )}
     </>

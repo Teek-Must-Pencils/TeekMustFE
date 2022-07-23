@@ -88,7 +88,7 @@ function MyVerticallyCenteredModal(props) {
 
 const InfoPenawarDesktop = (props) => {
     const { 
-        OnSubmitAccepted, OnSubmitReject, isAccepted,
+        OnSubmitAccepted, OnSubmitReject,
         modalShow, handleModalClosed,
         modalStatusShow, handleModalShowClosed,
         handleModalStatusOpen, handleModalOpen,
@@ -128,11 +128,6 @@ const InfoPenawarDesktop = (props) => {
     const myData = product?.find((item) => item.id === offer?.productId)
     const myUser = user?.find((item) => item.id === offer?.userId)
 
-    console.log('myData',myData)
-    console.log('myData',myData)
-    console.log('offer',offer)
-    console.log('data',product)
-
     return (
         <>
         <div className='container-content'>
@@ -146,7 +141,6 @@ const InfoPenawarDesktop = (props) => {
                 close={handleModalShowClosed}
             />
 
-
             <Col md={{ span: 8, offset: 2 }}>
                 <Row className='align-content-center'>
                     <div className='col-1'>
@@ -155,11 +149,10 @@ const InfoPenawarDesktop = (props) => {
                     <div className='col-11'>
                         <div className="box-action color-content">
                             <div className="d-flex flex-row gap-2">
-                                <img 
-                                    // src={user?.imgB ? `data:image/png;base64,${user?.imgB}` : dummyProduct} alt=""
-                                    src={dummyProfile} alt=""
+                                <img className='ifp-img'
+                                    src={myUser?.imgB ? `data:image/png;base64,${myUser?.imgB}` : dummyProfile} alt=""
                                 />
-                                <div className='d-flex flex-column ms-1'>
+                                <div className='d-flex flex-column p-1 justify-content-center ms-1'>
                                     <span><b>{myUser?.username || '-'}</b></span>
                                     <span className="text-profile">
                                         {myUser?.address || '-'}
@@ -176,7 +169,7 @@ const InfoPenawarDesktop = (props) => {
                              <div className="d-flex flex-row gap-2 mt-4">
                                 <div className='me-2 w-25'>
                                     <img className='w-100 h-100'
-                                       src={myData?.imgB ? `data:image/png;base64,${myData?.imgB}` : dummyProduct} alt="" 
+                                       src={myData?.img ? `data:image/png;base64,${myData?.img}` : dummyProduct} alt="" 
                                     />
                                 </div>
                                 <div className='w-100 d-flex flex-column justify-content-center'>

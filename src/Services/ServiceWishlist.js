@@ -53,6 +53,41 @@ const ServiceWishlist = {
         return data
     },
 
+
+    //LocalStorage or SessionStorage 
+    async GetWishlistLocal(){
+        // const oldData = JSON.parse(localStorage.getItem('wishlist'))
+        const oldData = JSON.parse(sessionStorage.getItem('wishlist'))
+        return oldData
+    },
+    async AddWishlistLocal(value){
+        // const oldData = JSON.parse(localStorage.getItem('wishlist'))
+        const oldData = JSON.parse(sessionStorage.getItem('wishlist'))
+        let newData = [];
+        if(oldData === null){
+            newData.push(value);
+        }else{
+            newData = [...oldData,value];
+        }
+        // localStorage.setItem('wishlist', JSON.stringify(newData))
+        sessionStorage.setItem('wishlist', JSON.stringify(newData))
+        return "Add To Diminati"
+    },
+    async DeleteWishlistLocal(value){
+        // const oldData = JSON.parse(localStorage.getItem('wishlist'))
+        const oldData = JSON.parse(sessionStorage.getItem('wishlist'))
+        let newData = [];
+        if(oldData === null){
+        }else{
+            // eslint-disable-next-line array-callback-return
+            oldData.map((v) => {if(v !== value){ newData.push(v)}})
+        }
+        // localStorage.setItem('wishlist', JSON.stringify(newData))
+        sessionStorage.setItem('wishlist', JSON.stringify(newData))
+        window.location.reload()
+        return "Dihapus dari Daftar Minat Anda"
+    },
+
 }
 
 export default ServiceWishlist;
