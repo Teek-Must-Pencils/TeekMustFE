@@ -20,7 +20,6 @@ const InfoProfile = () => {
       setIsLoading(true)
       ServiceProfile.getUserByUsername(username).then(
         (res) => {
-          console.log(res)
           if (res.status === 200) {
             setDataUser(res.data)
             setIsLoading(false)

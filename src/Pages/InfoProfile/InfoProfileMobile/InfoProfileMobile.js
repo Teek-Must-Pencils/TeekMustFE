@@ -11,6 +11,7 @@ import ServiceProfile from "../../../Services/ServiecProfile";
 
 const InfoProfileMobile = (props) => {
     const { userData }= props; 
+    console.log('test',userData)
     const navigate = useNavigate();
     const [image, setImage] = useState(userData?.img);
     const { register, handleSubmit, setValue } = useForm();
@@ -36,8 +37,6 @@ const InfoProfileMobile = (props) => {
     const handleBack = () =>{
         navigate(-1)
     }
-    
-
 
     return (
         <div className="container-content">

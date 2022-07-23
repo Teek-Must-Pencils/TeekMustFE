@@ -3,7 +3,7 @@ import DaftarTawarDesktop from './Desktop/DaftarTawarDesktop';
 import DaftarTawarMobile from './Mobile/DaftarTawarMobile';
 import { useMediaQuery } from 'react-responsive';
 import ServiceProfile from '../../Services/ServiecProfile'
-import { Loading, NavbarMobile } from '../../Components';
+import { Loading, ModalNotification, NavbarMobile } from '../../Components';
 import ServiceOffer from '../../Services/ServiceOffer';
 import ServiceProduct from '../../Services/ServiceProduct';
 import ServiceWishlist from '../../Services/ServiceWishlist';
@@ -16,6 +16,9 @@ const DaftarTawar = () => {
   const [offer, setOffer] = useState([]);
   const [product, setProduct] = useState([]);
   const [wishlist, setWishlist] = useState([]);
+  const [wishlistLocal, setWishlistLocal] = useState([]);
+  const [isNotification, setIsNotification] = useState(false);
+  const [message, setMessage] = useState();
 
   useEffect(() => {
     const user = sessionStorage.getItem('user');
@@ -25,12 +28,14 @@ const DaftarTawar = () => {
       ServiceProfile.getUserByUsername(username),
       ServiceOffer.GetOffer(),
       ServiceProduct.GetAllProduct(),
-      ServiceWishlist.GetWishlist()
-    ]).then(([user, offer, product, wishlist]) =>{
+      ServiceWishlist.GetWishlist(),
+      ServiceWishlist.GetWishlistLocal()
+    ]).then(([user, offer, product, wishlist, wishlistLocal]) =>{
       setUser(user.value.data);
       setOffer(offer.value.data);
       setProduct(product.value.data);
       setWishlist(wishlist.value.data);
+      setWishlistLocal(wishlistLocal.value)
       setIsLoading(false)
     })
   
@@ -38,20 +43,28 @@ const DaftarTawar = () => {
     //   second
     // }
   }, [])
+
+  const handleNotification = () =>{
+    setIsNotification((prev) => !prev)
+  }
+  const handleMessage = (value) =>{
+    setMessage(value)
+  }
+
   
-  // console.log('user',user)
-  // console.log('offer',offer)
-  // console.log('product',product)
-  // console.log('wishlist',wishlist)
   return (
     <>
       <Loading show={isLoading} />
+      <ModalNotification show={isNotification} message={message} />
       {isDesktopOrLaptop && (
         <DaftarTawarDesktop 
           data={product} 
           offer={offer}
           user={user}
           wishlist={wishlist}
+          wishlistLocal={wishlistLocal}
+          handleNotification={handleNotification}
+          handleMessage={handleMessage}
         />
       )}
       {isMobile && (
@@ -62,6 +75,9 @@ const DaftarTawar = () => {
             offer={offer} 
             user={user}
             wishlist={wishlist}
+            wishlistLocal={wishlistLocal}
+            handleNotification={handleNotification}
+            handleMessage={handleMessage}
           />
         </>
       )}

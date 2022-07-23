@@ -14,7 +14,10 @@ import './HomeMobile.css'
 import "swiper/css";
 
 const HomeMobile = (props) => {
-  const { data, role, category } = props;
+  const { 
+    data, role, category,
+    handleNotification, handleMessage
+  } = props;
   const dispatch =  useDispatch();
   const search = useSelector(selectSearch);
   const handleCategories = (id) =>{
@@ -83,7 +86,11 @@ const HomeMobile = (props) => {
           {data.length >= 1 && data.map((item, idx) => {
             return (
               <Col className='p-3' lg={3} md={3} xs={6} key={idx}>
-                <CardProduct data={item}/>
+                <CardProduct 
+                  data={item} 
+                  handleNotification={handleNotification} 
+                  handleMessage={handleMessage}
+                />
               </Col>
               )
           })}

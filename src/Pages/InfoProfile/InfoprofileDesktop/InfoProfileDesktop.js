@@ -12,7 +12,7 @@ import ServiceProfile from "../../../Services/ServiecProfile";
 const InfoProfileDesktop = (props) => {
     const { userData } = props;
     const navigate = useNavigate();
-    const [image, setImage] = useState(userData?.img);
+    const [image, setImage] = useState();
     const { register, handleSubmit, setValue } = useForm();
 
     const onSubmit = data => {
@@ -37,15 +37,7 @@ const InfoProfileDesktop = (props) => {
         navigate(-1)
     }
 
-    // useEffect(() => {
-    //   register('image')
-
-    //   setValue('image', userData.img)
-    // //   return () => {
-    // //     second
-    // //   }
-    // }, [])
-
+    console.log(userData?.imgB)
 
     return (
         <div className="container-content">
@@ -65,7 +57,7 @@ const InfoProfileDesktop = (props) => {
                         <Form onSubmit={handleSubmit(onSubmit)} className={'form-login'} >
                             <input type='hidden' defaultValue='' {...register("id")} />
                             <div className="d-flex flex-row gap-4">
-                                <Image className="mx-auto d-block mb-3 if-img" src={image} />
+                                <Image className="mx-auto d-block mb-3 if-img" src={image || `data:image/png;base64,${userData?.imgB}`} />
                                 <Form.Group controlId="formFile" className="mb-3">
                                     <Form.Label>Foto*</Form.Label>
                                     <Form.Control type="file" onChange={e => handleImage(e)} />

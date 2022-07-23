@@ -27,3 +27,12 @@
 .btn-dt-d{
     font-size: 1vw;
 }
+.dj-NotFound{
+    width: 100%;
+    height: 15em;
+}
+.djd-img-profile{
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+}

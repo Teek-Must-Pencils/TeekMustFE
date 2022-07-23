@@ -40,7 +40,7 @@ const Home = () => {
       <Loading show={isLoading} />
       {isDesktopOrLaptop && (
           <DaftarJualDesktop 
-            data={product} 
+            product={product} 
             user={user}
             offer={offer}
           />
@@ -48,7 +48,7 @@ const Home = () => {
       {isMobile && (<>
         <NavbarMobile isSearch={false} location="Daftar Jual Saya" />
         <DaftarJualMobile 
-          data={product} 
+          product={product} 
           user={user}
           offer={offer}
         />
