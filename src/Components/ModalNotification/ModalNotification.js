@@ -7,7 +7,7 @@ const ModalNotification = (props) => {
   return (
     <>
          <Modal 
-            size='sm'
+            size='md'
             show={show} 
             onHide={close} 
             animation={false}

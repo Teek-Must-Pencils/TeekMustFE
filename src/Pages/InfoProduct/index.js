@@ -1,44 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import usePreview from '../../Hooks/usePreview'
 import serviceProduct from '../../Services/ServiceProduct';
-import { selectEmail, selectUser } from '../../Redux/slice/authSlice'
 import { Loading, ModalNotification } from '../../Components'
 import InfoProductDesktop from './Dekstop/InfoProductDesktop';
 import InfoProductMobile from './Mobile/InfoProductMobile';
 import ServiceCategory from '../../Services/ServiceCategory';
+import ServiceProfile from '../../Services/ServiecProfile';
 
 const InfoProduct = () => {
+     const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'});
+    const isMobile = useMediaQuery({query: '(max-width: 426px)'});
     let navigate = useNavigate();
+    const { id } = useParams(); 
     const preview = usePreview();
-    const user = useSelector(selectUser);
-    const email = useSelector(selectEmail);
     const [isLoading, setIsLoading] = useState(false)
     const [isNotification, setIsNotification] = useState(false)
     const [message, setMessage] = useState(false);
     const [category, setCategory] = useState([]);
-    const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 426px)'});
-    const isMobile = useMediaQuery({query: '(max-width: 426px)'});
+    const [product, setProduct] = useState();
+    const [user, setUser] = useState([]);
+   
 
     // Desktop
+    //add
     const onSubmitSellerInput = (value) =>{
       if(value.button === 'submit'){  
         setIsLoading(true);
-        const data ={
-          name: value.nama,
-          price: value.harga,
-          category: [value.kategori],
-          description: value.deskripsi,
-          imageFile: value.imageFile,
-          // image: value.image,
-          seller: user,
-          city: email
-        }
-        serviceProduct.AddNewData(data).then(
+        serviceProduct.AddNewData(value).then(
           (res) => {
-            console.log('res', res)
+            // console.log('res', res)
             if(res.status === 201){
               setMessage(res.data)
               setIsLoading(false)
@@ -57,40 +49,46 @@ const InfoProduct = () => {
                 setIsNotification(false);
                 setMessage('')
               }, 1000);
-          }
-            console.log("res", res)
-          }
-        )
-        // console.log("desktopValueInput", data);
+            }
+          }).catch((err) => console.log(err))
       }else{
-        const data ={
-          name: value.nama,
-          price: value.harga,
-          category: [value.kategori],
-          description: value.deskripsi,
-          imageFile: value.imageFile,
-          image: value.image
-        }
-        preview.setPreview(data);
+        preview.setPreview(value);
         return navigate('/productPage')
       }
+    }
+     //edit
+    const onSubmitSellerEdit = (value) =>{
+      if(value.button === 'submit'){  
+        setIsLoading(true);
+        serviceProduct.EditProduct(value).then(
+          (res) => {
+            if(res.status === 200){
+              setMessage("Edit berhasil")
+              setIsLoading(false)
+              setIsNotification(true)
+              setTimeout(() => {
+                setIsNotification(false);
+                setMessage('')
+                navigate(`/productPage/${id}`)
+              }, 1000);
+            }else{
+              setMessage("Gagal Input")
+              setIsLoading(false)
+              setIsNotification(true)
+              setTimeout(() => {
+                setIsNotification(false);
+                setMessage('')
+              }, 1000);
+            }
+          })
+      }else{}
     }
 
     // Mobile
     const onSubmitMobileInput = (value) =>{
       if(value.button === 'submit'){  
         setIsLoading(true);
-        const data ={
-          name: value.nama,
-          price: value.harga,
-          category: [value.kategori],
-          description: value.deskripsi,
-          imageFile: value.imageFile,
-          // image: value.image,
-          seller: user,
-          city: email
-        }
-        serviceProduct.AddNewData(data).then(
+        serviceProduct.AddNewData(value).then(
           (res) => {
             // console.log('res', res)
             if(res.status === 201){
@@ -100,11 +98,41 @@ const InfoProduct = () => {
               setTimeout(() => {
                 setIsNotification(false);
                 setMessage('')  
+                navigate(`/productPage/${id}`)
+              }, 1000);
+            
+            }else{
+              setMessage('Gagal Input')
+              setIsLoading(false)
+              setIsNotification(true)
+              setTimeout(() => {
+                setIsNotification(false);
+                setMessage('')
+              }, 1000);
+            }
+          })
+      }else{
+        preview.setPreview(value);
+        return navigate('/productPage')
+      }
+    }
+    const onSubmitMobileEdit = (value) =>{
+      if(value.button === 'submit'){ 
+        setIsLoading(true);
+        serviceProduct.EditProduct(value).then(
+          (res) => {
+            if(res.status === 200){
+              setMessage("Edit berhasil")
+              setIsLoading(false)
+              setIsNotification(true)
+              setTimeout(() => {
+                setIsNotification(false);
+                setMessage('')
                 navigate('/')
               }, 1000);
             
             }else{
-              setMessage(res.data.error)
+              setMessage("Gagal Input")
               setIsLoading(false)
               setIsNotification(true)
               setTimeout(() => {
@@ -112,47 +140,48 @@ const InfoProduct = () => {
                 setMessage('')
               }, 1000);
           }
-            // console.log("res", res)
-          }
-        )
-      }else{
-        const data ={
-          name: value.nama,
-          price: value.harga,
-          category: value.kategori,
-          description: value.deskripsi,
-          imageFile: value.imageFile,
-          image: value.image,
-        }
-        preview.setPreview(data);
-        return navigate('/productPage')
-      }
+        })
+      }else{}
     }
+
 
   const handleIsNotification = () => {
     setIsNotification(false);
   }
-    // console.log('preview', preview.image)
-
 
     useEffect(() => {
+      const user = sessionStorage.getItem('user');
+      const username =JSON.parse(user).username;
       setIsLoading(true);
-      ServiceCategory.GetAllCategory()
-      .then((res) => {
-        if(res.status === 200){
-          setCategory(res.data);
+      if(id){ 
+        Promise.allSettled([
+          ServiceCategory.GetAllCategory(),
+          serviceProduct.GetProductById(id),
+          ServiceProfile.getUserByUsername(username)
+        ]).then(([category, product, user]) => {
+          setCategory(category.value.data);
+          setProduct(product.value.data);
+          setUser(user.value.data);
           setIsLoading(false);
-        }else{
-          console.log(res)
-          setIsLoading(false)
-        }
-      })
-    
+        })
+      }else{
+        Promise.allSettled([
+          ServiceCategory.GetAllCategory(),
+          ServiceProfile.getUserByUsername(username)
+        ]).then(([category, user]) => {
+          setCategory(category.value.data);
+          setUser(user.value.data);
+          setIsLoading(false);
+        })
+      }
+      
       // return () => {
       //   second
       // }
-    }, [])
+    }, [id])
     
+    // console.log(id)
+
   return (
     <>
      <ModalNotification show={isNotification} close={handleIsNotification} message={message}/>
@@ -160,13 +189,21 @@ const InfoProduct = () => {
       { isDesktopOrLaptop &&  (
         <InfoProductDesktop 
           onSubmitSellerInput={onSubmitSellerInput}
+          onSubmitSellerEdit={onSubmitSellerEdit}
           category={category}
+          product={product}
+          user={user}
+          id={id}
         />
       )}
       { isMobile && (
           <InfoProductMobile
             onSubmitMobileInput={onSubmitMobileInput}
+            onSubmitMobileEdit={onSubmitMobileEdit}
             category={category}
+            product={product}
+            user={user}
+            id={id}
           />
       )}
     </>

@@ -1,17 +1,17 @@
-import React, { 
-    // useEffect 
-} from 'react';
+import React from 'react';
 import ModalBuyer from './ModalBuyerDesktop';
 import { useNavigate } from 'react-router-dom';
 import { ModalNotification } from '../../../Components';
-import dummyProduct from '../../../Assets/Img/dummyProduct.png'
 import dummyProfile from '../../../Assets/Img/profile.png'
 import '../ProductPage.css'
 import usePreview from '../../../Hooks/usePreview';
+import { ArrowLeft } from 'react-feather';
 
 
 const ProductPageDesktop = (props) => {
     const {
+        user,
+        product,
         role,
         showModal,
         handleModalBuyer,
@@ -20,47 +20,62 @@ const ProductPageDesktop = (props) => {
         toogleNotif,
         onSubmitBuyerModalDesktop,
         onSubmitSellerModalDesktop,
+        onSumbitSellerDelete
     } = props;
-
-    // useEffect(() => {
-    //   first
-    
-    //   return () => {
-    //     second
-    //   }
-    // }, [third])
-    
 
     const navigate = useNavigate();
     const dataPreview = usePreview();
 
     const handleSellerTerbit = () =>{
-        const data = {
-            name: dataPreview.name
-        }
-        onSubmitSellerModalDesktop(data)
+        onSubmitSellerModalDesktop()
     }
 
-    const handleSellerEdit= () => {
-        return navigate('/infoProduct')
+    const handleSellerEdit= (id) => {
+        if(id){
+            return navigate(`/infoProduct/${id}`)
+        }else{
+            return navigate('/infoProduct')
+        }
+    }
+
+    const handleSellerDelete= (id) => {
+        onSumbitSellerDelete()
     }
 
     let buttonBox;
     if(role.includes('seller')){
         buttonBox = 
         <>
+        {dataPreview.seller &&
             <button 
                 className="btn btn-primary w-100 my-3"
                 onClick={() => handleSellerTerbit()}
             >
                 Terbitkan
             </button>
-            <button 
-                className="btn btn-outline-primary w-100 mb-3"
-                onClick={() => handleSellerEdit()}
-            >
-                Edit
-            </button>
+        }
+        {(user?.username === product?.seller || dataPreview?.seller) ? (
+            <>
+                <button 
+                    className="btn btn-outline-primary w-100 mb-3"
+                    onClick={() => handleSellerEdit(product?.id)}
+                >
+                    Edit
+                </button>
+                { !dataPreview?.seller &&
+                    <button 
+                        className="btn btn-danger w-100 mb-3"
+                        onClick={() => handleSellerDelete(product?.id)}
+                    >
+                        Delete
+                    </button>
+                }
+            </>
+        ):(
+            <div className='text-category'>
+                Create by : {product.seller}
+            </div>
+        )}
         </>
     }else{
         buttonBox=  <>
@@ -73,19 +88,11 @@ const ProductPageDesktop = (props) => {
         </>
     }
 
-
-    const data = {
-        name: "Jam Tangan Casio",
-        category: "Aksesoris",
-        image: dummyProduct,
-        price: "Rp. 250.000",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        seller: "SellerUnknow",
-        address: "Pencils Town"
+    const handleBack = () => {
+        navigate(-1)
     }
-    
-    // console.log(dataPreview.imageFile)
-        
+
+    console.log(dataPreview)
   return (
     <>
         <ModalNotification 
@@ -95,41 +102,56 @@ const ProductPageDesktop = (props) => {
         //   success={}
         />
         <ModalBuyer 
+            product={product}
             show={showModal} 
             close={handleModalBuyer} 
             onSubmitBuyerModalDesktop={onSubmitBuyerModalDesktop}
         />
         <div className="container container-content">
+        <div className="button-back-product">
+                <button
+                    className=''
+                    onClick={() => handleBack()}
+                >
+                    <ArrowLeft size='20px' />
+                </button>
+            </div>
             <div className="row">
                 <div className="col-8">
                     <div className="d-flex flex-column">
                         <div className='d-flex flex-row justify-content-center'>
-                            <img className='img-product' src={data.image||dataPreview.image} alt="" />
+                            <img 
+                                className='img-product' 
+                                src={dataPreview.image || `data:image/png;base64,${product?.img}`} 
+                                alt="" 
+                            />
                         </div>
                         <div className='text-desc'>
                             <p> <b>Deskripsi</b> </p>
-                            <p>
-                               {data.description || dataPreview.description}
-                            </p>
+                            <div className='text-warp'>
+                               {product?.description || dataPreview.description}
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="col-4 px-0">
                     <div className='box-action'>
-                        <h6>{data.name || dataPreview.name}</h6>
+                        <h6><b>{product?.name || dataPreview.name}</b></h6>
                         <p className="text-category">
-                            {data.category || dataPreview.category}
+                            {product?.categories || dataPreview.category}
                         </p>
-                        <h6>{data.price || dataPreview.price}</h6>
+                        <p className='text-price'>Rp. {product?.price || dataPreview.price}</p>
                         {buttonBox}
                     </div>
                     <div className="box-action my-5">
                         <div className="d-flex flex-row gap-2">
-                            <img src={dummyProfile} alt="" />
-                            <div className='d-flex flex-column'>
-                                <span><b>{data.seller || 'Nama Penjual'}</b></span>
+                            <img className='pp-image-profile'
+                                src={user?.imgB ? `data:image/png;base64,${user?.imgB}` : dummyProfile} alt="" 
+                            />
+                            <div className='d-flex flex-column p-1'>
+                                <span><b>{product?.seller || dataPreview?.seller || 'Nama Penjual'}</b></span>
                                 <span className="text-profile">
-                                    {data.address || "Alamat"}
+                                    {product?.city || dataPreview?.address || "Alamat"}
                                 </span>
                             </div>
                         </div>

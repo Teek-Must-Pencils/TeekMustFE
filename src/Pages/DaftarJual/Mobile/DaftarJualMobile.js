@@ -3,15 +3,13 @@ import dummyProfile from '../../../Assets/Img/profile.png'
 import * as Icon from 'react-feather';
 import './DaftarJualMobile.css'
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../../Redux/slice/authSlice';
 import { CardProduct, DataNotFound } from '../../../Components';
+import CardJual from '../CardJual';
 import { Nav, Tab } from 'react-bootstrap';
 
 const DaftarJualMobile = (props) => {
-    const { data } = props;
+    const { product, user, offer } = props;
     let navigate = useNavigate();
-    const user = useSelector(selectUser);
 
     const handleEditProfile =  () => {
         return navigate('/infoProfile');
@@ -21,17 +19,73 @@ const DaftarJualMobile = (props) => {
         return navigate('/infoProduct')
     }
 
+    const MyDiminati = (props) => {
+        const { datas, users, offers  } = props
+
+        const dataRaw = datas?.filter((value) => value.seller === users?.username)
+        const dataSet = offers?.map((value) => {
+            let result;
+            const dt = dataRaw?.find((item) => item.id === value.productId)
+            if(dt !== undefined){result = {...dt, offer:{...value}}}
+            return result
+        }).filter((v) => typeof v === 'object')
+
+        return(
+            <>
+                {dataSet?.length < 1  && <DataNotFound />}
+                {dataSet?.length >= 1 && (
+                    <>
+                        {dataSet?.map((value, i)=>{
+                            return(
+                                <div key={i} className='col-4 col-sm-4 my-2'>
+                                    <CardJual data={value}/>
+                                </div>
+                            )})
+                        }
+                    </>
+                )}
+            </>
+        )
+    }
+
+    const MyTransaksi = (props) =>{
+        const { datas, offers, users } = props;
+        const dataRaw = datas?.filter((value) => value.seller === users?.username)
+        const dataSet = offers?.filter(value => value.status === 'accepted')?.map((value) => {
+            let result;
+            const dt = dataRaw?.find((item) => item.id === value.productId)
+            if(dt !== undefined){result = {...dt, offer:{...value}}}
+            return result
+        }).filter((v) => typeof v === 'object')
+        // const myData = [...new Set(dataSet)];
+
+        return(
+            <>
+                {dataSet?.length < 1  && <DataNotFound marker={'dfj2'}/>}
+                {dataSet?.length >= 1 && dataSet?.map((value, i)=>{
+                    return(
+                        <div key={i} className='col-4 col-sm-4 my-2'>
+                            <CardJual data={value}/>
+                        </div>
+                    )}) 
+                } 
+            </>
+        )
+    }
+
   return (
     <div>
         <div className="container-sm">
             <div className="box-action my-5">
                 <div className="d-flex flex-row justify-content-between">
-                    <div className='d-flex flex-row gap-2'>
-                        <img src={dummyProfile} alt="" />
-                        <div className='d-flex flex-column'>
-                            <span><b>{user}</b></span>
+                    <div className='d-flex flex-row gap-3'>
+                        <img className='djm-img-profile'
+                            src={user?.imgB ? `data:image/png;base64,${user?.imgB}` : dummyProfile} alt="" 
+                        />
+                        <div className='d-flex flex-column justify-content-center'>
+                            <span><b>{user?.username || '-'}</b></span>
                             <span className="text-profile">
-                                kota
+                                {user?.address || '-'}
                             </span>
                         </div>
                     </div>
@@ -69,8 +123,21 @@ const DaftarJualMobile = (props) => {
                 <Tab.Content className=''>
                     <Tab.Pane eventKey="1">
                         <div className="row">
-                            {data?.length < 1  && <DataNotFound />}
-                            {data?.length > 1 && (
+                            {(product?.length < 1 || product?.filter((value) => value.seller === user.username).length < 1)  && (
+                                    <div className="container">
+                                        <div className='row'>
+                                            <div className='col-4'>
+                                                <button type="button" className="box dj-NotFound"
+                                                    onClick={handleAddProduct}
+                                                >
+                                                    <Icon.Plus/> Tambah
+                                                </button>
+                                            </div>
+                                            <div className='col-8'><DataNotFound /></div>
+                                        </div>
+                                    </div>
+                            )}
+                            {product?.length >= 1 && product?.filter((value) => value.seller === user.username).length >= 1 && (
                                 <>
                                     <div className="col-4 col-sm-4 my-2">
                                         <button type="button" className="box h-100"
@@ -79,7 +146,7 @@ const DaftarJualMobile = (props) => {
                                             <Icon.Plus/> Tambah
                                         </button>
                                     </div>
-                                    {data.map((value, i)=>{
+                                    {product?.filter((value) => value.seller === user.username)?.map((value, i)=>{
                                         return(
                                             <div key={i} className='col-4 col-sm-4 my-2'>
                                                 <CardProduct data={value}/>
@@ -92,32 +159,13 @@ const DaftarJualMobile = (props) => {
                     </Tab.Pane>
                     <Tab.Pane eventKey="2">
                         <div className="row">
-                            {(data.length < 1 || data?.filter((value) => value?.wishlist === true).length < 1) && 
-                                <DataNotFound marker={'dfj1'}/>
-                            }
-                            {data.length > 1 && data?.filter((value) => value?.wishlist === true).map((value, i)=>{
-                                return(
-                                    <div key={i} className='col-4 col-sm-4 my-2'>
-                                        <CardProduct data={value}/>
-                                    </div>
-                                )})
-                            }
+                            <MyDiminati datas={product} users={user} offers={offer} />
                         </div>
                         
                     </Tab.Pane>
                     <Tab.Pane eventKey="3">
                         <div className="row">
-                            {(data.length < 1 || data?.filter((value) => value?.sell === true).length < 1)  && 
-                                <DataNotFound marker={'dfj2'}/>
-                            }
-                            {data.length > 1 && data?.filter((value) => value?.sell === true).map((value, i)=>{
-                                return(
-                                    <div key={i} className='col-4 col-sm-4 my-2'>
-                                        <CardProduct data={value}/>
-                                    </div>
-                                )
-                            })
-                            }
+                            <MyTransaksi datas={product} users={user} offers={offer}/>
                         </div>
                     </Tab.Pane>
                 </Tab.Content>

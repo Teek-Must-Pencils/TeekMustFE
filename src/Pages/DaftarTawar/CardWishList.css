@@ -62,30 +62,21 @@
     width: max-content;
     border-radius: 16px;
 }
-.tbl-wishlist{
+.tbl-wishlist-dm{
     display: flex;
     justify-content: center;
     align-items: center;
     border: none;
     color: white;
     /* background-color: transparent; */
-    background-color: rgb(12, 163, 12);
+    background-color: rgb(214, 5, 5);
     border-radius: 5px;
 }
-.tbl-wishlist:hover{
-    color: rgb(12, 163, 12);
+.tbl-wishlist-dm:hover{
+    color: rgb(214, 5, 5);
     background-color: white;
-    border: 2px solid rgb(12, 163, 12);
+    border: 2px solid rgb(214, 5, 5);
 }
-/* .icon-wishlist{
-    color: rgb(246, 79, 79);
-} */
-/* .active-wishlist{
-    fill: rgb(246, 79, 79);
-}
-.icon-wishlist:hover{
-    fill: rgb(246, 79, 79);
-} */
 
 @media screen and (max-width: 426px) {
     .cardProduct-product{

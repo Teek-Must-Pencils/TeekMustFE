@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 
 const RegisterDesktop = () => {
 
-
+    const navigate = useNavigate();
     const { register, handleSubmit, control, setValue, formState: { errors } } = useForm();
     const [image, setImage] = useState("");
     const [isLoading, setLoading] = useState(false);
@@ -61,6 +61,7 @@ const RegisterDesktop = () => {
                     setTimeout(() => {
                         setIsNotification(false);
                         setMessage('');
+                        navigate('/login')
                     }, 1000);
                 } else {
                     // setMessage(res.data);
@@ -72,11 +73,11 @@ const RegisterDesktop = () => {
                         setMessage('');
                     }, 1000);
                 }
-                console.log("Res", res)
             }
-        ).catch(
-            (err) => console.log(err)
-        )
+        ).catch((err) => {
+            console.log(err);
+            setLoading(false);
+        })
     };
 
     const handleIsLoading = () => {
@@ -100,16 +101,7 @@ const RegisterDesktop = () => {
                             <Col md={12}>
                                 <h1 className="mb-2"> <b>Daftar</b></h1>
                             </Col>
-                            {/* {alertStatus ? <Col md={12}>
-                                <Alert variant="danger">
-                                    <p className="mb-0">
-                                    Masukkan nama, email dan password yang benar. Perhatikan penggunaan huruf kapital.
-                                    </p>
-                                </Alert>
-                            </Col> : true} */}
-
                             <Col >
-
                                 <Form onSubmit={handleSubmit(onSubmit)} className={'form-input'} >
                                     <Form.Group className="mt-2" controlId="Name">
                                         <Form.Label className='w-100'>
@@ -154,7 +146,7 @@ const RegisterDesktop = () => {
                                             {errors.Number && errors.Number.type === "required" &&
                                                 <span className='errors-register ms-2'>Number is required*</span>}
                                         </Form.Label>
-                                        <Form.Control {...register("Number", { required: true })}
+                                        <Form.Control {...register("Numbers", { required: true })}
                                             size="sm"
                                             type="text"
                                             placeholder="Masukkan Number" />
@@ -211,9 +203,6 @@ const RegisterDesktop = () => {
                             </Col>
                         </Row>
                     </Col>
-
-
-
                 </Row>
             </Container>
         </div>

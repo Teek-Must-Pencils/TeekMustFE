@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import dummyJam from '../../Assets/Img/dummyProduct.png';
-import './CardProduct.css'
+import './CardWishList.css'
 import * as Icon from 'react-feather';
 import { useSelector } from 'react-redux';
 import ServiceWishlist from '../../Services/ServiceWishlist';
@@ -24,7 +24,7 @@ const CardProduct = (props) => {
     }
     
     const handleWishlist = (value) => {
-      ServiceWishlist.AddWishlistLocal(value)
+      ServiceWishlist.DeleteWishlistLocal(value)
       .then((res) => {
         handleMessage(res);
         handleNotification();
@@ -70,7 +70,7 @@ const CardProduct = (props) => {
           <div className='cardProduct-pi-button'>
           {role.includes('buyer') &&
             <button 
-              className='w-25 tbl-wishlist'
+              className='w-25 tbl-wishlist-dm'
               onClick={handleWishlist.bind(null, data.id)}
             >
               <Icon.ShoppingCart />

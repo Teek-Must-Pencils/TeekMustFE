@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { ArrowLeft } from 'react-feather';
 import usePreview from '../../../Hooks/usePreview';
@@ -6,27 +6,45 @@ import { useNavigate } from 'react-router-dom';
 
 const InfoProductMobile = (props) => {
   const {
+    id,
+    product,
+    user,    
     onSubmitMobileInput,
-    // handlePreview
+    onSubmitMobileEdit,
     category
 } = props;
   const navigate = useNavigate();
   const dataPreview = usePreview();
   const [image, setImage] = useState();
-  const { register, handleSubmit, control, setValue } = useForm();
+  const { register, handleSubmit, control, setValue, formState:{ errors } } = useForm();
 
-  if(dataPreview.image){
-    setValue("imageFile",  dataPreview.imageFile);
-    setValue("image", dataPreview.image)
-  }
+   // if (dataPreview.image) {
+    //     setValue("imageFile", dataPreview.imageFile);
+    //     setValue("image", dataPreview.image)
+    //     setValue('seller', user?.username)
+    //     setValue('address', user?.address)
+    // }else if(product){
+    //     setValue('id', product?.id)
+    //     setValue("name", product?.name);
+    //     setValue("category", product?.categories?.at(0).toLowerCase())
+    //     setValue("imageFile", product?.img);
+    //     setValue("image", `data:image/png;base64,${product?.img}`)
+    //     setValue("description", product?.description)
+    //     setValue("price", product?.price)
+    //     setValue("seller", product?.seller)
+    //     setValue("address", product?.city)
+    // }else{
+    //     setValue('seller', user?.username)
+    //     setValue('address', user?.address)
+    // }
 
   const handleInputImage = (e) =>{
     setValue("imageFile",  e.target.files[0])
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
-        setImage(reader.result);
-            setValue("image", reader.result)
+          setImage(reader.result);
+          setValue("image", reader.result)
       }
     };
     reader.readAsDataURL(e.target.files[0]);
@@ -36,15 +54,41 @@ const InfoProductMobile = (props) => {
     navigate(-1)
   }
 
-  const handleCategories = (id) =>{
+  const handleCategories = (ids) =>{
     let result;
-    if (id === 1) { result = "Pencil 2B"}
-    else if(id === 2){ result = "Color Pencil 12"}
-    else if(id === 3){ result = "Color Pencil 24"}
-    else if(id === 4){ result = "Color Pencil 8"}
+    if (ids === 1) { result = "Pencil 2B"}
+    else if(ids === 2){ result = "Color Pencil 12"}
+    else if(ids === 3){ result = "Color Pencil 24"}
+    else if(ids === 4){ result = "Color Pencil 8"}
     return result;
-}
+  }
 
+  useEffect(() => {
+    if (dataPreview.image) {
+        setValue("imageFile", dataPreview.imageFile);
+        setValue("image", dataPreview.image)
+        setValue('seller', user?.username)
+        setValue('address', user?.address)
+    }else if(product){
+        setValue('id', product?.id)
+        setValue("name", product?.name);
+        setValue("category", product?.categories?.at(0).toLowerCase())
+        setValue("imageFile", product?.img);
+        setValue("image", `data:image/png;base64,${product?.img}`)
+        setValue("description", product?.description)
+        setValue("price", product?.price)
+        setValue("seller", product?.seller)
+        setValue("address", product?.city)
+    }
+
+  //   return () => {
+  //     second
+  //   }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product, dataPreview.image])
+  setValue('seller', user?.username)
+  setValue('address', user?.address)
+  
   return (
     <>
       <div className="container">
@@ -67,37 +111,46 @@ const InfoProductMobile = (props) => {
         <div>
           <form 
             className="ipm-body"
-            onSubmit={handleSubmit(onSubmitMobileInput)}
+            onSubmit={handleSubmit(id ? onSubmitMobileEdit : onSubmitMobileInput)}
           >
+          <input type="hidden" {...register('seller')} />
+          <input type="hidden" {...register('address')} />
+
             <div className='ipm-body-input'>
-              <label>Nama Produk</label>
+              <label>Nama Produk {' '}
+                  {errors.name && errors.name.type === "required" && 
+                  <span className='error-product'>Nama is Required</span>}
+              </label>
               <input
                 type="text"
                 placeholder="Nama Produk"
                 defaultValue={dataPreview.name||undefined}
-                {...register("nama")}
+                {...register("name", { required : true })}
               />
             </div>
             <div className='ipm-body-input'>
-              <label>Harga Produk</label>
+              <label>Harga Produk{' '}
+                {errors.price && errors.price.type === "required" && 
+                <span className='error-product'>Harga is Required</span>}
+              </label>
               <input
-                type="text"
+                type="number"
                 placeholder="Rp. 0,00"
                 defaultValue={dataPreview.price||undefined}
-                {...register("harga")}
+                {...register("price", {required:true})}
               />
             </div>
             <div className='ipm-body-input'>
-              <label>Kategori</label>
+              <label>Kategori {' '}
+                {errors.category && errors.category.type === "required" && 
+                <span className='error-product'>Category is Required</span>}
+              </label>
               <Controller
-                  name="kategori"
+                  name="category"
                   control={control}
                   defaultValue={dataPreview.category||""}
                   render={({ field }) =>  
-                  <select 
-                      {...field} 
-                      // required
-                  >
+                  <select {...field} >
                       <option value="" disabled>Pilih Kategori</option>
                       {category?.map((value, i) =>{
                           return (
@@ -111,34 +164,39 @@ const InfoProductMobile = (props) => {
                           )})
                       }
                   </select>}
+                  rules={{ required: true }}
               />
             </div>
             <div className='ipm-body-input'>
-              <label>Deskripsi</label>
+              <label>Deskripsi {' '}
+                {errors.description && errors.description.type === "required" && 
+                <span className='error-product'>Description is Required</span>}
+              </label>
               <textarea 
                   placeholder='Deskripsi'
                   rows={4}
                   defaultValue={dataPreview.description||undefined}
-                  {...register("deskripsi")}
-                  // required
+                  {...register("description", {required:true})}
               />
             </div>
             <div className='ipm-body-input'>
               <label>Deskripsi</label>
               <div className='ipm-body-inputImage'>
                 <input 
+                    className='bg-transparent'
                     type="file"
                     accept="image/png"
                     onChange={(e) => handleInputImage(e)}
-                    // required={dataPreview.image ? false: true}
+                    required={(dataPreview.image || product?.img) ? false: true}
                 />
                 <img 
-                  src={image || dataPreview.image}
+                  src={image || dataPreview.image || `data:image/png;base64,${product?.img}`}
                   alt=""
                 />
               </div>
             </div>
             <div className='ipm-body-buttonAction'>
+            {!product &&
               <button
                 type='submit'
                 className='ip-button-preview'
@@ -149,6 +207,7 @@ const InfoProductMobile = (props) => {
               >
                 Preview
               </button>
+            }
               <button
                 type='submit'
                 className='ip-button-send'
