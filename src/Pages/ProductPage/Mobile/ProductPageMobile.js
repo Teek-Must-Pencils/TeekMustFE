@@ -1,17 +1,17 @@
 import React from 'react';
 import { ArrowLeft } from 'react-feather';
 import { ModalNotification } from '../../../Components';
-import dummyProduct from '../../../Assets/Img/dummyProduct.png'
+// import dummyProduct from '../../../Assets/Img/dummyProduct.png'
 import Profile from '../../../Assets/Img/profile.png'
 import ModalMobile from './ModalMobile';
 import '../ProductPage.css';
 import { useNavigate } from 'react-router-dom';
 import usePreview from '../../../Hooks/usePreview';
 
-// const role = "sel";
-
 const ProductPageMobile = (props) => {
   const {
+    user,
+    product,
     role,
     onSubmitSellerMobile,
     onSubmitBuyerMobile,
@@ -20,20 +20,61 @@ const ProductPageMobile = (props) => {
     showNotif,
     notifMessage,
     toogleNotif,
+    onSumbitSellerDelete
   } = props;
 
   let navigate = useNavigate();
   const dataPreview = usePreview();
+  
+  const handleSellerEdit= (ids) => {
+    if(ids){
+        return navigate(`/infoProduct/${ids}`)
+    }else{
+        return navigate('/infoProduct')
+    }
+  }
 
+  const handleSellerDelete= () => {
+    onSumbitSellerDelete();
+  }
+
+  console.log(dataPreview)
   let buttonAction;
   if(role.includes("seller")){
     buttonAction = (
-    <button 
-      className='button-float-send'
-      onClick={onSubmitSellerMobile}
-    >
-      Terbitkan
-    </button>)
+      <>
+        {dataPreview.seller &&(
+          <button 
+            className='button-float-send'
+            onClick={onSubmitSellerMobile}
+          >
+            Terbitkan
+          </button>
+        )}
+        {(user?.username === product?.seller || dataPreview?.seller) ? (
+          <>
+              <button 
+                className='button-float-send'
+                onClick={handleSellerEdit.bind(null, product?.id)}
+              >
+                Edit
+              </button>
+              { !dataPreview?.seller &&
+                  <button 
+                      className="button-float-delete"
+                      onClick={() => handleSellerDelete()}
+                  >
+                      Delete
+                  </button>
+              }
+           </>
+        ):(
+            <div className='button-float-delete text-danger color-content'>
+                Create by : {product.seller}
+            </div>
+        )}
+      </>
+    )  
   }else{
     buttonAction = (<button 
       className='button-float-send'
@@ -47,14 +88,6 @@ const ProductPageMobile = (props) => {
     return navigate(-1)
   }
 
-  const data = {
-    name: "Jam Tangan Casio",
-    category: "Aksesoris",
-    image: dummyProduct,
-    price: "Rp. 250.000",
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-  }
-
   return (
     <>
       <ModalNotification 
@@ -64,6 +97,7 @@ const ProductPageMobile = (props) => {
         //   success={}
       />
       <ModalMobile 
+        product={product}
         show={showModal}
         close={handleModalBuyer}
         onSubmitBuyerMobile={onSubmitBuyerMobile}
@@ -72,7 +106,8 @@ const ProductPageMobile = (props) => {
       <div className=''>
         <img 
           className='mobile-img' 
-          src={data.image || dataPreview.image} alt="" 
+          src={dataPreview.image || `data:image/png;base64,${product?.img}`} 
+          alt="" 
         />
         <button 
           className='button-float-back'
@@ -83,24 +118,26 @@ const ProductPageMobile = (props) => {
       </div>
         <div className='mobile-box-description'>
             <div className='mobile-box-info'>
-              <div><b>{data.name || dataPreview.name}</b></div>
+              <div><b>{product?.name || dataPreview.name}</b></div>
               <div className='text-category'>
-                {data.category || dataPreview.category}
+                {product?.categories || dataPreview.category}
               </div>
-              <div><b>{data.price || dataPreview.price}</b></div>
+              <div><b>Rp. {product?.price || dataPreview.price}</b></div>
             </div>
             <div className='mobile-box-user'>
-              <img src={Profile} alt='' />
+              <img className='pp-image-profile'
+                  src={dataPreview.image || `data:image/png;base64,${product?.img}`} alt="" 
+              />
               <div className='account'>
-                  <p><b>Nama Penjual</b></p>
-                  <p className="text-profile">kota</p>
+                  <div><b>{product?.seller || dataPreview.seller || "Unknow" }</b></div>
+                  <div className="text-profile">
+                    {product?.city || dataPreview?.address || "Alamat"}
+                  </div>
               </div>
             </div>
             <div className='mobile-box-desc'>
                 <p> <b>Deskripsi</b> </p>
-                <p>
-                 {data.description || dataPreview.description}
-                </p>
+                <p>{product?.description || dataPreview.description}</p>
             </div>
         </div>
         {buttonAction}

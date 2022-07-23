@@ -45,6 +45,11 @@
 .btn-dt span{
     font-size: 2vw !important;
 }
+.djm-img-profile{
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+}
 @media screen and (max-width: 426px) {
     .btn-dt,
     .btn-dt span {

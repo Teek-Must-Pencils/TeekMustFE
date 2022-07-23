@@ -4,7 +4,7 @@ import HomeMobile from './Mobile/HomeMobile';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux'
 import { selectRole } from '../../Redux/slice/authSlice';
-import { Loading, NavbarMobile } from '../../Components';
+import { Loading, ModalNotification, NavbarMobile } from '../../Components';
 import serviceProduct from '../../Services/ServiceProduct';
 import serviceCategory from '../../Services/ServiceCategory';
 import { selectSearch } from '../../Redux/slice/searchSlice';
@@ -21,6 +21,8 @@ const Home = () => {
   const isMobile = useMediaQuery({query: '(max-width: 426px)'});
   const role = useSelector(selectRole);
   const search = useSelector(selectSearch);
+  const [isNotification, setIsNotification] = useState(false);
+  const [message, setMessage] = useState();
   
   useEffect(() => {
     setLoading(true);
@@ -42,7 +44,6 @@ const Home = () => {
           serviceProduct.SearchByCategory(search), 
           serviceCategory.GetAllCategory()
         ]).then(([product, category]) => {
-          console.log(product)
           setProduct(product.value.data);
           setCategory(category.value.data)
           setLoading(false)
@@ -55,7 +56,6 @@ const Home = () => {
           serviceProduct.SearchByName(search), 
           serviceCategory.GetAllCategory()
         ]).then(([product, category]) => {
-          console.log(product)
           setProduct(product.value.data);
           setCategory(category.value.data)
           setLoading(false)
@@ -66,37 +66,29 @@ const Home = () => {
       }
       
     }
-    // setLoading(true);
-    // Promise.allSettled([
-    //   serviceProduct.GetAllProduct(), 
-    //   serviceCategory.GetAllCategory()
-    // ]).then(([product, category]) => {
-    //   setProduct(product.value.data);
-    //   setCategory(category.value.data)
-    //   setLoading(false)
-    // }).catch((err) => {
-    //   console.log(err.message)
-    //   setLoading(false)
-    // })
-    // setLoading(false);
-
     // return () => {
     //   second
     // }
   }, [search])
-  
-  // console.log('home',search.includes(cate))
-  // console.log('search', search)
-  console.log('data', product)
+
+  const handleNotification = () =>{
+    setIsNotification((prev) => !prev)
+  }
+  const handleMessage = (value) =>{
+    setMessage(value)
+  }
 
   return (
     <>
       <Loading show={isLoading} />
+      <ModalNotification show={isNotification} message={message} />
       {isDesktopOrLaptop && (
         <HomeDesktop 
           role={role} 
           data={product} 
           category={category}
+          handleNotification={handleNotification}
+          handleMessage={handleMessage}
         />
       )}
       {isMobile && (
@@ -106,6 +98,8 @@ const Home = () => {
             role={role} 
             data={product}
             category={category}
+            handleNotification={handleNotification}
+            handleMessage={handleMessage}
           />
         </>
       )}

@@ -8,11 +8,10 @@ const serviceProduct = {
         const dt = JSON.parse(sessionData);
         const token = dt.accessToken
         const data = await axios({
-            method: 'get',
-            url: process.env.REACT_APP_BASE_URL+'api/product/products',
+            method: 'GET',
+            url: process.env.REACT_APP_BASE_URL+'api/product',
             headers:{
                 "Authorization" : `Bearer ${token}`,
-                // 'Content-Type': 'application/json'
             }
           })
           .then((response) => response)
@@ -26,7 +25,7 @@ const serviceProduct = {
         const dt = JSON.parse(sessionData);
         const token = dt.accessToken
         const data = await axios({
-            method: 'get',
+            method: 'GET',
             url: process.env.REACT_APP_BASE_URL+`api/product/${id}`,
             headers:{
                 "Authorization" : `Bearer ${token}`
@@ -42,15 +41,16 @@ const serviceProduct = {
         const sessionData = sessionStorage.getItem('user')
         const dt = JSON.parse(sessionData);
         const token = dt.accessToken
+        const cate =  [value.category];
         let FormData = require('form-data');
         let dataSend = new FormData();
         dataSend.append('name', value.name);
-        dataSend.append('categories', value.category);
+        dataSend.append('categories', cate);
         dataSend.append('price', value.price);
         dataSend.append('description', value.description);
-        dataSend.append("img", value.imageFile);
+        dataSend.append("imgFile", value.imageFile);
         dataSend.append("seller", value.seller);
-        dataSend.append("city", value.city);
+        dataSend.append("city", value.address);
 
         const data = await axios({
             method: 'POST',
@@ -65,6 +65,57 @@ const serviceProduct = {
           .catch((err) => err.response)
        
           return data
+    }, 
+
+    async EditProduct(value){
+        const sessionData = sessionStorage.getItem('user')
+        const dt = JSON.parse(sessionData);
+        const token = dt.accessToken
+        const cate =  [value.category];
+        const price =  parseInt(value.price);
+        const imgRaw =  value.image.toString();
+        const imgRaw2 = imgRaw.split(',')[1]
+        const dataSend ={
+            id: value.id,
+            name: value.name,
+            categories: cate,
+            price: price,
+            description: value.description,
+            seller: value.seller,
+            city: value.address,
+            img: imgRaw2,
+        }
+
+        // console.log('edit',dataSend)
+        const data = await axios({
+            method: 'PUT',
+            url: process.env.REACT_APP_BASE_URL+'api/product/',
+            data: dataSend,
+            headers:{
+                "Authorization" : `Bearer ${token}`
+            }
+          })
+          .then((response) => response)
+          .catch((err) => err.response)
+       
+          return data
+    },
+
+    async DeleteProduct(id){
+        const sessionData = sessionStorage.getItem('user')
+        const dt = JSON.parse(sessionData);
+        const token = dt.accessToken
+        const data = await axios({
+            method: 'DELETE',
+            url: process.env.REACT_APP_BASE_URL+`api/product/${id}`,
+            headers:{
+                "Authorization" : `Bearer ${token}`
+            }
+          })
+          .then((response) => response)
+          .catch((err) => err.response)
+       
+          return data
     },
 
     async SearchByName(name){
@@ -73,7 +124,7 @@ const serviceProduct = {
         const token = dt.accessToken
         const data = await axios({
             method: 'GET',
-            url: process.env.REACT_APP_BASE_URL+`api/product/productName/${name}`,
+            url: process.env.REACT_APP_BASE_URL+`api/product/name/${name}`,
             headers:{
                 "Authorization" : `Bearer ${token}`
             }
@@ -90,7 +141,7 @@ const serviceProduct = {
         const token = dt.accessToken
         const data = await axios({
             method: 'GET',
-            url: process.env.REACT_APP_BASE_URL+`api/product/${category}`,
+            url: process.env.REACT_APP_BASE_URL+`api/product/category/${category}`,
             headers:{
                 "Authorization" : `Bearer ${token}`
             }
