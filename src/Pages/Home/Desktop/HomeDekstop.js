@@ -18,7 +18,10 @@ import 'swiper/css/pagination';
 
 const HomeDekstop = (props) => {
   const search = useSelector(selectSearch)
-  const { data , role, category } = props;
+  const { 
+      data , role, category, 
+      handleNotification, handleMessage
+  } = props;
   const dispatch =  useDispatch();
 
   const handleCategories = (id) =>{
@@ -95,7 +98,11 @@ const HomeDekstop = (props) => {
         {data.length >= 1 && data.map((item, idx) => {
           return (
             <Col className='p-3' lg={3} md={3} xs={6} key={idx}>
-              <CardProduct data={item}/>
+              <CardProduct 
+                data={item} 
+                handleNotification={handleNotification} 
+                handleMessage={handleMessage}
+              />
             </Col>
             )
         })}

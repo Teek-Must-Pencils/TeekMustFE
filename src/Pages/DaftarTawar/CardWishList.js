@@ -1,13 +1,18 @@
-import React from 'react'
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import dummyJam from '../../Assets/Img/dummyProduct.png'
+import dummyJam from '../../Assets/Img/dummyProduct.png';
+import './CardWishList.css'
+import * as Icon from 'react-feather';
+import { useSelector } from 'react-redux';
+import ServiceWishlist from '../../Services/ServiceWishlist';
 
-const CardJual = (props) => {
-    const { data } = props;
+const CardProduct = (props) => {
+    const { data, handleNotification, handleMessage } = props;
     let navigate = useNavigate();
+    const role = useSelector(state=>state.auth.role);
 
     const handleProduct = (id) =>{
-        return navigate(`/infoPenawar/${id}`)
+        return navigate(`/productPage/${id}`)
       }
     const handleCategory = (item) =>{
         let result;
@@ -18,11 +23,22 @@ const CardJual = (props) => {
         return result;
     }
     
+    const handleWishlist = (value) => {
+      ServiceWishlist.DeleteWishlistLocal(value)
+      .then((res) => {
+        handleMessage(res);
+        handleNotification();
+        setTimeout(() => {
+          handleMessage('')
+          handleNotification()
+        }, 1000);
+      })
+    }
+    
       const categories = (item) =>{
         const res = (
           <div className='cardProduct-pi-box'>
-            {item === undefined && (<div className="cardProduct-pi-box-category">-</div>)}
-            {item !== undefined && item.map((item, i)=>{
+            {item.map((item, i)=>{
                   return(
                     <div key={i}
                       className="cardProduct-pi-box-category"
@@ -42,26 +58,36 @@ const CardJual = (props) => {
         <div className='cardProduct-product'>
           <div>
             <img className='cardProduct-img' 
-              src={data?.img ? `data:image/png;base64,${data?.img}` : dummyJam} alt="" 
+              src={data.img ? `data:image/png;base64,${data.img}` : dummyJam} alt="" 
             />
           </div>
           <div className='cardProduct-product-info'>
             <span className='cardProduct-pi-title text-truncate'>{data.name || "-"}</span>
-            <span className='cardProduct-pi-category'>{categories(data.categories)}</span>
+            <span className='cardProduct-pi-category'>{categories(data.categories) || "-"}</span>
             <span className='cardProduct-pi-price'>Rp. {data.price || "-"}</span>
           </div>
+          
           <div className='cardProduct-pi-button'>
+          {role.includes('buyer') &&
             <button 
-              className='tbl-lihat-tawar'
-              onClick={handleProduct.bind(null, data.offer.id)}
+              className='w-25 tbl-wishlist-dm'
+              onClick={handleWishlist.bind(null, data.id)}
             >
-             {data.offer.status === 'accepted' ? 'Lanjutkan Transaksi' : 'Lihat Tawaran'}
+              <Icon.ShoppingCart />
+              {/* <Icon.Heart className='icon-wishlist' /> */}
             </button>
-
+          }
+          
+            <button 
+              className='w-75 tbl-lihat'
+              onClick={handleProduct.bind(null, data.id)}
+            >
+              Lihat
+            </button>
           </div>
         </div>
     </>
   )
 }
 
-export default CardJual
+export default CardProduct

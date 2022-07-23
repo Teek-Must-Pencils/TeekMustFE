@@ -8,7 +8,11 @@ import CardProduct from '../CardTawar';
 import { Nav, Tab } from 'react-bootstrap';
 
 const DaftarTawarMobile = (props) => {
-    const { data, user, offer } = props;
+    const { 
+        data, user, offer, 
+        wishlist, wishlistLocal,
+        handleNotification,handleMessage
+     } = props;
     let navigate = useNavigate();
 
     const handleEditProfile =  () => {
@@ -17,10 +21,11 @@ const DaftarTawarMobile = (props) => {
 
     const myOffer = offer?.filter((value) => value.userId === user?.id);
     const myData = myOffer?.map((value) => {
+        let result
         const dt = data?.find((product) => product.id === value.productId)
-        const result = { ...dt, offer:{...value} }
+        if(dt !== undefined){result = {...dt, offer:{...value}}}
         return result
-    })
+    }).filter((v) => typeof v === 'object')
 
   return (
     <div>

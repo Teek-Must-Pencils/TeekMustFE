@@ -87,15 +87,16 @@ function MyVerticallyCenteredModal(props) {
 
 const InfoPenawarMobile = (props) => {
     const { 
-        OnSubmitAccepted, OnSubmitReject, isAccepted,
+        OnSubmitAccepted, OnSubmitReject,
         modalShow, handleModalClosed,
         modalStatusShow, handleModalShowClosed,
         handleModalStatusOpen, handleModalOpen,
         user, offer, product
     }= props;
+    const flag = offer?.status === 'waiting'? true : false
 
     let buttonBox;
-    if (isAccepted) {
+    if (flag) {
         buttonBox = (
             <>
                 <button className='tombol-tolak me-2 ' onClick={OnSubmitReject}>
@@ -119,7 +120,7 @@ const InfoPenawarMobile = (props) => {
         )
     }
 
-    const myData = product?.find((item) => item.id === offer?.userId)
+    const myData = product?.find((item) => item.id === offer?.productId)
     const myUser = user?.find((item) => item.id === offer?.userId)
 
     return (
@@ -139,11 +140,10 @@ const InfoPenawarMobile = (props) => {
                     <div className='col-11'>
                         <div className="box-action mt-3 ">
                             <div className="d-flex flex-row gap-2 ms">
-                                <img 
-                                    // src={user?.imgB ? `data:image/png;base64,${user?.imgB}` : dummyProduct} alt=""
-                                    src={dummyProfile} alt=""
-                                 />
-                                <div className='d-flex flex-column '>
+                                <img className='ifp-img'
+                                    src={myUser?.imgB ? `data:image/png;base64,${myUser?.imgB}` : dummyProfile} alt=""
+                                />
+                                <div className='d-flex flex-column p-1 justify-content-center ms-1'>
                                     <span><b>{myUser?.username || '-'}</b></span>
                                     <span className="text-profile">
                                         {myUser?.address || '-'}
@@ -161,7 +161,7 @@ const InfoPenawarMobile = (props) => {
                             <div className="d-flex flex-row gap-2 b mt-4 ms-4">
                                 <div className='me-2 w-25'>
                                     <img className='w-100 h-100'
-                                        src={myData?.imgB ? `data:image/png;base64,${myData?.imgB}` : dummyProduct} alt="" 
+                                        src={myData?.img ? `data:image/png;base64,${myData?.img}` : dummyProduct} alt="" 
                                     />
                                 </div>
                                 <div className='w-100 d-flex flex-column justify-content-center'>

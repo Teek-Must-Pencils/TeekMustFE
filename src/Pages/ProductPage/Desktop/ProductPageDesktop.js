@@ -1,10 +1,7 @@
-import React, { 
-    // useEffect 
-} from 'react';
+import React from 'react';
 import ModalBuyer from './ModalBuyerDesktop';
 import { useNavigate } from 'react-router-dom';
 import { ModalNotification } from '../../../Components';
-// import dummyProduct from '../../../Assets/Img/dummyProduct.png'
 import dummyProfile from '../../../Assets/Img/profile.png'
 import '../ProductPage.css'
 import usePreview from '../../../Hooks/usePreview';
@@ -13,6 +10,7 @@ import { ArrowLeft } from 'react-feather';
 
 const ProductPageDesktop = (props) => {
     const {
+        user,
         product,
         role,
         showModal,
@@ -22,16 +20,14 @@ const ProductPageDesktop = (props) => {
         toogleNotif,
         onSubmitBuyerModalDesktop,
         onSubmitSellerModalDesktop,
+        onSumbitSellerDelete
     } = props;
 
     const navigate = useNavigate();
     const dataPreview = usePreview();
 
     const handleSellerTerbit = () =>{
-        const data = {
-            name: dataPreview.name
-        }
-        onSubmitSellerModalDesktop(data)
+        onSubmitSellerModalDesktop()
     }
 
     const handleSellerEdit= (id) => {
@@ -40,6 +36,10 @@ const ProductPageDesktop = (props) => {
         }else{
             return navigate('/infoProduct')
         }
+    }
+
+    const handleSellerDelete= (id) => {
+        onSumbitSellerDelete()
     }
 
     let buttonBox;
@@ -54,12 +54,28 @@ const ProductPageDesktop = (props) => {
                 Terbitkan
             </button>
         }
-            <button 
-                className="btn btn-outline-primary w-100 mb-3"
-                onClick={() => handleSellerEdit(product?.id)}
-            >
-                Edit
-            </button>
+        {(user?.username === product?.seller || dataPreview?.seller) ? (
+            <>
+                <button 
+                    className="btn btn-outline-primary w-100 mb-3"
+                    onClick={() => handleSellerEdit(product?.id)}
+                >
+                    Edit
+                </button>
+                { !dataPreview?.seller &&
+                    <button 
+                        className="btn btn-danger w-100 mb-3"
+                        onClick={() => handleSellerDelete(product?.id)}
+                    >
+                        Delete
+                    </button>
+                }
+            </>
+        ):(
+            <div className='text-category'>
+                Create by : {product.seller}
+            </div>
+        )}
         </>
     }else{
         buttonBox=  <>
@@ -72,13 +88,11 @@ const ProductPageDesktop = (props) => {
         </>
     }
 
-    // console.log(dataPreview.image)
     const handleBack = () => {
-        navigate('/')
+        navigate(-1)
     }
 
-
-        
+    console.log(dataPreview)
   return (
     <>
         <ModalNotification 
@@ -108,7 +122,7 @@ const ProductPageDesktop = (props) => {
                         <div className='d-flex flex-row justify-content-center'>
                             <img 
                                 className='img-product' 
-                                src={dataPreview.image || `data:image/png;base64,${product?.imgB}`} 
+                                src={dataPreview.image || `data:image/png;base64,${product?.img}`} 
                                 alt="" 
                             />
                         </div>
@@ -131,11 +145,13 @@ const ProductPageDesktop = (props) => {
                     </div>
                     <div className="box-action my-5">
                         <div className="d-flex flex-row gap-2">
-                            <img src={dummyProfile} alt="" />
+                            <img className='pp-image-profile'
+                                src={user?.imgB ? `data:image/png;base64,${user?.imgB}` : dummyProfile} alt="" 
+                            />
                             <div className='d-flex flex-column p-1'>
-                                <span><b>{product?.seller || 'Nama Penjual'}</b></span>
+                                <span><b>{product?.seller || dataPreview?.seller || 'Nama Penjual'}</b></span>
                                 <span className="text-profile">
-                                    {product?.city || "Alamat"}
+                                    {product?.city || dataPreview?.address || "Alamat"}
                                 </span>
                             </div>
                         </div>
