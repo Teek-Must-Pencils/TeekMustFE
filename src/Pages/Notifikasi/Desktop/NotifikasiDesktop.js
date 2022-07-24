@@ -1,32 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { 
+    // useEffect 
+  } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import dummy from '../../../Assets/Img/dummyProduct.png';
 import { selectRole } from '../../../Redux/slice/authSlice';
 import '../Notifikasi.css'
 
-const data = [1,2,3,4]
+const datas = [1,2,3,4]
 
-const NotifikasiDesktop = () => {
+const NotifikasiDesktop = (props) => {
+  const { data } = props;
   const navigate = useNavigate();
   const role = useSelector(selectRole);
 
-  useEffect(() => {
-    // return () => {
-    //   second
-    // }
-  }, [])
+  // useEffect(() => {
+  //   // return () => {
+  //   //   second
+  //   // }
+  // }, [])
   
   const handlePenawar = (id) =>{
-    // return navigate(`/infoPenawar/${id}`) 
-    return navigate(`/infoPenawar`) 
+    return navigate(`/infoPenawar/${id}`) 
+    // return navigate(`/infoPenawar`) 
   }
 
   return (
     <>
       {role.includes("buyer") &&
         <div className='container py-3' >
-          {data.map((value, i)=>{
+          {datas.map((value, i)=>{
               return(
                     <div className='dn-card' key={i}>
                         <div className='dn-content-image'>
@@ -41,7 +44,7 @@ const NotifikasiDesktop = () => {
                           <span>Rp. 250.000</span>
                           <span>Tawaran Sebesar Rp. 200.000</span>    
                           <div className={`${i%2 ? 'dn-acc' : 'dn-reject'}`}>
-                            {i%2 ? 'Terima' : 'Tolak'}
+                            {i%2 ? 'ACCEPTED' : 'REJECT'}
                           </div>          
                         </div>
                       </div>
@@ -51,7 +54,7 @@ const NotifikasiDesktop = () => {
       }
       { role.includes("seller") &&
         <div className='container py-3' >
-          {data.map((value, i)=>{
+          {datas.map((value, i)=>{
             return(
                   <div className='dn-card' key={i}>
                       <div className='dn-content-image'>
