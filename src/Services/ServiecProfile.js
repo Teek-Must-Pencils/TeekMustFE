@@ -26,13 +26,13 @@ const ServiceProfile = {
     const token = dt.accessToken
     const imgRaw =  value.image.toString();
     const imgRaw2 = imgRaw.split(',')[1]
-    let FormData = require('form-data');
-    let dataSend = new FormData();
-    dataSend.append('id', value.id)
-    // dataSend.append('name', value.name)
-    dataSend.append('address', value.address)
-    dataSend.append('number', value.number)
-    dataSend.append('img', imgRaw2)
+    const dataSend = {
+        id: value.id,
+        name: value.name,
+        address: value.address,
+        number: value.number,
+        img: imgRaw2
+    }
 
     console.log('dataSend', dataSend)
     const data = await axios({
