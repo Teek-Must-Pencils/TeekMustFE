@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Form, Row, Image, } from "react-bootstrap"
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +19,29 @@ const InfoProfileDesktop = (props) => {
     const [isNotification, setIsNotification] = useState(false);
     const [message, setMessage] = useState();
 
+    // if(userData){
+    //     setValue('name', userData?.username);
+    //     setValue('address', userData?.address);
+    //     setValue('number', userData?.number);
+    //     setValue('id', userData?.id);
+    //     setValue('image', `data:image/png;base64,${userData?.imgB}`);
+    // }
+
+    useEffect(() => {
+        setValue('name', userData?.username);
+        setValue('address', userData?.address);
+        setValue('number', userData?.number);
+        setValue('id', userData?.id);
+        setValue('image', `data:image/png;base64,${userData?.imgB}`);
+    //   return () => {
+    //     second
+    //   }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userData])
+    
+
     const onSubmitEdit = data => {
+        console.log(data)
         setIsLoading(true);
         ServiceProfile.UpdateProfile(data).then((res) => {
             if (res.status === 200) {
@@ -58,11 +80,7 @@ const InfoProfileDesktop = (props) => {
         navigate(-1)
     }
 
-    setValue('name', userData?.username);
-    setValue('address', userData?.address);
-    setValue('number', userData?.number);
-    setValue('id', userData?.id);
-    setValue('image', `data:image/png;base64,${userData?.imgB}`);
+  
     
 
     return (
