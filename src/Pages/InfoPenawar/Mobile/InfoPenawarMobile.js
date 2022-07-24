@@ -11,7 +11,7 @@ import NavbarMoblile from './NavbarMoblile'
 
 function MyVerticallyCenteredModal(props) {
 
-    const { show, close } = props;
+    const { show, close, product, user } = props;
 
 
     return (
@@ -46,26 +46,29 @@ function MyVerticallyCenteredModal(props) {
                             </div>
 
                             <div className="d-flex flex-row gap-2 ms-2">
-                                <div className='me-2'>
-                                    <img src={dummyProfile} alt="" />
-                                </div>
-                                <div className=' d-flex flex-column'>
-                                    <span><b>Nama Pembeli</b></span>
+                                <img className='ifp-img'
+                                    src={user?.imgB ? `data:image/png;base64,${user?.imgB}` : dummyProfile} alt=""
+                                />
+                                <div className='d-flex flex-column p-1 justify-content-center ms-1'>
+                                    <span><b>{user?.username || '-'}</b></span>
                                     <span className="text-profile">
-                                        kota
+                                        {user?.address || '-'}
                                     </span>
-
                                 </div>
                             </div>
 
                             <div className="d-flex flex-row gap-2 mt-1 mb-2 ms-2">
-                                <div className='me-2'>
-                                    <img src={dummyProduct} alt="" />
+                                <div className='me-2 w-25'>
+                                    <img className='w-100 h-100'
+                                    src={product?.img ? `data:image/png;base64,${product?.img}` : dummyProduct} alt="" 
+                                    />
                                 </div>
-                                <div className=' d-flex flex-column'>
-                                    <span>Jam Tangan Casio</span>
-                                    <span><s> Rp 250.000 </s></span>
-                                    <span> Ditawar Rp 200.000</span>
+                                <div className='w-100 d-flex flex-column justify-content-center'>
+                                    <span className="text-profile">
+                                        Penawaran Produk
+                                    </span>
+                                    <span><b>{product?.name || '-'}</b></span>
+                                    <span>Rp. {product?.price || '-'}</span>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +77,7 @@ function MyVerticallyCenteredModal(props) {
 
 
                     <button className='tombol-masuk mt-3 ' >
-                        Hubungi via Whatsapp <Image className='ms-2' src={iconWA}/>
+                        Hubungi via Whatsapp <Image className='ms-2' src={iconWA}/> {user?.number}
                     </button>
 
                 </div>
@@ -128,6 +131,8 @@ const InfoPenawarMobile = (props) => {
             <MyVerticallyCenteredModal
                 show={modalShow}
                 close={handleModalClosed}
+                user={myUser}
+                product={myData}
             />
 
             <ModalStatus
