@@ -29,12 +29,6 @@ const InfoProfile = () => {
           }
         }
       )
-
-
-      
-      // setIsLoading(false);
-      
-    
       // return () => {
       //   second
       // }
